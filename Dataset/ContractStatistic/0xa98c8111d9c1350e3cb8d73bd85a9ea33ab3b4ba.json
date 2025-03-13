@@ -1,0 +1,791 @@
+{
+    "address": "0xa98c8111d9c1350e3cb8d73bd85a9ea33ab3b4ba",
+    "balance": 0.0,
+    "txNumber": 56,
+    "createdBlockNumber": "17681278",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_owner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_USDC",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_pass",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_pack",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_passesToSell",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_itemPacksToSell",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_configuredPacks",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_maxPassesPerUser",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "PackMinter__CallerIsNotPassOwner",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "packId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PackMinter__InvalidPackId",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PackMinter__InvalidTiming",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PackMinter__ItemPacksToSellExceeded",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PackMinter__MaxAmountPerPackExceeded",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PackMinter__MaxPacksPerUserExceeded",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PackMinter__MaxPassesPerUserExceeded",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PackMinter__NoPacksSelected",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PackMinter__PassChargesInsufficient",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PackMinter__PassesToSellExceeded",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PackMinter__ZeroAddress",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "oldChargesPerPass",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "newChargesPerPass",
+                    "type": "uint256"
+                }
+            ],
+            "name": "NewChargesPerPass",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "oldConfiguredPacks",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "newConfiguredPacks",
+                    "type": "uint256"
+                }
+            ],
+            "name": "NewConfiguredPacks",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "oldItemPacksToSell",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "newItemPacksToSell",
+                    "type": "uint256"
+                }
+            ],
+            "name": "NewItemPacksToSell",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "oldMaxPassesPerUser",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "newMaxPassesPerUser",
+                    "type": "uint256"
+                }
+            ],
+            "name": "NewMaxPassesPerUser",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "oldPassesToSell",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "newPassesToSell",
+                    "type": "uint256"
+                }
+            ],
+            "name": "NewPassesToSell",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "packId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "buyer",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PackPurchased",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "USDC",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "chargesPerPass",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "configuredPacks",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_user",
+                    "type": "address"
+                }
+            ],
+            "name": "getChargesUsed",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_user",
+                    "type": "address"
+                }
+            ],
+            "name": "getPacksPurchased",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_user",
+                    "type": "address"
+                }
+            ],
+            "name": "getPassesPurchased",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "itemPacksSold",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "itemPacksToSell",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "maxPassesPerUser",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "packId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "amount",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "passIds",
+                            "type": "uint256[]"
+                        }
+                    ],
+                    "internalType": "struct PackMinter.MintInput[]",
+                    "name": "_inputs",
+                    "type": "tuple[]"
+                }
+            ],
+            "name": "mint",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "packNFT",
+            "outputs": [
+                {
+                    "internalType": "contract PackNFT",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "packs",
+            "outputs": [
+                {
+                    "internalType": "uint48",
+                    "name": "price",
+                    "type": "uint48"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "maxAmount",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "mintedAmount",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "maxPerUser",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint48",
+                    "name": "startTime",
+                    "type": "uint48"
+                },
+                {
+                    "internalType": "uint48",
+                    "name": "endTime",
+                    "type": "uint48"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "passAmount",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "itemAmount",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "usePassGating",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pass",
+            "outputs": [
+                {
+                    "internalType": "contract IERC721",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "passChargesUsed",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "passesSold",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "passesToSell",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_chargesPerPass",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setChargesPerPass",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_configuredPacks",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setConfiguredPacks",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_itemPacksToSell",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setItemPacksToSell",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_maxPassesPerUser",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setMaxPassesPerUser",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_passesToSell",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setPassesToSell",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint48",
+                            "name": "packId",
+                            "type": "uint48"
+                        },
+                        {
+                            "internalType": "uint48",
+                            "name": "price",
+                            "type": "uint48"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "maxAmount",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "maxPerUser",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint48",
+                            "name": "startTime",
+                            "type": "uint48"
+                        },
+                        {
+                            "internalType": "uint48",
+                            "name": "endTime",
+                            "type": "uint48"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "passAmount",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "itemAmount",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "usePassGating",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct PackMinter.PackConfig",
+                    "name": "_pack",
+                    "type": "tuple"
+                }
+            ],
+            "name": "setupPack",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint48",
+                            "name": "packId",
+                            "type": "uint48"
+                        },
+                        {
+                            "internalType": "uint48",
+                            "name": "price",
+                            "type": "uint48"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "maxAmount",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "maxPerUser",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint48",
+                            "name": "startTime",
+                            "type": "uint48"
+                        },
+                        {
+                            "internalType": "uint48",
+                            "name": "endTime",
+                            "type": "uint48"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "passAmount",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "itemAmount",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "usePassGating",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct PackMinter.PackConfig[]",
+                    "name": "_packs",
+                    "type": "tuple[]"
+                }
+            ],
+            "name": "setupPacks",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "users",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "passesPurchased",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "chargesUsed",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+}

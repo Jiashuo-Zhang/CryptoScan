@@ -1,0 +1,1252 @@
+{
+    "address": "0xa0bfbb2119a0beee2c6e276f394bd2ffba7b2bd9",
+    "balance": 0.0,
+    "txNumber": 129,
+    "createdBlockNumber": "18776226",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "subscriptionId",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "address",
+                    "name": "vrfCoordinator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "keyHash",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "registrationEnd",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "redemptionStart",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "signer",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "presentNft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "tokenGateNft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "tokenGateLimit",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "CannotGiftPresent",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "DoesNotOwnPresent",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "GiftMustSupportERC721Interface",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "HasNotBeenShuffled",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidSenderMustNotBeContract",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidSignature",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "MaxGiftsReached",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "MustApproveContract",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "MustOwnTokenId",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NotTokenGateCollection",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NotTokenGatedCollectionHolder",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NotTokenGatedTokenHolder",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "have",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "want",
+                    "type": "address"
+                }
+            ],
+            "name": "OnlyCoordinatorCanFulfill",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PoolIsNotTokenGated",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PoolSizeExceedsAmount",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "RedemptionHasNotStarted",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "RedemptionMustHappenAfterRegistration",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "RegistrationEnded",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "TokenGateLimitReached",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "TokenGated",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes",
+                    "name": "data",
+                    "type": "bytes"
+                }
+            ],
+            "name": "ERC721Received",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "gifter",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "nft",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "GiftAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "presentTokenId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "nft",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "GiftChosen",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "NewRandomNumberConsumerOwner",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "requestId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256[]",
+                    "name": "randomWords",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "ReturnedRandomness",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "DELEGATE_REGISTRY",
+            "outputs": [
+                {
+                    "internalType": "contract IDelegateRegistry",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "MAX_GIFTS",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "PAUSED",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "PRESENT_NFT",
+            "outputs": [
+                {
+                    "internalType": "contract WrappedPresent",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "REQUIRES_SIGNATURE",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "SEED",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "SEED_REQUEST_ID",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "SHUFFLED",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "SUPPORTS_DELEGATES",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "TOKEN_GATE_CONTRACT",
+            "outputs": [
+                {
+                    "internalType": "contract IERC721",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "TOKEN_GATE_LIMIT",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "tokenGateNft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "_tokenGateNftUsed",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "usedCount",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "nft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "tokenGateNft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenGateTokenId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "sig",
+                    "type": "bytes"
+                }
+            ],
+            "name": "addGift",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "giftAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "giftTokenId",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "nft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "sig",
+                    "type": "bytes"
+                }
+            ],
+            "name": "addGift",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "giftAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "giftTokenId",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "getChosenGifts",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "gifter",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "nft",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct ISantaProtocol.Gift[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getContractHash",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getGiftPool",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "gifter",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "nft",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct ISantaProtocol.Gift[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getGiftPoolSize",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "getNumberOfChosenGifts",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getRedemptionStart",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getRegistrationEnd",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getSigner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getSupportsDelegates",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getTokenGateContract",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "tokenGateNft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenGateTokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getTokenGateEligibility",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "eligible",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "nft",
+                    "type": "address"
+                }
+            ],
+            "name": "giftSupports721",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "gifter",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "nft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "hashGift",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "gifter",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "nft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "tokenGateNft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenGateTokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "hashTokenGateGift",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "data",
+                    "type": "bytes"
+                }
+            ],
+            "name": "onERC721Received",
+            "outputs": [
+                {
+                    "internalType": "bytes4",
+                    "name": "",
+                    "type": "bytes4"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "openGift",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "chosenGiftAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "chosenGiftTokenId",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "requestId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "randomWords",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "rawFulfillRandomWords",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "requestSeed",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "s_randomWords",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "s_requestId",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "s_requestIdMapping",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "newCallbackGasLimit",
+                    "type": "uint32"
+                }
+            ],
+            "name": "setCallbackGasLimit",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "newKeyHash",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "setKeyHash",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "newMaxGifts",
+                    "type": "uint32"
+                }
+            ],
+            "name": "setMaxGifts",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bool",
+                    "name": "isPaused",
+                    "type": "bool"
+                }
+            ],
+            "name": "setPaused",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "newRedemptionStart",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setRedemptionStart",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "newRegistrationEnd",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setRegistrationEnd",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newSigner",
+                    "type": "address"
+                }
+            ],
+            "name": "setSigner",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "newSubscriptionId",
+                    "type": "uint64"
+                }
+            ],
+            "name": "setSubscriptionId",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newTokenGateNft",
+                    "type": "address"
+                }
+            ],
+            "name": "setTokenGateContract",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "newTokenGateLimit",
+                    "type": "uint32"
+                }
+            ],
+            "name": "setTokenGateLimit",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "startPosition",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "endPosition",
+                    "type": "uint32"
+                }
+            ],
+            "name": "shuffleRandomGiftIndices",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "toggleSignatureRequired",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "toggleSupportsDelegates",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "gifter",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "nft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "sig",
+                    "type": "bytes"
+                }
+            ],
+            "name": "validateGiftHashSignature",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "gifter",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "nft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "tokenGateNft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenGateTokenId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "sig",
+                    "type": "bytes"
+                }
+            ],
+            "name": "validateTokenGateSignature",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+}

@@ -1,0 +1,762 @@
+{
+    "address": "0x0cb63835b0a8a9b561ea014c39bad9f9d3349d55",
+    "balance": 0.0453,
+    "txNumber": 56,
+    "createdBlockNumber": "18832471",
+    "abi": [
+        {
+            "inputs": [],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnableInvalidOwner",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnableUnauthorizedAccount",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "buyer",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint16",
+                    "name": "traitID",
+                    "type": "uint16"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "amount",
+                    "type": "uint16"
+                }
+            ],
+            "name": "BuyTraitFromStore",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint8",
+                    "name": "attrID",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "attrName",
+                    "type": "string"
+                }
+            ],
+            "name": "NewAttribute",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint16",
+                    "name": "traitID",
+                    "type": "uint16"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint8",
+                    "name": "attrID",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "enum IHoody.HoodyTraitRarity",
+                    "name": "rarity",
+                    "type": "uint8"
+                }
+            ],
+            "name": "NewTrait",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "traitID",
+                    "type": "uint16"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint8",
+                    "name": "amount",
+                    "type": "uint8"
+                }
+            ],
+            "name": "TraitIncreased",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "traitID",
+                    "type": "uint16"
+                }
+            ],
+            "name": "TraitRemoved",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "holder",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint16[]",
+                    "name": "oldTraits",
+                    "type": "uint16[]"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint16[]",
+                    "name": "newTraits",
+                    "type": "uint16[]"
+                }
+            ],
+            "name": "UpdateNFT",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string[]",
+                    "name": "_attrNames",
+                    "type": "string[]"
+                }
+            ],
+            "name": "addAttributes",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "_attrID",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "string[]",
+                    "name": "_traitNames",
+                    "type": "string[]"
+                },
+                {
+                    "internalType": "enum IHoody.HoodyTraitRarity[]",
+                    "name": "_traitRarities",
+                    "type": "uint8[]"
+                }
+            ],
+            "name": "addMintTraits",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "_attrID",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "string[]",
+                    "name": "_traitNames",
+                    "type": "string[]"
+                },
+                {
+                    "internalType": "enum IHoody.HoodyTraitRarity[]",
+                    "name": "_traitRarities",
+                    "type": "uint8[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_traitPrices",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "uint16[]",
+                    "name": "_traitAmounts",
+                    "type": "uint16[]"
+                }
+            ],
+            "name": "addStoreTraits",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "name": "attributes",
+            "outputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "id",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "string",
+                    "name": "name",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "_traitId",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "_amount",
+                    "type": "uint16"
+                }
+            ],
+            "name": "buyTraitFromMarketplace",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16[]",
+                    "name": "_traits",
+                    "type": "uint16[]"
+                },
+                {
+                    "internalType": "uint16[]",
+                    "name": "_amounts",
+                    "type": "uint16[]"
+                }
+            ],
+            "name": "buyTraitsFromStore",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "_traitId",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "_amount",
+                    "type": "uint16"
+                }
+            ],
+            "name": "downTraitsFromMarketplace",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16[]",
+                    "name": "_traits",
+                    "type": "uint16[]"
+                }
+            ],
+            "name": "getNFTRarity",
+            "outputs": [
+                {
+                    "internalType": "enum IHoody.HoodyGangRarity",
+                    "name": "rarity",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16[]",
+                    "name": "_traits",
+                    "type": "uint16[]"
+                }
+            ],
+            "name": "getTotalPointOfTraits",
+            "outputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "points",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_holder",
+                    "type": "address"
+                }
+            ],
+            "name": "getTraitsByHolder",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint8",
+                            "name": "attrID",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "onStore",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "enum IHoody.HoodyTraitRarity",
+                            "name": "rarity",
+                            "type": "uint8"
+                        }
+                    ],
+                    "internalType": "struct HoodyTraits.Trait[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "hoodyGang",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "hoodyTraitsMarketplace",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "_traitID",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "_amount",
+                    "type": "uint8"
+                }
+            ],
+            "name": "increaseStoreTraitAmount",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "_traitId",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "_amount",
+                    "type": "uint16"
+                }
+            ],
+            "name": "listTraitsToMarketplace",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pointForCommon",
+            "outputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pointForLegendary",
+            "outputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pointForRare",
+            "outputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "_traitID",
+                    "type": "uint16"
+                }
+            ],
+            "name": "removeStoreTrait",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_hoodyGang",
+                    "type": "address"
+                }
+            ],
+            "name": "setHoodyGang",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_hoodyTraitsMarketplace",
+                    "type": "address"
+                }
+            ],
+            "name": "setHoodyTraitsMarketplace",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "_common",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "_rare",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "_legendary",
+                    "type": "uint8"
+                }
+            ],
+            "name": "setNFTRarityPoints",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "enum IHoody.HoodyTraitRarity[]",
+                    "name": "_rarities",
+                    "type": "uint8[]"
+                },
+                {
+                    "internalType": "uint8[]",
+                    "name": "_points",
+                    "type": "uint8[]"
+                }
+            ],
+            "name": "setTraitPointsByRarity",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "",
+                    "type": "uint16"
+                }
+            ],
+            "name": "traitAmountByHolder",
+            "outputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "",
+                    "type": "uint16"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "",
+                    "type": "uint16"
+                }
+            ],
+            "name": "traitAmountOnStore",
+            "outputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "",
+                    "type": "uint16"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "enum IHoody.HoodyTraitRarity",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "name": "traitPointByRarity",
+            "outputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "",
+                    "type": "uint16"
+                }
+            ],
+            "name": "traitPriceOnStore",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "",
+                    "type": "uint16"
+                }
+            ],
+            "name": "traits",
+            "outputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "attrID",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "onStore",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "enum IHoody.HoodyTraitRarity",
+                    "name": "rarity",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16[]",
+                    "name": "_originTraits",
+                    "type": "uint16[]"
+                },
+                {
+                    "internalType": "uint16[]",
+                    "name": "_newTraits",
+                    "type": "uint16[]"
+                }
+            ],
+            "name": "useTraitsForUpdateNFT",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "_receiver",
+                    "type": "address"
+                }
+            ],
+            "name": "withdrawFee",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

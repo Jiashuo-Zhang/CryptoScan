@@ -1,0 +1,798 @@
+{
+    "address": "0xdcea155282451b5fd9facf58eb65b73092ac54b4",
+    "balance": 0.03579999999997665,
+    "txNumber": 71,
+    "createdBlockNumber": "18201663",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "_opWallet1",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address payable",
+                    "name": "_opWallet2",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address payable",
+                    "name": "_dividendsWallet",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address payable",
+                    "name": "_marketingWallet",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_otseaErc20",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "requester",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "whitelistedAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "tokenAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "initialTokens",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "availableTokens",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "requestedETH",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "fulfilledETH",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "pricePerToken",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "partiallyFillable",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "enum OTSea.OrderState",
+                            "name": "state",
+                            "type": "uint8"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct OTSea.Order",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "orderId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint8",
+                    "name": "tokenDecimals",
+                    "type": "uint8"
+                }
+            ],
+            "name": "OrderCreated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "requester",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "whitelistedAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "tokenAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "initialTokens",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "availableTokens",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "requestedETH",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "fulfilledETH",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "pricePerToken",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "partiallyFillable",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "enum OTSea.OrderState",
+                            "name": "state",
+                            "type": "uint8"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct OTSea.Order",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "orderId",
+                    "type": "bytes32"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "fulfiller",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tokensReceived",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "ethFulfilled",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "pricePerToken",
+                            "type": "uint256"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct OTSea.Fill",
+                    "name": "fill",
+                    "type": "tuple"
+                }
+            ],
+            "name": "OrderFulfilled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "requester",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "whitelistedAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "tokenAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "initialTokens",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "availableTokens",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "requestedETH",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "fulfilledETH",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "pricePerToken",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "partiallyFillable",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "enum OTSea.OrderState",
+                            "name": "state",
+                            "type": "uint8"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct OTSea.Order",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "orderId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "newPrice",
+                    "type": "uint256"
+                }
+            ],
+            "name": "OrderPriceUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "requester",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "whitelistedAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "tokenAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "initialTokens",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "availableTokens",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "requestedETH",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "fulfilledETH",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "pricePerToken",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "partiallyFillable",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "enum OTSea.OrderState",
+                            "name": "state",
+                            "type": "uint8"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct OTSea.Order",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "orderId",
+                    "type": "bytes32"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "withdrawAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "feeAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "refundedTokens",
+                            "type": "uint256"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct OTSea.Withdrawal",
+                    "name": "withdrawal",
+                    "type": "tuple"
+                }
+            ],
+            "name": "OrderSettled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "contractState",
+            "outputs": [
+                {
+                    "internalType": "enum OTSea.ContractState",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "dividendsWallet",
+            "outputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "fishFee",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "orderId",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "expectedPricePerToken",
+                    "type": "uint256"
+                }
+            ],
+            "name": "fulfillOrder",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "marketingWallet",
+            "outputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "opWallet1",
+            "outputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "opWallet2",
+            "outputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "orders",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "requester",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "whitelistedAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "tokenAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "initialTokens",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "availableTokens",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "requestedETH",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "fulfilledETH",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "pricePerToken",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "partiallyFillable",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "enum OTSea.OrderState",
+                    "name": "state",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "otseaERC20",
+            "outputs": [
+                {
+                    "internalType": "contract ERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pauseContract",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "tokenAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "requesterTokenAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "requestedETHAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "partiallyFillable",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "address",
+                    "name": "whitelistedAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "requestOrder",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "_dividendsWallet",
+                    "type": "address"
+                }
+            ],
+            "name": "setDividendsWallet",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_fishFee",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_whaleFee",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setFees",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "_marketingWallet",
+                    "type": "address"
+                }
+            ],
+            "name": "setMarketingWallet",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "_opWallet1",
+                    "type": "address"
+                }
+            ],
+            "name": "setOpWallet1",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "_opWallet2",
+                    "type": "address"
+                }
+            ],
+            "name": "setOpWallet2",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_threshold",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setWhaleThreshold",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "orderId",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "settleOrder",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "unpauseContract",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "orderId",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "newPrice",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updatePrice",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "whaleFee",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "whaleThreshold",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+}

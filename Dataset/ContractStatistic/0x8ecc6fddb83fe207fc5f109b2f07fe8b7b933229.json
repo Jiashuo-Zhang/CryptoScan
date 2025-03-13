@@ -1,0 +1,602 @@
+{
+    "address": "0x8ecc6fddb83fe207fc5f109b2f07fe8b7b933229",
+    "balance": 0.0,
+    "txNumber": 156,
+    "createdBlockNumber": "14883099",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_vaultAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_minimumBid",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_prideIconsAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_timestamp",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "_paperWallets",
+                    "type": "address[]"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint8",
+                    "name": "tokenId",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "bidder",
+                    "type": "address"
+                }
+            ],
+            "name": "AuctionCancelled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint8",
+                    "name": "tokenId",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "bidder",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionEnded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint8",
+                    "name": "tokenId",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "bidder",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "BidPlaced",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "contractAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "assignNftContractAddress",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "bidHistory",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "walletBidder",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "walletRecipient",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "bidAmount",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "name": "bidTimestamps",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "biddingOpen",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "biddingClosed",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "tokenId",
+                    "type": "uint8"
+                }
+            ],
+            "name": "cancelAuction",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "name": "cancelledAuctions",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "tokenId",
+                    "type": "uint8"
+                }
+            ],
+            "name": "endAuction",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "tokenId",
+                    "type": "uint8"
+                }
+            ],
+            "name": "getBidHistory",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "walletBidder",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "walletRecipient",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "bidAmount",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct PrideIconsAuction.Bid[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "tokenId",
+                    "type": "uint8"
+                }
+            ],
+            "name": "getTopBid",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "walletBidder",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "walletRecipient",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "bidAmount",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct PrideIconsAuction.Bid",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "wallets",
+                    "type": "address[]"
+                }
+            ],
+            "name": "initializePaperWallets",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "firstBidStartTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "intervalDurationHours",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "bidsInParallel",
+                    "type": "uint8"
+                }
+            ],
+            "name": "initializeTimestamps",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "lockAuction",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "locked",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint8",
+                            "name": "tokenId",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "cancelled",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct PrideIconsAuction.CancelledAuctionMap[]",
+                    "name": "_cancelledAuctions",
+                    "type": "tuple[]"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint8",
+                            "name": "tokenId",
+                            "type": "uint8"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "address",
+                                    "name": "walletBidder",
+                                    "type": "address"
+                                },
+                                {
+                                    "internalType": "address",
+                                    "name": "walletRecipient",
+                                    "type": "address"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "bidAmount",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct PrideIconsAuction.Bid[]",
+                            "name": "bids",
+                            "type": "tuple[]"
+                        }
+                    ],
+                    "internalType": "struct PrideIconsAuction.BidHistoryMap[]",
+                    "name": "_bidHistory",
+                    "type": "tuple[]"
+                }
+            ],
+            "name": "migrate",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "minimumBid",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8[]",
+                    "name": "tokenIds",
+                    "type": "uint8[]"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "biddingOpen",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "biddingClosed",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct PrideIconsAuction.BidOpenTimes[]",
+                    "name": "biddingTimes",
+                    "type": "tuple[]"
+                }
+            ],
+            "name": "modifyTimeStampForTokens",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "tokenId",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                }
+            ],
+            "name": "placeBid",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "tokenId",
+                    "type": "uint8"
+                }
+            ],
+            "name": "placeBid",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "prideIcons",
+            "outputs": [
+                {
+                    "internalType": "contract PrideIcons",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_minimumBid",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setMinimumBid",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newVault",
+                    "type": "address"
+                }
+            ],
+            "name": "setVaultAddress",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "unlockAuction",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "withdrawAll",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

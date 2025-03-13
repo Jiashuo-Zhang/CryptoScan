@@ -1,0 +1,756 @@
+{
+    "address": "0x51881a1cde5dbae15d02ae1824940b19768d8f2b",
+    "balance": 0.0,
+    "txNumber": 176,
+    "createdBlockNumber": "17443735",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_bondAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "_challengeWindow",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_bondCurrency",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_proposer",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_oracle",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "amountCanNotBeZero",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "canNotBeAddressZero",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "invalidChallengeWindow",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "proposerNotApproved",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_newBondAmount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "contract IERC20",
+                    "name": "_newCurrency",
+                    "type": "address"
+                }
+            ],
+            "name": "NewBondSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint64",
+                    "name": "_newChallengeWindow",
+                    "type": "uint64"
+                }
+            ],
+            "name": "NewChallengeWindowSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint64",
+                    "name": "_timeToSettle",
+                    "type": "uint64"
+                }
+            ],
+            "name": "NewTimeToSettleSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "_proposerApproved",
+                    "type": "address"
+                }
+            ],
+            "name": "ProposerApproved",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "_proposerRevoked",
+                    "type": "address"
+                }
+            ],
+            "name": "ProposerRevoked",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_reportID",
+                    "type": "uint256"
+                }
+            ],
+            "name": "reportDiscarded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_reportID",
+                    "type": "uint256"
+                }
+            ],
+            "name": "reportDisputed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_reportID",
+                    "type": "uint256"
+                }
+            ],
+            "name": "reportMade",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_reportID",
+                    "type": "uint256"
+                }
+            ],
+            "name": "reportSettled",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_address",
+                    "type": "address"
+                }
+            ],
+            "name": "approveProposer",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "approvedProposer",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "bondAmount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "bondCurrency",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "challengeWindow",
+            "outputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "",
+                    "type": "uint64"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_newBondAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "contract IERC20",
+                    "name": "_newCurrency",
+                    "type": "address"
+                }
+            ],
+            "name": "changeBondAmountAndCurrency",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "disputedReportsID",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "_pubkey",
+                    "type": "bytes"
+                }
+            ],
+            "name": "getPubkeyRoot",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_validatorIdentifier",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getViolationsForValidator",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "validatorIdentifier",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "epochNumber",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "penaltyType",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "newFeeRecipientAddress",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct RatedOracle.Violation[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_reportID",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getViolationsInReport",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "validatorIdentifier",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "epochNumber",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "penaltyType",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "newFeeRecipientAddress",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct RatedOracle.Violation[]",
+                    "name": "containedViolation",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_validatorIdentifier",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "isValidatorInDispute",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_validatorIdentifier",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "numberOfViolationsForValidator",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "len",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "pendingReportsID",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "_fromEpoch",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_toEpoch",
+                    "type": "uint32"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "validatorIdentifier",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "epochNumber",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "penaltyType",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "newFeeRecipientAddress",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct RatedOracle.Violation[]",
+                    "name": "_listViolations",
+                    "type": "tuple[]"
+                }
+            ],
+            "name": "postReport",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "priceIdentifier",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "_index",
+                    "type": "uint64"
+                }
+            ],
+            "name": "removeDisputedReport",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "reportID",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_value",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "reports",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "fromEpoch",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "toEpoch",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "assertionID",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_address",
+                    "type": "address"
+                }
+            ],
+            "name": "revokeProposer",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "_newChallengeWindow",
+                    "type": "uint64"
+                }
+            ],
+            "name": "setChallengeWindow",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "_timeToSettle",
+                    "type": "uint64"
+                }
+            ],
+            "name": "setTimeToSettle",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "timeToSettle",
+            "outputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "",
+                    "type": "uint64"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "validatorInReport",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "violationsForValidator",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "validatorIdentifier",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "epochNumber",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "penaltyType",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "newFeeRecipientAddress",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_to",
+                    "type": "address"
+                }
+            ],
+            "name": "withdrawFunds",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

@@ -1,0 +1,2142 @@
+{
+    "address": "0x5499f54b4a1cb4816eefcf78962040461be3d80b",
+    "balance": 0.0,
+    "txNumber": 509,
+    "createdBlockNumber": "15638933",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract SortitionPool",
+                    "name": "_sortitionPool",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IERC20",
+                    "name": "_tToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IStaking",
+                    "name": "_staking",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract BeaconDkgValidator",
+                    "name": "_dkgValidator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract ReimbursementPool",
+                    "name": "_reimbursementPool",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "stakingProvider",
+                    "type": "address"
+                }
+            ],
+            "name": "AuthorizationDecreaseApproved",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "stakingProvider",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint96",
+                    "name": "fromAmount",
+                    "type": "uint96"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint96",
+                    "name": "toAmount",
+                    "type": "uint96"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint64",
+                    "name": "decreasingAt",
+                    "type": "uint64"
+                }
+            ],
+            "name": "AuthorizationDecreaseRequested",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "stakingProvider",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint96",
+                    "name": "fromAmount",
+                    "type": "uint96"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint96",
+                    "name": "toAmount",
+                    "type": "uint96"
+                }
+            ],
+            "name": "AuthorizationIncreased",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint96",
+                    "name": "minimumAuthorization",
+                    "type": "uint96"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint64",
+                    "name": "authorizationDecreaseDelay",
+                    "type": "uint64"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint64",
+                    "name": "authorizationDecreaseChangePeriod",
+                    "type": "uint64"
+                }
+            ],
+            "name": "AuthorizationParametersUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "entry",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "entrySubmittedBlock",
+                    "type": "uint256"
+                }
+            ],
+            "name": "CallbackFailed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "resultHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "slashingAmount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "maliciousSubmitter",
+                    "type": "address"
+                }
+            ],
+            "name": "DkgMaliciousResultSlashed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "resultHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "slashingAmount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "maliciousSubmitter",
+                    "type": "address"
+                }
+            ],
+            "name": "DkgMaliciousResultSlashingFailed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "resultHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "approver",
+                    "type": "address"
+                }
+            ],
+            "name": "DkgResultApproved",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "resultHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "challenger",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "reason",
+                    "type": "string"
+                }
+            ],
+            "name": "DkgResultChallenged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "resultHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "seed",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "submitterMemberIndex",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "groupPubKey",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "uint8[]",
+                            "name": "misbehavedMembersIndices",
+                            "type": "uint8[]"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "signatures",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "signingMembersIndices",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "uint32[]",
+                            "name": "members",
+                            "type": "uint32[]"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "membersHash",
+                            "type": "bytes32"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct BeaconDkg.Result",
+                    "name": "result",
+                    "type": "tuple"
+                }
+            ],
+            "name": "DkgResultSubmitted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "DkgSeedTimedOut",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "seed",
+                    "type": "uint256"
+                }
+            ],
+            "name": "DkgStarted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "DkgStateLocked",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "DkgTimedOut",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "dkgResultSubmissionGas",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "dkgResultApprovalGasOffset",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "notifyOperatorInactivityGasOffset",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "relayEntrySubmissionGasOffset",
+                    "type": "uint256"
+                }
+            ],
+            "name": "GasParametersUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "oldGovernance",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "newGovernance",
+                    "type": "address"
+                }
+            ],
+            "name": "GovernanceTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "groupCreationFrequency",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "groupLifetime",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "dkgResultChallengePeriodLength",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "dkgResultChallengeExtraGas",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "dkgResultSubmissionTimeout",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "dkgResultSubmitterPrecedencePeriodLength",
+                    "type": "uint256"
+                }
+            ],
+            "name": "GroupCreationParametersUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint64",
+                    "name": "groupId",
+                    "type": "uint64"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes",
+                    "name": "groupPubKey",
+                    "type": "bytes"
+                }
+            ],
+            "name": "GroupRegistered",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint64",
+                    "name": "groupId",
+                    "type": "uint64"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "nonce",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "notifier",
+                    "type": "address"
+                }
+            ],
+            "name": "InactivityClaimed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "stakingProvider",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint96",
+                    "name": "fromAmount",
+                    "type": "uint96"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint96",
+                    "name": "toAmount",
+                    "type": "uint96"
+                }
+            ],
+            "name": "InvoluntaryAuthorizationDecreaseFailed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "stakingProvider",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                }
+            ],
+            "name": "OperatorJoinedSortitionPool",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "stakingProvider",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                }
+            ],
+            "name": "OperatorRegistered",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "stakingProvider",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                }
+            ],
+            "name": "OperatorStatusUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "newReimbursementPool",
+                    "type": "address"
+                }
+            ],
+            "name": "ReimbursementPoolUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "requestId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "slashingAmount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address[]",
+                    "name": "groupMembers",
+                    "type": "address[]"
+                }
+            ],
+            "name": "RelayEntryDelaySlashed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "requestId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "slashingAmount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address[]",
+                    "name": "groupMembers",
+                    "type": "address[]"
+                }
+            ],
+            "name": "RelayEntryDelaySlashingFailed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "relayEntrySoftTimeout",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "relayEntryHardTimeout",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "callbackGasLimit",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RelayEntryParametersUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "requestId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint64",
+                    "name": "groupId",
+                    "type": "uint64"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes",
+                    "name": "previousEntry",
+                    "type": "bytes"
+                }
+            ],
+            "name": "RelayEntryRequested",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "requestId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "submitter",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes",
+                    "name": "entry",
+                    "type": "bytes"
+                }
+            ],
+            "name": "RelayEntrySubmitted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "requestId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint64",
+                    "name": "terminatedGroupId",
+                    "type": "uint64"
+                }
+            ],
+            "name": "RelayEntryTimedOut",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "requestId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "slashingAmount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address[]",
+                    "name": "groupMembers",
+                    "type": "address[]"
+                }
+            ],
+            "name": "RelayEntryTimeoutSlashed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "requestId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "slashingAmount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address[]",
+                    "name": "groupMembers",
+                    "type": "address[]"
+                }
+            ],
+            "name": "RelayEntryTimeoutSlashingFailed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "requester",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isAuthorized",
+                    "type": "bool"
+                }
+            ],
+            "name": "RequesterAuthorizationUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "sortitionPoolRewardsBanDuration",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "relayEntryTimeoutNotificationRewardMultiplier",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "unauthorizedSigningNotificationRewardMultiplier",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "dkgMaliciousResultNotificationRewardMultiplier",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RewardParametersUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "stakingProvider",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint96",
+                    "name": "amount",
+                    "type": "uint96"
+                }
+            ],
+            "name": "RewardsWithdrawn",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "relayEntrySubmissionFailureSlashingAmount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "maliciousDkgResultSlashingAmount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "unauthorizedSigningSlashingAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SlashingParametersUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint64",
+                    "name": "groupId",
+                    "type": "uint64"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "unauthorizedSigningSlashingAmount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address[]",
+                    "name": "groupMembers",
+                    "type": "address[]"
+                }
+            ],
+            "name": "UnauthorizedSigningSlashed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint64",
+                    "name": "groupId",
+                    "type": "uint64"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "unauthorizedSigningSlashingAmount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address[]",
+                    "name": "groupMembers",
+                    "type": "address[]"
+                }
+            ],
+            "name": "UnauthorizedSigningSlashingFailed",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "stakingProvider",
+                    "type": "address"
+                }
+            ],
+            "name": "approveAuthorizationDecrease",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "submitterMemberIndex",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "groupPubKey",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "uint8[]",
+                            "name": "misbehavedMembersIndices",
+                            "type": "uint8[]"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "signatures",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "signingMembersIndices",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "uint32[]",
+                            "name": "members",
+                            "type": "uint32[]"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "membersHash",
+                            "type": "bytes32"
+                        }
+                    ],
+                    "internalType": "struct BeaconDkg.Result",
+                    "name": "dkgResult",
+                    "type": "tuple"
+                }
+            ],
+            "name": "approveDkgResult",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "stakingProvider",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "fromAmount",
+                    "type": "uint96"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "toAmount",
+                    "type": "uint96"
+                }
+            ],
+            "name": "authorizationDecreaseRequested",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "stakingProvider",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "fromAmount",
+                    "type": "uint96"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "toAmount",
+                    "type": "uint96"
+                }
+            ],
+            "name": "authorizationIncreased",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "authorizationParameters",
+            "outputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "minimumAuthorization",
+                    "type": "uint96"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "authorizationDecreaseDelay",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "authorizationDecreaseChangePeriod",
+                    "type": "uint64"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "authorizedRequesters",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "stakingProvider",
+                    "type": "address"
+                }
+            ],
+            "name": "availableRewards",
+            "outputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "",
+                    "type": "uint96"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "submitterMemberIndex",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "groupPubKey",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "uint8[]",
+                            "name": "misbehavedMembersIndices",
+                            "type": "uint8[]"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "signatures",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "signingMembersIndices",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "uint32[]",
+                            "name": "members",
+                            "type": "uint32[]"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "membersHash",
+                            "type": "bytes32"
+                        }
+                    ],
+                    "internalType": "struct BeaconDkg.Result",
+                    "name": "dkgResult",
+                    "type": "tuple"
+                }
+            ],
+            "name": "challengeDkgResult",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "stakingProvider",
+                    "type": "address"
+                }
+            ],
+            "name": "eligibleStake",
+            "outputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "",
+                    "type": "uint96"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "gasParameters",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "dkgResultSubmissionGas",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "dkgResultApprovalGasOffset",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "notifyOperatorInactivityGasOffset",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "relayEntrySubmissionGasOffset",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "genesis",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "groupId",
+                    "type": "uint64"
+                }
+            ],
+            "name": "getGroup",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "bytes",
+                            "name": "groupPubKey",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "registrationBlockNumber",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "membersHash",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "terminated",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct Groups.Group",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "groupPubKey",
+                    "type": "bytes"
+                }
+            ],
+            "name": "getGroup",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "bytes",
+                            "name": "groupPubKey",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "registrationBlockNumber",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "membersHash",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "terminated",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct Groups.Group",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getGroupCreationState",
+            "outputs": [
+                {
+                    "internalType": "enum BeaconDkg.State",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getGroupsRegistry",
+            "outputs": [
+                {
+                    "internalType": "bytes32[]",
+                    "name": "",
+                    "type": "bytes32[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "governance",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "groupCreationParameters",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "groupCreationFrequency",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "groupLifetime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "dkgResultChallengePeriodLength",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "dkgResultChallengeExtraGas",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "dkgResultSubmissionTimeout",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "dkgSubmitterPrecedencePeriodLength",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "hasDkgTimedOut",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "",
+                    "type": "uint64"
+                }
+            ],
+            "name": "inactivityClaimNonce",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "stakingProvider",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "fromAmount",
+                    "type": "uint96"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "toAmount",
+                    "type": "uint96"
+                }
+            ],
+            "name": "involuntaryAuthorizationDecrease",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                }
+            ],
+            "name": "isOperatorInPool",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                }
+            ],
+            "name": "isOperatorUpToDate",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "isRelayRequestInProgress",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "joinSortitionPool",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "minimumAuthorization",
+            "outputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "",
+                    "type": "uint96"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "notifyDkgTimeout",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint64",
+                            "name": "groupId",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "inactiveMembersIndices",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "signatures",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "signingMembersIndices",
+                            "type": "uint256[]"
+                        }
+                    ],
+                    "internalType": "struct BeaconInactivity.Claim",
+                    "name": "claim",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "nonce",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32[]",
+                    "name": "groupMembers",
+                    "type": "uint32[]"
+                }
+            ],
+            "name": "notifyOperatorInactivity",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                }
+            ],
+            "name": "operatorToStakingProvider",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "stakingProvider",
+                    "type": "address"
+                }
+            ],
+            "name": "pendingAuthorizationDecrease",
+            "outputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "",
+                    "type": "uint96"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                }
+            ],
+            "name": "registerOperator",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "reimbursementPool",
+            "outputs": [
+                {
+                    "internalType": "contract ReimbursementPool",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "relayEntryParameters",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "relayEntrySoftTimeout",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "relayEntryHardTimeout",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "callbackGasLimit",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "stakingProvider",
+                    "type": "address"
+                }
+            ],
+            "name": "remainingAuthorizationDecreaseDelay",
+            "outputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "",
+                    "type": "uint64"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32[]",
+                    "name": "groupMembers",
+                    "type": "uint32[]"
+                }
+            ],
+            "name": "reportRelayEntryTimeout",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "signedMsgSender",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "groupId",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint32[]",
+                    "name": "groupMembers",
+                    "type": "uint32[]"
+                }
+            ],
+            "name": "reportUnauthorizedSigning",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IRandomBeaconConsumer",
+                    "name": "callbackContract",
+                    "type": "address"
+                }
+            ],
+            "name": "requestRelayEntry",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "rewardParameters",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "sortitionPoolRewardsBanDuration",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "relayEntryTimeoutNotificationRewardMultiplier",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "unauthorizedSigningNotificationRewardMultiplier",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "dkgMaliciousResultNotificationRewardMultiplier",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "selectGroup",
+            "outputs": [
+                {
+                    "internalType": "uint32[]",
+                    "name": "",
+                    "type": "uint32[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "requester",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isAuthorized",
+                    "type": "bool"
+                }
+            ],
+            "name": "setRequesterAuthorization",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "slashingParameters",
+            "outputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "relayEntrySubmissionFailureSlashingAmount",
+                    "type": "uint96"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "maliciousDkgResultSlashingAmount",
+                    "type": "uint96"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "unauthorizedSigningSlashingAmount",
+                    "type": "uint96"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "sortitionPool",
+            "outputs": [
+                {
+                    "internalType": "contract SortitionPool",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "staking",
+            "outputs": [
+                {
+                    "internalType": "contract IStaking",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "stakingProvider",
+                    "type": "address"
+                }
+            ],
+            "name": "stakingProviderToOperator",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "submitterMemberIndex",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "groupPubKey",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "uint8[]",
+                            "name": "misbehavedMembersIndices",
+                            "type": "uint8[]"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "signatures",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "signingMembersIndices",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "uint32[]",
+                            "name": "members",
+                            "type": "uint32[]"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "membersHash",
+                            "type": "bytes32"
+                        }
+                    ],
+                    "internalType": "struct BeaconDkg.Result",
+                    "name": "dkgResult",
+                    "type": "tuple"
+                }
+            ],
+            "name": "submitDkgResult",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "entry",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "uint32[]",
+                    "name": "groupMembers",
+                    "type": "uint32[]"
+                }
+            ],
+            "name": "submitRelayEntry",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "entry",
+                    "type": "bytes"
+                }
+            ],
+            "name": "submitRelayEntry",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "tToken",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newGovernance",
+                    "type": "address"
+                }
+            ],
+            "name": "transferGovernance",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "_minimumAuthorization",
+                    "type": "uint96"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "_authorizationDecreaseDelay",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "_authorizationDecreaseChangePeriod",
+                    "type": "uint64"
+                }
+            ],
+            "name": "updateAuthorizationParameters",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "dkgResultSubmissionGas",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "dkgResultApprovalGasOffset",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "notifyOperatorInactivityGasOffset",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "relayEntrySubmissionGasOffset",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updateGasParameters",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "groupCreationFrequency",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "groupLifetime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "dkgResultChallengePeriodLength",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "dkgResultChallengeExtraGas",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "dkgResultSubmissionTimeout",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "dkgSubmitterPrecedencePeriodLength",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updateGroupCreationParameters",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                }
+            ],
+            "name": "updateOperatorStatus",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ReimbursementPool",
+                    "name": "_reimbursementPool",
+                    "type": "address"
+                }
+            ],
+            "name": "updateReimbursementPool",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "relayEntrySoftTimeout",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "relayEntryHardTimeout",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "callbackGasLimit",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updateRelayEntryParameters",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "sortitionPoolRewardsBanDuration",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "relayEntryTimeoutNotificationRewardMultiplier",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "unauthorizedSigningNotificationRewardMultiplier",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "dkgMaliciousResultNotificationRewardMultiplier",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updateRewardParameters",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "relayEntrySubmissionFailureSlashingAmount",
+                    "type": "uint96"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "maliciousDkgResultSlashingAmount",
+                    "type": "uint96"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "unauthorizedSigningSlashingAmount",
+                    "type": "uint96"
+                }
+            ],
+            "name": "updateSlashingParameters",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                }
+            ],
+            "name": "withdrawIneligibleRewards",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "stakingProvider",
+                    "type": "address"
+                }
+            ],
+            "name": "withdrawRewards",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

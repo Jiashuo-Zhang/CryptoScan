@@ -1,0 +1,605 @@
+{
+    "address": "0x09ab7afb8b30238437667f2c2392cc6b6729a3ec",
+    "balance": 0.0,
+    "txNumber": 79,
+    "createdBlockNumber": "16051252",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "ensRegistry_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "ensResolver_",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "AlreadyClaimed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InsufficientBalance",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidParams",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidProof",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "RegistrationHasNotStarted",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "SubdomainAlreadyOwned",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Unauthorized",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "newBips",
+                    "type": "uint256"
+                }
+            ],
+            "name": "CommissionBipsUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "FeePayout",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "rootNode",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "newFee",
+                    "type": "uint256"
+                }
+            ],
+            "name": "FeeUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "FeeWithdrawal",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "rootShard",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "newMerkleRoot",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "MerkleRootUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferStarted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "rootNode",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "label",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "receiver",
+                    "type": "address"
+                }
+            ],
+            "name": "RegisteredSubdomain",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "newRegistrable",
+                    "type": "bool"
+                }
+            ],
+            "name": "RegistrableUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "newRelayer",
+                    "type": "address"
+                }
+            ],
+            "name": "RelayerUpdated",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "acceptOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "claimed",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "commissionBips",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "ensRegistry",
+            "outputs": [
+                {
+                    "internalType": "contract IENS",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "ensResolver",
+            "outputs": [
+                {
+                    "internalType": "contract IENSResolver",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "feeConfigs",
+            "outputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "recipient",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "fee",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "merkleRoots",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pendingOwner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "nftContract",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "rootNode",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "string",
+                    "name": "label",
+                    "type": "string"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "rootShard",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "merkleProof",
+                    "type": "bytes32[]"
+                }
+            ],
+            "name": "registerWithNFTOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "rootNode",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "rootShard",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "receivers",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "string[]",
+                    "name": "labels",
+                    "type": "string[]"
+                },
+                {
+                    "internalType": "bytes32[][]",
+                    "name": "merkleProofs",
+                    "type": "bytes32[][]"
+                }
+            ],
+            "name": "registerWithProof",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "registrable",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "relayer",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "newBips",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setCommissionBips",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "rootShard",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "newMerkleRoot",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "setMerkleRoot",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bool",
+                    "name": "newRegistrable",
+                    "type": "bool"
+                }
+            ],
+            "name": "setRegistrable",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "rootNode",
+                    "type": "bytes32"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "address payable",
+                            "name": "recipient",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "fee",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct SoulRegistrar.NodeFeeConfig",
+                    "name": "feeConfig",
+                    "type": "tuple"
+                }
+            ],
+            "name": "setRegistrationFee",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newRelayer",
+                    "type": "address"
+                }
+            ],
+            "name": "setRelayer",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "to",
+                    "type": "address"
+                }
+            ],
+            "name": "withdrawFees",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

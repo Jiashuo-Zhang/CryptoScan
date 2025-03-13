@@ -1,0 +1,728 @@
+{
+    "address": "0xfb73c2a9b66f717d69b2932c37e5818edaec9d61",
+    "balance": 0.0,
+    "txNumber": 325,
+    "createdBlockNumber": "14830690",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "_epochsPerTimePeriod",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "_slotsPerEpoch",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "_secondsPerSlot",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "_genesisTime",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_core",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_pStakeCommission",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_valCommission",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "pricePerShare",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Distribute",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Paused",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "_core",
+                    "type": "address"
+                }
+            ],
+            "name": "SetCore",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "pricePerShare",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Slash",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Unpaused",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "_pStakeCommission",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "_valCommission",
+                    "type": "uint32"
+                }
+            ],
+            "name": "commissionsUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "oracleAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "latestEthBalance",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "latestNonce",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "numberOfValidators",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "lastCompletedEpoch",
+                    "type": "uint256"
+                }
+            ],
+            "name": "dataPushed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOracleMember",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "oracleMemberLength",
+                    "type": "uint256"
+                }
+            ],
+            "name": "oracleMemberAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOracleMember",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "oracleMemberLength",
+                    "type": "uint256"
+                }
+            ],
+            "name": "oracleMemberRemoved",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint32",
+                    "name": "latestQuorom",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "nonce",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint32",
+                    "name": "quorom",
+                    "type": "uint32"
+                }
+            ],
+            "name": "quoromUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes[]",
+                    "name": "_publicKey",
+                    "type": "bytes[]"
+                }
+            ],
+            "name": "validatorActivated",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "DEPOSIT_LIMIT",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "Quorom",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "ValidatorQuorom",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes[]",
+                    "name": "_publicKeys",
+                    "type": "bytes[]"
+                }
+            ],
+            "name": "activateValidator",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "activateValidatorDuration",
+            "outputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "",
+                    "type": "uint64"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "activatedValidators",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOracleMember",
+                    "type": "address"
+                }
+            ],
+            "name": "addOracleMember",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "candidates",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "core",
+            "outputs": [
+                {
+                    "internalType": "contract ICore",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "currentNonce",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getBeaconData",
+            "outputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "epochsPerTimePeriod",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "slotsPerEpoch",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "secondsPerSlot",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "genesisTime",
+                    "type": "uint64"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getCurrentTimePeriod",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "frameEpochId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "frameStartTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "frameEndTime",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getLastCompletedEpochId",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getTotalEther",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getTotalRewards",
+            "outputs": [
+                {
+                    "internalType": "int256",
+                    "name": "",
+                    "type": "int256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "member",
+                    "type": "address"
+                }
+            ],
+            "name": "isOracle",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "oracle",
+            "outputs": [
+                {
+                    "internalType": "contract IOracle",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "oracleMemberLength",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "paused",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pricePerShare",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "latestEthBalance",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "latestNonce",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "numberOfValidators",
+                    "type": "uint32"
+                }
+            ],
+            "name": "pushData",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "oracleMemberToDelete",
+                    "type": "address"
+                }
+            ],
+            "name": "removeOracleMember",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "core",
+                    "type": "address"
+                }
+            ],
+            "name": "setCore",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "stkEth",
+            "outputs": [
+                {
+                    "internalType": "contract IStkEth",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "unpause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "epochsPerTimePeriod",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "slotsPerEpoch",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "secondsPerSlot",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "genesisTime",
+                    "type": "uint64"
+                }
+            ],
+            "name": "updateBeaconChainData",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "_pStakeCommission",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_valCommission",
+                    "type": "uint32"
+                }
+            ],
+            "name": "updateCommissions",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "latestQuorom",
+                    "type": "uint32"
+                }
+            ],
+            "name": "updateQuorom",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "activationDuration",
+                    "type": "uint64"
+                }
+            ],
+            "name": "updateValidatorActivationDuration",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "latestQuorom",
+                    "type": "uint32"
+                }
+            ],
+            "name": "updateValidatorQuorom",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

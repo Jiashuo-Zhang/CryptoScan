@@ -1,0 +1,831 @@
+{
+    "address": "0x8f66a9a5a4387092d34a4adc99f739819be14869",
+    "balance": 0.0,
+    "txNumber": 21,
+    "createdBlockNumber": "17174187",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IPermit2",
+                    "name": "_permit2",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_exchangeProxy",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidExchangeProxy",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "MaxAssetError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "MaxSharesError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "MaxUnderlyingError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "MinAmountOutError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "MinAssetError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "MinAssetsOrExcessError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "MinSharesError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "MinUnderlyingError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "TransferFailed",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "res",
+                    "type": "bytes"
+                }
+            ],
+            "name": "ZeroExSwapFailed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ZeroSwapAmt",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "sellToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "buyToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "sellAmount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "boughtAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "BoughtTokens",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "trusted",
+                    "type": "bool"
+                }
+            ],
+            "name": "UserTrustUpdated",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "ETH",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ERC20",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                }
+            ],
+            "name": "approve",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract AutoRoller",
+                    "name": "roller",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenIn",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "receiver",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "minSharesOut",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "components": [
+                                {
+                                    "components": [
+                                        {
+                                            "internalType": "contract ERC20",
+                                            "name": "token",
+                                            "type": "address"
+                                        },
+                                        {
+                                            "internalType": "uint256",
+                                            "name": "amount",
+                                            "type": "uint256"
+                                        }
+                                    ],
+                                    "internalType": "struct IPermit2.TokenPermissions",
+                                    "name": "permitted",
+                                    "type": "tuple"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "nonce",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "deadline",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct IPermit2.PermitTransferFrom",
+                            "name": "msg",
+                            "type": "tuple"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "sig",
+                            "type": "bytes"
+                        }
+                    ],
+                    "internalType": "struct RollerPeriphery.PermitData",
+                    "name": "permit",
+                    "type": "tuple"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "contract ERC20",
+                            "name": "sellToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract ERC20",
+                            "name": "buyToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "spender",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address payable",
+                            "name": "swapTarget",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "swapCallData",
+                            "type": "bytes"
+                        }
+                    ],
+                    "internalType": "struct RollerPeriphery.SwapQuote",
+                    "name": "quote",
+                    "type": "tuple"
+                }
+            ],
+            "name": "deposit",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "shares",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract AutoRoller",
+                    "name": "roller",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "shares",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "receiver",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "minAssetsOut",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "minExcessOut",
+                    "type": "uint256"
+                }
+            ],
+            "name": "eject",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "assets",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "excessBal",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isExcessPTs",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "exchangeProxy",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "isTrusted",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract AutoRoller",
+                    "name": "roller",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "shares",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "receiver",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "maxAmountIn",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "components": [
+                                {
+                                    "components": [
+                                        {
+                                            "internalType": "contract ERC20",
+                                            "name": "token",
+                                            "type": "address"
+                                        },
+                                        {
+                                            "internalType": "uint256",
+                                            "name": "amount",
+                                            "type": "uint256"
+                                        }
+                                    ],
+                                    "internalType": "struct IPermit2.TokenPermissions",
+                                    "name": "permitted",
+                                    "type": "tuple"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "nonce",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "deadline",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct IPermit2.PermitTransferFrom",
+                            "name": "msg",
+                            "type": "tuple"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "sig",
+                            "type": "bytes"
+                        }
+                    ],
+                    "internalType": "struct RollerPeriphery.PermitData",
+                    "name": "permit",
+                    "type": "tuple"
+                }
+            ],
+            "name": "mintFromTarget",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "assets",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract AutoRoller",
+                    "name": "roller",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "shares",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "receiver",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "maxAmountIn",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "components": [
+                                {
+                                    "components": [
+                                        {
+                                            "internalType": "contract ERC20",
+                                            "name": "token",
+                                            "type": "address"
+                                        },
+                                        {
+                                            "internalType": "uint256",
+                                            "name": "amount",
+                                            "type": "uint256"
+                                        }
+                                    ],
+                                    "internalType": "struct IPermit2.TokenPermissions",
+                                    "name": "permitted",
+                                    "type": "tuple"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "nonce",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "deadline",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct IPermit2.PermitTransferFrom",
+                            "name": "msg",
+                            "type": "tuple"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "sig",
+                            "type": "bytes"
+                        }
+                    ],
+                    "internalType": "struct RollerPeriphery.PermitData",
+                    "name": "permit",
+                    "type": "tuple"
+                }
+            ],
+            "name": "mintFromUnderlying",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "underlyingIn",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "permit2",
+            "outputs": [
+                {
+                    "internalType": "contract IPermit2",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract AutoRoller",
+                    "name": "roller",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "shares",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "receiver",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "minAmountOut",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "components": [
+                                {
+                                    "components": [
+                                        {
+                                            "internalType": "contract ERC20",
+                                            "name": "token",
+                                            "type": "address"
+                                        },
+                                        {
+                                            "internalType": "uint256",
+                                            "name": "amount",
+                                            "type": "uint256"
+                                        }
+                                    ],
+                                    "internalType": "struct IPermit2.TokenPermissions",
+                                    "name": "permitted",
+                                    "type": "tuple"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "nonce",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "deadline",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct IPermit2.PermitTransferFrom",
+                            "name": "msg",
+                            "type": "tuple"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "sig",
+                            "type": "bytes"
+                        }
+                    ],
+                    "internalType": "struct RollerPeriphery.PermitData",
+                    "name": "permit",
+                    "type": "tuple"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "contract ERC20",
+                            "name": "sellToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract ERC20",
+                            "name": "buyToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "spender",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address payable",
+                            "name": "swapTarget",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "swapCallData",
+                            "type": "bytes"
+                        }
+                    ],
+                    "internalType": "struct RollerPeriphery.SwapQuote",
+                    "name": "quote",
+                    "type": "tuple"
+                }
+            ],
+            "name": "redeem",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amtOut",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "trusted",
+                    "type": "bool"
+                }
+            ],
+            "name": "setIsTrusted",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract AutoRoller",
+                    "name": "roller",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "assets",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "receiver",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "maxSharesOut",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "components": [
+                                {
+                                    "components": [
+                                        {
+                                            "internalType": "contract ERC20",
+                                            "name": "token",
+                                            "type": "address"
+                                        },
+                                        {
+                                            "internalType": "uint256",
+                                            "name": "amount",
+                                            "type": "uint256"
+                                        }
+                                    ],
+                                    "internalType": "struct IPermit2.TokenPermissions",
+                                    "name": "permitted",
+                                    "type": "tuple"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "nonce",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "deadline",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct IPermit2.PermitTransferFrom",
+                            "name": "msg",
+                            "type": "tuple"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "sig",
+                            "type": "bytes"
+                        }
+                    ],
+                    "internalType": "struct RollerPeriphery.PermitData",
+                    "name": "permit",
+                    "type": "tuple"
+                }
+            ],
+            "name": "withdrawTarget",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "shares",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract AutoRoller",
+                    "name": "roller",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "underlyingOut",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "receiver",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "maxSharesOut",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "components": [
+                                {
+                                    "components": [
+                                        {
+                                            "internalType": "contract ERC20",
+                                            "name": "token",
+                                            "type": "address"
+                                        },
+                                        {
+                                            "internalType": "uint256",
+                                            "name": "amount",
+                                            "type": "uint256"
+                                        }
+                                    ],
+                                    "internalType": "struct IPermit2.TokenPermissions",
+                                    "name": "permitted",
+                                    "type": "tuple"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "nonce",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "deadline",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct IPermit2.PermitTransferFrom",
+                            "name": "msg",
+                            "type": "tuple"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "sig",
+                            "type": "bytes"
+                        }
+                    ],
+                    "internalType": "struct RollerPeriphery.PermitData",
+                    "name": "permit",
+                    "type": "tuple"
+                }
+            ],
+            "name": "withdrawUnderlying",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "shares",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "stateMutability": "payable",
+            "type": "receive"
+        }
+    ]
+}

@@ -1,0 +1,608 @@
+{
+    "address": "0x99f763326419f5055149b6045355a7a201c2a9e1",
+    "balance": 0.0,
+    "txNumber": 14,
+    "createdBlockNumber": "17990145",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "fixedSwapContractAddress",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "arrayOneLength",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "arrayTwoLength",
+                    "type": "uint256"
+                }
+            ],
+            "name": "FinanceClaim__ArrayLengthsMismatch",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "caller",
+                    "type": "address"
+                }
+            ],
+            "name": "FinanceClaim__CallerNotAuthorized",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "poolIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "FinanceClaim__CannotChangeRewardOfAlreadyInitializedPool",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "FinanceClaim__InsufficientDepositedFundsForClaiming",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "poolIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "FinanceClaim__InvalidClaimHash",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "FinanceClaim__InvalidClaimableUser",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "FinanceClaim__NewContractCannotBeZeroAddress",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "poolIndex",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "FinanceClaim__NoFundsToClaim",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "poolIndex",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "poolsCount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "FinanceClaim__PoolIndexNonExistent",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "poolIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "FinanceClaim__RewardNotInitialized",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "FinanceClaim__ZeroDepositFunds",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "poolIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "FinanceClaim__ZeroWithdrawalFunds",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "caller",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "finOps",
+                    "type": "address"
+                }
+            ],
+            "name": "FinOpsBlacklisted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "caller",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "finOps",
+                    "type": "address"
+                }
+            ],
+            "name": "FinOpsWhitelisted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "caller",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "newAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "FixedSwapAddressChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "poolIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "wallet",
+                    "type": "address"
+                }
+            ],
+            "name": "FundsClaimableSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "poolIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "FundsClaimed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "poolIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "finOps",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "FundsDeposited",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "poolIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "rewardAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "PoolRewardAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "poolIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "caller",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "UnClaimedFundsWithdrawn",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "poolsIdxs",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "rewards",
+                    "type": "address[]"
+                }
+            ],
+            "name": "addPoolRewards",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "poolIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "claimFunds",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "poolIndex",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "depositFunds",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "finOpsWhitelisted",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "fixedSwapContract",
+            "outputs": [
+                {
+                    "internalType": "contract FixedSwap",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "poolIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getPoolFundsDeposited",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "poolIndex",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "getUserClaimableFunds",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "pools",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "reward",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "fundsDeposited",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "totalClaimableFundsSet",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "latestWithdrawalTs",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "finOpsAddresses",
+                    "type": "address[]"
+                }
+            ],
+            "name": "removeWhitelistedFinOpsAddresses",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "poolIndex",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "user",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amount",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct IFinanceClaim.UserClaimData[]",
+                    "name": "userData",
+                    "type": "tuple[]"
+                }
+            ],
+            "name": "setFundsClaimable",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "finOpsAddresses",
+                    "type": "address[]"
+                }
+            ],
+            "name": "whitelistFinOpsAddresses",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "poolIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "withDrawPoolUnclaimedFunds",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

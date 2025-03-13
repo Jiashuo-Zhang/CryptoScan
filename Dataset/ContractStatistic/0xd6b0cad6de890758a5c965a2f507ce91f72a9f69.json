@@ -1,0 +1,768 @@
+{
+    "address": "0xd6b0cad6de890758a5c965a2f507ce91f72a9f69",
+    "balance": 0.0,
+    "txNumber": 501,
+    "createdBlockNumber": "17517558",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_owner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_nft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_usdc",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "Preseller__ArrayLengthInvalid",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Preseller__ArrayLengthMismatch",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Preseller__ExceedsMaxAllocation",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Preseller__ExceedsMaxSupply",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Preseller__MaxPurchasedInvalid",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Preseller__MintIdInvalid",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Preseller__MintTimesInvalid",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Preseller__NotTimeForClaim",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Preseller__NotTimeForPresalePurchases",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Preseller__ProofInvalid",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Preseller__USDCTransferFailed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Preseller__ZeroAddressInvalid",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Preseller__ZeroAmount",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Preseller__ZeroRootInvalid",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "mintId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint48",
+                    "name": "claimTime",
+                    "type": "uint48"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint48",
+                    "name": "oldClaimTime",
+                    "type": "uint48"
+                }
+            ],
+            "name": "ClaimTimeUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "mintId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint48",
+                    "name": "endTime",
+                    "type": "uint48"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint48",
+                    "name": "oldEndTime",
+                    "type": "uint48"
+                }
+            ],
+            "name": "EndTimeUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "mintId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "supply",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "oldSupply",
+                    "type": "uint256"
+                }
+            ],
+            "name": "MaxPurchasedUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "mintId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "merkleRoot",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "oldMerkleRoot",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "MerkleRootUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "mintId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "NewMintPhaseCreated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "purchaser",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PresalePurchase",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "mintId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PricesUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "mintId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint48",
+                    "name": "startTime",
+                    "type": "uint48"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint48",
+                    "name": "oldStartTime",
+                    "type": "uint48"
+                }
+            ],
+            "name": "StartTimeUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "balance",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Withdrawal",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "mintId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "claimPresale",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "users",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "mintIds",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "claimPresaleBatch",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "mintId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getMintInfo",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint48",
+                            "name": "startTime",
+                            "type": "uint48"
+                        },
+                        {
+                            "internalType": "uint48",
+                            "name": "endTime",
+                            "type": "uint48"
+                        },
+                        {
+                            "internalType": "uint48",
+                            "name": "claimTime",
+                            "type": "uint48"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "merkleRoot",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "maxPurchased",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "totalPurchased",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "prices",
+                            "type": "uint256[]"
+                        }
+                    ],
+                    "internalType": "struct Preseller.MintInfo",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "mintId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "getUserPurchasesPerMintId",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "mintId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "isMintActive",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "mintInfos",
+            "outputs": [
+                {
+                    "internalType": "uint48",
+                    "name": "startTime",
+                    "type": "uint48"
+                },
+                {
+                    "internalType": "uint48",
+                    "name": "endTime",
+                    "type": "uint48"
+                },
+                {
+                    "internalType": "uint48",
+                    "name": "claimTime",
+                    "type": "uint48"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "merkleRoot",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "maxPurchased",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "totalPurchased",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "nextMintId",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "nft",
+            "outputs": [
+                {
+                    "internalType": "contract INexusGaming",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "numberPurchased",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "mintId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "amounts",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "allocations",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "proof",
+                    "type": "bytes32[]"
+                }
+            ],
+            "name": "purchasePresale",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint48",
+                    "name": "_startTime",
+                    "type": "uint48"
+                },
+                {
+                    "internalType": "uint48",
+                    "name": "_endTime",
+                    "type": "uint48"
+                },
+                {
+                    "internalType": "uint48",
+                    "name": "_claimTime",
+                    "type": "uint48"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_merkleRoot",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_maxPurchased",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_prices",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "setupMintPhase",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "mintId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint48",
+                    "name": "_claimTime",
+                    "type": "uint48"
+                }
+            ],
+            "name": "updateMintClaimTime",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "mintId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint48",
+                    "name": "_endTime",
+                    "type": "uint48"
+                }
+            ],
+            "name": "updateMintEndTime",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "mintId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_maxPurchased",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updateMintMaxPurchased",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "mintId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_merkleRoot",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "updateMintMerkleRoot",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "mintId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint48",
+                    "name": "_startTime",
+                    "type": "uint48"
+                }
+            ],
+            "name": "updateMintStartTime",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "mintId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_prices",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "updatePrices",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "usdc",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "withdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

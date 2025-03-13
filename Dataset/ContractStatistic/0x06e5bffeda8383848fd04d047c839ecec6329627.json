@@ -1,0 +1,1043 @@
+{
+    "address": "0x06e5bffeda8383848fd04d047c839ecec6329627",
+    "balance": 0.0,
+    "txNumber": 62,
+    "createdBlockNumber": "17835792",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "rakeRecipient_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "gameManager_",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "EmptyPosition",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "GameNotFinished",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidAmount",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidGame",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidGameConfiguration",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidGameOption",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidGameStatus",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "MaxAmountForOptionExceeded",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NotAllowed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PositionSizeTooSmall",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "WithdrawalFailed",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "gameId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "optionId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "originalPositionSize",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amountAddedToPosition",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AddedToPosition",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "gameId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "BulkUserWithdrawal",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "gameId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "GameCreated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "OwnerDeposit",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "OwnerWithdrawal",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Paused",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RakeWithdrawn",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "gameId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "enum Livestreambets.GameStatus",
+                    "name": "oldStatus",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "enum Livestreambets.GameStatus",
+                    "name": "newStatus",
+                    "type": "uint8"
+                }
+            ],
+            "name": "StatusChange",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Unpaused",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "gameId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "optionId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "UserWithdrawal",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "gameId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "winningOptionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "WinnerDeclared",
+            "type": "event"
+        },
+        {
+            "stateMutability": "nonpayable",
+            "type": "fallback"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "gameId_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "optionId_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "addToPosition",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "gameId_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "cancelGame",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "claimableRakeAmount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "claimedRakeAmount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "gameId_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "closeEntries",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "expirationPeriod_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "options_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "minPositionSize_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "maxAmountPerOption_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "createGame",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "options_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "createGameWithDefaults",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "gameId_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "winningOptionId_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "declareWinner",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "defaultExpirationPeriod",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "defaultMaxAmountPerOption",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "defaultMinPositionSize",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "earnedRakeAmount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "gameCount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "gameManager",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "gameId_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "optionId_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "gameOptionKeyHash",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "gameId_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "gameStatus",
+            "outputs": [
+                {
+                    "internalType": "enum Livestreambets.GameStatus",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "games",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "expiresAt",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "options",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "minPositionSize",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "maxAmountPerOption",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "winner",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "entriesOpen",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "winnerDeclared",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "cancelled",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "rakeRecorded",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "maxOptions",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "gameId_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "openEntries",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "ownerDeposit",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ownerWithdrawal",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "paused",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "gameId_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "optionId_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "positionKeyHash",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "positions",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "hasWithdrawn",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "gameId_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account_",
+                    "type": "address"
+                }
+            ],
+            "name": "positionsForGameForAccount",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "amount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "hasWithdrawn",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct Livestreambets.Position[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "rakeRecipient",
+            "outputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "gameId_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "recordRake",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "defaultExpirationPeriod_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setDefaultExpirationPeriod",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "defaultMaxAmountPerOption_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setDefaultMaxAmountPerOption",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "defaultMinPositionSize_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setDefaultMinPositionSize",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "gameManager_",
+                    "type": "address"
+                }
+            ],
+            "name": "setGameManager",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "maxOptions_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setMaxOptions",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "rakeRecipient_",
+                    "type": "address"
+                }
+            ],
+            "name": "setRakeRecipient",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "gameId_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account_",
+                    "type": "address"
+                }
+            ],
+            "name": "totalCommittedToGameForAccount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "gameId_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "totalLockedInGame",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "totalOfAllPositionsForGameOption",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "gameId_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "totalsOfAllPositionsForAllGameOptions",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "unpause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "withdrawAllAvailableRake",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "gameId_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "withdrawAllPositionsAndWinningsFromGame",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "withdrawRake",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "stateMutability": "payable",
+            "type": "receive"
+        }
+    ]
+}

@@ -1,0 +1,649 @@
+{
+    "address": "0xc70e2915f019e27baa493972e4627dbc0ed7a794",
+    "balance": 0.0,
+    "txNumber": 354,
+    "createdBlockNumber": "16351267",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "balancerVault_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "sushiSwapRouter_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "uniswapRouter_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "uniswapV3Factory_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "stEth_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "wstEth_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "WETH9_",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "tokenIn",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "tokenOut",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amountIn",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amountOut",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amountOutMin",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "enum OnChainLiquidator.Exchange",
+                            "name": "exchange",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint24",
+                            "name": "uniswapPoolFee",
+                            "type": "uint24"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "swapViaWeth",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "balancerPoolId",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "curvePool",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct OnChainLiquidator.PoolConfig",
+                    "name": "poolConfig",
+                    "type": "tuple"
+                }
+            ],
+            "name": "InsufficientAmountOut",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "available",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "required",
+                    "type": "uint256"
+                }
+            ],
+            "name": "InsufficientBalance",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidArgument",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidExchange",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "swapToken",
+                    "type": "address"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "enum OnChainLiquidator.Exchange",
+                            "name": "exchange",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint24",
+                            "name": "uniswapPoolFee",
+                            "type": "uint24"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "swapViaWeth",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "balancerPoolId",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "curvePool",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct OnChainLiquidator.PoolConfig",
+                    "name": "poolConfig",
+                    "type": "tuple"
+                }
+            ],
+            "name": "InvalidPoolConfig",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Unauthorized",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "initiator",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address[]",
+                    "name": "accounts",
+                    "type": "address[]"
+                }
+            ],
+            "name": "Absorb",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "AbsorbWithoutBuyingCollateral",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "tokenIn",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "tokenOut",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "baseAmountPaid",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "assetBalance",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amountOut",
+                    "type": "uint256"
+                }
+            ],
+            "name": "BuyAndSwap",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "payer",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Pay",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "tokenIn",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "tokenOut",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amountIn",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amountOut",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "enum OnChainLiquidator.Exchange",
+                            "name": "exchange",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint24",
+                            "name": "uniswapPoolFee",
+                            "type": "uint24"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "swapViaWeth",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "balancerPoolId",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "curvePool",
+                            "type": "address"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct OnChainLiquidator.PoolConfig",
+                    "name": "poolConfig",
+                    "type": "tuple"
+                }
+            ],
+            "name": "Swap",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "NULL_ADDRESS",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "QUOTE_PRICE_SCALE",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "WETH9",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "comet",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "liquidatableAccounts",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "assets",
+                    "type": "address[]"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "enum OnChainLiquidator.Exchange",
+                            "name": "exchange",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint24",
+                            "name": "uniswapPoolFee",
+                            "type": "uint24"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "swapViaWeth",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "balancerPoolId",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "curvePool",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct OnChainLiquidator.PoolConfig[]",
+                    "name": "poolConfigs",
+                    "type": "tuple[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "maxAmountsToPurchase",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "address",
+                    "name": "flashLoanPairToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint24",
+                    "name": "flashLoanPoolFee",
+                    "type": "uint24"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "liquidationThreshold",
+                    "type": "uint256"
+                }
+            ],
+            "name": "absorbAndArbitrage",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "balancerVault",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "factory",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "poolConfigs",
+            "outputs": [
+                {
+                    "internalType": "enum OnChainLiquidator.Exchange",
+                    "name": "exchange",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint24",
+                    "name": "uniswapPoolFee",
+                    "type": "uint24"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "swapViaWeth",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "balancerPoolId",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "curvePool",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "refundETH",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "stEth",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "sushiSwapRouter",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amountMinimum",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                }
+            ],
+            "name": "sweepToken",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "uniswapRouter",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "fee0",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "fee1",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "data",
+                    "type": "bytes"
+                }
+            ],
+            "name": "uniswapV3FlashCallback",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amountMinimum",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                }
+            ],
+            "name": "unwrapWETH9",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "wstEth",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "stateMutability": "payable",
+            "type": "receive"
+        }
+    ]
+}

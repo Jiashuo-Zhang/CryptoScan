@@ -1,0 +1,1069 @@
+{
+    "address": "0x2d50efbc3690b6d0ea0b179c18f016ae9031c00a",
+    "balance": 0.0,
+    "txNumber": 22476,
+    "createdBlockNumber": "18928707",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IWETH",
+                    "name": "_wethContract",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IERC20",
+                    "name": "_pepeContract",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IERC20",
+                    "name": "_pondContract",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract ISwapRouter",
+                    "name": "_uniswapRouter",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract INonfungiblePositionManager",
+                    "name": "_nonfungiblePositionManager",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_distilleryAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract ISpawnManager",
+                    "name": "_spawnManager",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IUniswapV3Factory",
+                    "name": "_uniswapFactory",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "BoosterDepositLimitReached",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "boosterId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "BoosterDoesNotExist",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "BoosterEnded",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "BoosterInactive",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "BoosterNotWETH",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "BoosterOverMaxCycle",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "CannotClaimUserBooster",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "CannotRemoveSelf",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ExceedsMax",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InitialLPAlreadyCreated",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidUseCount",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidUserBooster",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "LPNotInitalized",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "MiningInvalidValue",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "attempted",
+                    "type": "address"
+                }
+            ],
+            "name": "NotExecutor",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "UpdateUsedToInvalid",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "claimer",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "boosterId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ClaimBooster",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "miner",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "inputAmount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "boosterId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "outputAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Mine",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "activeMinedThreshold",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_toAdd",
+                    "type": "address"
+                }
+            ],
+            "name": "addExecutor",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "token",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "multiplier",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "boosterLastsFor",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "maxDepositAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "maxCycles",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "usesPerCycle",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct RigTokenBoosterManager.TokenBoosterParams",
+                    "name": "params",
+                    "type": "tuple"
+                }
+            ],
+            "name": "addTokenBooster",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_merkleRoot",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_treeDataURI",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_boosterRate",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_boosterType",
+                    "type": "uint256"
+                }
+            ],
+            "name": "addUserBoostTree",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_address",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_event",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "merkleProof",
+                    "type": "bytes32[]"
+                }
+            ],
+            "name": "canClaimUserBoost",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_lpTokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "collectLPFees",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "uses",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "usesPerCycle",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "multiplier",
+                    "type": "uint256"
+                }
+            ],
+            "name": "computeBoosterCycleState",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "currentCycle",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "newMultiplier",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "pepeAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "wethAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "createInitialLP",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "currentUserBoostID",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "cycleIndex",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "delta",
+            "outputs": [
+                {
+                    "internalType": "int24",
+                    "name": "",
+                    "type": "int24"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "deposit",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "depositWeth",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "distilleryAddress",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "divisionDenominator",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "divisionLP",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "tokenBoosterId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "endTokenBooster",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "executors",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getCurrentTokenBoosterId",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "currentTokenBoosterId",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "tokenBoosterId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getTokenBooster",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "token",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "multiplier",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "boosterStartTime",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "boosterEndTime",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "ended",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "useCount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "totalDeposited",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "maxDepositAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "maxCycles",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "usesPerCycle",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct RigTokenBoosterManager.TokenBooster",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "toCheck",
+                    "type": "address"
+                }
+            ],
+            "name": "isActive",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_executor",
+                    "type": "address"
+                }
+            ],
+            "name": "isExecutor",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "latestLPToken",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_tokenBoosterId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_userBoostIDs",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "bytes32[][]",
+                    "name": "_userBoostMerkleProofs",
+                    "type": "bytes32[][]"
+                }
+            ],
+            "name": "mine",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "pndcAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "boosterMultiplier",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "minedPerCycle",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "nonfungiblePositionManager",
+            "outputs": [
+                {
+                    "internalType": "contract INonfungiblePositionManager",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pepeContract",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pondContract",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "poolFee",
+            "outputs": [
+                {
+                    "internalType": "uint24",
+                    "name": "",
+                    "type": "uint24"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "rateNumerator",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "readLPTokens",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "readUserBoosterTree",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "merkleRoot",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "treeDataURI",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "boosterRate",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "boostType",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "active",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct MiningClaims.UserAddedBooster",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_toRemove",
+                    "type": "address"
+                }
+            ],
+            "name": "removeExecutor",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "spawnManager",
+            "outputs": [
+                {
+                    "internalType": "contract ISpawnManager",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "uniswapFactory",
+            "outputs": [
+                {
+                    "internalType": "contract IUniswapV3Factory",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "uniswapRouter",
+            "outputs": [
+                {
+                    "internalType": "contract ISwapRouter",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_activeMinedThreshold",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updateActiveMinedThreshold",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "int24",
+                    "name": "_delta",
+                    "type": "int24"
+                }
+            ],
+            "name": "updateDelta",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_divisionLP",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updateDivisionLP",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint24",
+                    "name": "_poolFee",
+                    "type": "uint24"
+                }
+            ],
+            "name": "updatePoolFee",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_rateNumerator",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updateRateNumerator",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISpawnManager",
+                    "name": "_spawnManager",
+                    "type": "address"
+                }
+            ],
+            "name": "updateSpawnManager",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_usesToOpenSpawn",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "updateUsed",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "updateUsedTo",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updateSpawnValue",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IUniswapV3Factory",
+                    "name": "_uniswapFactory",
+                    "type": "address"
+                }
+            ],
+            "name": "updateUniswapFactory",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "usesLeftForSpawn",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "usesToOpenSpawn",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "wethContract",
+            "outputs": [
+                {
+                    "internalType": "contract IWETH",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "withdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

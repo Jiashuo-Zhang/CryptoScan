@@ -1,0 +1,675 @@
+{
+    "address": "0xf4136af7158ff13cee1adcb4f6972ea3d45559d2",
+    "balance": 0.0,
+    "txNumber": 14,
+    "createdBlockNumber": "15023417",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "etherealstates_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "dnaGenerator_",
+                    "type": "address"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "keyHash",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "coordinator",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "subscriptionId",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "callbackGasLimit",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "requestConfirmations",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "numWords",
+                            "type": "uint32"
+                        }
+                    ],
+                    "internalType": "struct EtherealStatesVRFUpdated.VRFConfig",
+                    "name": "vrfConfig_",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "invalid",
+                    "type": "address"
+                }
+            ],
+            "name": "InvalidAddress",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NotAuthorized",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NotRevealed",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "have",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "want",
+                    "type": "address"
+                }
+            ],
+            "name": "OnlyCoordinatorCanFulfill",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "WrongContext",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "requestId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "seed",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RequestFulfilled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "oldDNA",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "newDNA",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "TokenDNAChanged",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                }
+            ],
+            "name": "addOperator",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "ops",
+                    "type": "address[]"
+                }
+            ],
+            "name": "addOperators",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "dnaGenerator",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "etherealstates",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "startAtGroupId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "groupForTokenId",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "requestId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "endTokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct EtherealStatesRevealManager.RevealGroup",
+                    "name": "",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "hasHoldersTrait",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "isOperator",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "nextGroupId",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "nextReveal",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "operators",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "requestId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "randomWords",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "rawFulfillRandomWords",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                }
+            ],
+            "name": "removeOperator",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "ops",
+                    "type": "address[]"
+                }
+            ],
+            "name": "removeOperators",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "requestId",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "revealDNA",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "dna",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "revealedDNA",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "revealedGroups",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "requestId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "endTokenId",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "seeds",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newGenerator",
+                    "type": "address"
+                }
+            ],
+            "name": "setDNAGenerator",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "keyHash",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "coordinator",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "subscriptionId",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "callbackGasLimit",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "requestConfirmations",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "numWords",
+                            "type": "uint32"
+                        }
+                    ],
+                    "internalType": "struct EtherealStatesVRFUpdated.VRFConfig",
+                    "name": "vrfConfig_",
+                    "type": "tuple"
+                }
+            ],
+            "name": "setVRFConfig",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "tokenDNA",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "dna",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "startId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "howMany",
+                    "type": "uint256"
+                }
+            ],
+            "name": "tokensDNA",
+            "outputs": [
+                {
+                    "internalType": "bytes32[]",
+                    "name": "dnas",
+                    "type": "bytes32[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "newDNA",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "updateTokenDNA",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "vrfConfig",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "keyHash",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "coordinator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "subscriptionId",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "callbackGasLimit",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "requestConfirmations",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "numWords",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+}

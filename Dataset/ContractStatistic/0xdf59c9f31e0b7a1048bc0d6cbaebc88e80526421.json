@@ -1,0 +1,1034 @@
+{
+    "address": "0xdf59c9f31e0b7a1048bc0d6cbaebc88e80526421",
+    "balance": 0.0,
+    "txNumber": 19,
+    "createdBlockNumber": "17423651",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_admin",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_router",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "AlreadyClaimed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "AlreadyStakedInOtherPool",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Blacklisted",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ClaimPeriodEnded",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ClaimPeriodNotEnded",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "EtherNotAccepted",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "allowanceAvailable",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "InsufficientApproval",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "userBalance",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "InsufficientBalance",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "tokenAmountSent",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "rewardNeededAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "InsufficientReward",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InsufficientRewardBalance",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "enum Controller.Phase",
+                    "name": "current",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "enum Controller.Phase",
+                    "name": "expected",
+                    "type": "uint8"
+                }
+            ],
+            "name": "InvalidPhase",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidPool",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidRewardAmount",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NoRewardToSwap",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "winners",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "loosers",
+                    "type": "uint256"
+                }
+            ],
+            "name": "NoStakers",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NotStakedInLoosingPool",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NotStakedInWinningPool",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NowAllowedToRecoverThisToken",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "OnlyAdmin",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PhaseAlreadyStarted",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "StakingPeriodNotEnded",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "SwapPeriodEnded",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "WithdrawPendingReward",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "enum Controller.Phase",
+                    "name": "phase",
+                    "type": "uint8"
+                }
+            ],
+            "name": "CurrentPhase",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "pool",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Deposit",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RewardAmount",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "rewardClaimed",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RewardClaimed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "users",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "rewardDeposited",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RewardDeposited",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "rewardSent",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RewardSentToLoser",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "userStakedBalance",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "userRewardBalance",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "rewardAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RewardSwapped",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "admin",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "status",
+                    "type": "bool"
+                }
+            ],
+            "name": "SetAdmin",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "status",
+                    "type": "bool"
+                }
+            ],
+            "name": "SetBlacklistStatus",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "balanceA",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "balanceB",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Withdraw",
+            "type": "event"
+        },
+        {
+            "stateMutability": "payable",
+            "type": "fallback"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_rewardAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "adminChooseWinnerAndStartClaim",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "adminRestartProcess",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "status",
+                    "type": "bool"
+                }
+            ],
+            "name": "adminSetBlacklist",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "adminSetCooldownPhase",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "adminStartStakingPhase",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_rewardAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "adminStartTradePhase",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "admins",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "blacklist",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "claim",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "claimable",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "claimedEpoch",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "currentPhase",
+            "outputs": [
+                {
+                    "internalType": "enum Controller.Phase",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "currentPhaseStart",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "depositToken",
+            "outputs": [
+                {
+                    "internalType": "contract ChadsToken",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "epoch",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getPhase",
+            "outputs": [
+                {
+                    "internalType": "enum Controller.Phase",
+                    "name": "phase",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "startedIn",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getTotalStaked",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "poolAStaked",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "poolBStaked",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getTotalStakedUsers",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "poolAUsers",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "poolBUsers",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "getUserBalance",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "poolABalance",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "poolBBalance",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "rewardBalance",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "getUserPendingReward",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "getUserPoolInfo",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "totalSupply",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "balanceOfUser",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "totalUsers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "IsDepositEnabled",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "IsWithdrawEnabled",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "symbol",
+                            "type": "string"
+                        }
+                    ],
+                    "internalType": "struct Pool.PoolInfo",
+                    "name": "winner",
+                    "type": "tuple"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "totalSupply",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "balanceOfUser",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "totalUsers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "IsDepositEnabled",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "IsWithdrawEnabled",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "symbol",
+                            "type": "string"
+                        }
+                    ],
+                    "internalType": "struct Pool.PoolInfo",
+                    "name": "looser",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "losingPool",
+            "outputs": [
+                {
+                    "internalType": "contract Pool",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "poolA",
+            "outputs": [
+                {
+                    "internalType": "contract Pool",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "poolB",
+            "outputs": [
+                {
+                    "internalType": "contract Pool",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "tokenAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "recover",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract Pool",
+                    "name": "pool",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "tokenAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "recoverFromPool",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "tokenAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "recoverFromRewardToken",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "rewardAmount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "rewardToken",
+            "outputs": [
+                {
+                    "internalType": "contract RewardToken",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                }
+            ],
+            "name": "sendAllRewardToLoser",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                }
+            ],
+            "name": "sendRewardFromWinnerToLoser",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_minter",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_status",
+                    "type": "bool"
+                }
+            ],
+            "name": "setAdmin",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract Pool",
+                    "name": "pool",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "stake",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "stakeInPoolA",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "stakeInPoolB",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "swapRewardToToken",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "winningPool",
+            "outputs": [
+                {
+                    "internalType": "contract Pool",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "withdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "stateMutability": "payable",
+            "type": "receive"
+        }
+    ]
+}

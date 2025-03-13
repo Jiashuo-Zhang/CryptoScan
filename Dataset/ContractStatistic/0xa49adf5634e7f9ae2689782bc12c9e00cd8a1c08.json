@@ -1,0 +1,439 @@
+{
+    "address": "0xa49adf5634e7f9ae2689782bc12c9e00cd8a1c08",
+    "balance": 0.0,
+    "txNumber": 29,
+    "createdBlockNumber": "18468487",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "_ben",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_preClaimWindow",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_claimLockingPeriod",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_claimingWindow",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_merkleRoot",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "AlreadyClaimed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "AlreadyPreClaimed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "CannotRecoverBEN",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ClaimWindowDeadlinePassed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ClaimWindowNotPassed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "HasNotPreClaimed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NewOwnerIsZeroAddress",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NotInMerkleTree",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "OnlyOwner",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PreClaimDeadlineOver",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PreClaimWindowNotPassed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "SafeERC20ERC20OperationFailed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "UnlockTimeNotReached",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Claimed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "unlockTimestamp",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PreClaim",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "CLAIMING_WINDOW_EXPIRY",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "CLAIM_LOCKING_PERIOD",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "PRE_CLAIM_DEADLINE",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "amountPreClaimed",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "ben",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "claim",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "claimInfo",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "preClaimUnlockTimestamp",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "unlockAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "hasFullyClaimed",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "claimLockingPeriod",
+            "outputs": [
+                {
+                    "internalType": "uint40",
+                    "name": "",
+                    "type": "uint40"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_user",
+                    "type": "address"
+                }
+            ],
+            "name": "hasFullyClaimed",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_user",
+                    "type": "address"
+                }
+            ],
+            "name": "hasPreclaimed",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32[]",
+                    "name": "_proof",
+                    "type": "bytes32[]"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_user",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "isInMerkleTree",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "canClaim",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "merkleRoot",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32[]",
+                    "name": "_proof",
+                    "type": "bytes32[]"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "preClaim",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "_token",
+                    "type": "address"
+                }
+            ],
+            "name": "recoverTokens",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "recoverUnclaimedClaimWindowExpiredFunds",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "recoverUnclaimedPreClaimWindowExpiredFunds",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

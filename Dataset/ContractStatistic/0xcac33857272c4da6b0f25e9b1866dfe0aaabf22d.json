@@ -1,0 +1,441 @@
+{
+    "address": "0xcac33857272c4da6b0f25e9b1866dfe0aaabf22d",
+    "balance": 0.0,
+    "txNumber": 29,
+    "createdBlockNumber": "18370349",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_factory",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_settlementValidator",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "CollectionMismatch",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PayoutMismatch",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "TransferFailed",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "collection",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "bidder",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "creator",
+                    "type": "address"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "amountInWei",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "recipient",
+                            "type": "address"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct MintStructs.Payslip[]",
+                    "name": "payslips",
+                    "type": "tuple[]"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "bidId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "price",
+                    "type": "uint256"
+                }
+            ],
+            "name": "BidSettled",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "bytes",
+                            "name": "bidSignature",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "acceptanceSignature",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "mintPassSignature",
+                            "type": "bytes"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint256",
+                                    "name": "nonce",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "tokenId",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "expiresAt",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "priceInWei",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "address",
+                                    "name": "bidderAddress",
+                                    "type": "address"
+                                }
+                            ],
+                            "internalType": "struct MintStructs.BidInfo",
+                            "name": "bidInfo",
+                            "type": "tuple"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint256",
+                                    "name": "nonce",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "bytes32",
+                                    "name": "bidSignatureHash",
+                                    "type": "bytes32"
+                                },
+                                {
+                                    "internalType": "address",
+                                    "name": "creatorAddress",
+                                    "type": "address"
+                                },
+                                {
+                                    "internalType": "address",
+                                    "name": "collectionAddress",
+                                    "type": "address"
+                                },
+                                {
+                                    "components": [
+                                        {
+                                            "internalType": "uint256",
+                                            "name": "amountInWei",
+                                            "type": "uint256"
+                                        },
+                                        {
+                                            "internalType": "address",
+                                            "name": "recipient",
+                                            "type": "address"
+                                        }
+                                    ],
+                                    "internalType": "struct MintStructs.Payslip[]",
+                                    "name": "payslips",
+                                    "type": "tuple[]"
+                                }
+                            ],
+                            "internalType": "struct MintStructs.AcceptanceInfo",
+                            "name": "acceptanceInfo",
+                            "type": "tuple"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint256",
+                                    "name": "expiresAt",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "bytes32",
+                                    "name": "bidSignatureHash",
+                                    "type": "bytes32"
+                                },
+                                {
+                                    "internalType": "bytes32",
+                                    "name": "acceptanceSignatureHash",
+                                    "type": "bytes32"
+                                },
+                                {
+                                    "internalType": "address",
+                                    "name": "signer",
+                                    "type": "address"
+                                }
+                            ],
+                            "internalType": "struct MintStructs.MintPass",
+                            "name": "mintPass",
+                            "type": "tuple"
+                        }
+                    ],
+                    "internalType": "struct MintStructs.Settlement",
+                    "name": "settlement",
+                    "type": "tuple"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "signer",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint96",
+                            "name": "nonce",
+                            "type": "uint96"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "collectionName",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "collectionSymbol",
+                            "type": "string"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "address payable",
+                                    "name": "recipient",
+                                    "type": "address"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "bps",
+                                    "type": "uint16"
+                                }
+                            ],
+                            "internalType": "struct Recipient[]",
+                            "name": "royaltyRecipients",
+                            "type": "tuple[]"
+                        }
+                    ],
+                    "internalType": "struct MintStructs.CollectionInfo",
+                    "name": "collectionInfo",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "collectionInfoSignature",
+                    "type": "bytes"
+                }
+            ],
+            "name": "createCollectionAndSettleBid",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "factory",
+            "outputs": [
+                {
+                    "internalType": "contract IDecaCollectionFactory",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "bytes",
+                            "name": "bidSignature",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "acceptanceSignature",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "mintPassSignature",
+                            "type": "bytes"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint256",
+                                    "name": "nonce",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "tokenId",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "expiresAt",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "priceInWei",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "address",
+                                    "name": "bidderAddress",
+                                    "type": "address"
+                                }
+                            ],
+                            "internalType": "struct MintStructs.BidInfo",
+                            "name": "bidInfo",
+                            "type": "tuple"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint256",
+                                    "name": "nonce",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "bytes32",
+                                    "name": "bidSignatureHash",
+                                    "type": "bytes32"
+                                },
+                                {
+                                    "internalType": "address",
+                                    "name": "creatorAddress",
+                                    "type": "address"
+                                },
+                                {
+                                    "internalType": "address",
+                                    "name": "collectionAddress",
+                                    "type": "address"
+                                },
+                                {
+                                    "components": [
+                                        {
+                                            "internalType": "uint256",
+                                            "name": "amountInWei",
+                                            "type": "uint256"
+                                        },
+                                        {
+                                            "internalType": "address",
+                                            "name": "recipient",
+                                            "type": "address"
+                                        }
+                                    ],
+                                    "internalType": "struct MintStructs.Payslip[]",
+                                    "name": "payslips",
+                                    "type": "tuple[]"
+                                }
+                            ],
+                            "internalType": "struct MintStructs.AcceptanceInfo",
+                            "name": "acceptanceInfo",
+                            "type": "tuple"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint256",
+                                    "name": "expiresAt",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "bytes32",
+                                    "name": "bidSignatureHash",
+                                    "type": "bytes32"
+                                },
+                                {
+                                    "internalType": "bytes32",
+                                    "name": "acceptanceSignatureHash",
+                                    "type": "bytes32"
+                                },
+                                {
+                                    "internalType": "address",
+                                    "name": "signer",
+                                    "type": "address"
+                                }
+                            ],
+                            "internalType": "struct MintStructs.MintPass",
+                            "name": "mintPass",
+                            "type": "tuple"
+                        }
+                    ],
+                    "internalType": "struct MintStructs.Settlement",
+                    "name": "settlement",
+                    "type": "tuple"
+                }
+            ],
+            "name": "settleBid",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "settlementValidator",
+            "outputs": [
+                {
+                    "internalType": "contract ISettlementValidator",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+}

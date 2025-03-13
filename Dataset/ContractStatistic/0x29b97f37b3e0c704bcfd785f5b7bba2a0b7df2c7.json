@@ -1,0 +1,582 @@
+{
+    "address": "0x29b97f37b3e0c704bcfd785f5b7bba2a0b7df2c7",
+    "balance": 0.0,
+    "txNumber": 29,
+    "createdBlockNumber": "18747791",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_timeLock",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_queueAdmin",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_vetoAdmin",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_allowExecutionByContracts",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "AdminCantBeZeroAddressException",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "BatchAlreadyStartedException",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "CallerMustNotBeContractException",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "CallerNotBatchInitiatorException",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "CallerNotQueueAdminException",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "CallerNotTimelockException",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "CallerNotVetoAdminException",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "CantPerformActionOutsideBatchException",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "CantRemoveLastQueueAdminException",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ETAMistmatchException",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "IncorrectBatchException",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "TransactionAlreadyQueuedException",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "txHash",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "UnexpectedTransactionException",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "admin",
+                    "type": "address"
+                }
+            ],
+            "name": "AddQueueAdmin",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "AllowExecutionByContracts",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "caller",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "batchBlock",
+                    "type": "uint256"
+                }
+            ],
+            "name": "CancelBatch",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "caller",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "batchBlock",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ExecuteBatch",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "ForbidExecutionByContracts",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "caller",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "batchBlock",
+                    "type": "uint256"
+                }
+            ],
+            "name": "QueueBatch",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "admin",
+                    "type": "address"
+                }
+            ],
+            "name": "RemoveQueueAdmin",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "admin",
+                    "type": "address"
+                }
+            ],
+            "name": "UpdateVetoAdmin",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "admin",
+                    "type": "address"
+                }
+            ],
+            "name": "addQueueAdmin",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "allowExecutionByContracts",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "batchInfo",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "initiator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "length",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint80",
+                    "name": "eta",
+                    "type": "uint80"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "batchedTxInfo",
+            "outputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "batchBlock",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "index",
+                    "type": "uint16"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "target",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "value",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "signature",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "data",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "eta",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct IGovernor.TxParams[]",
+                    "name": "txs",
+                    "type": "tuple[]"
+                }
+            ],
+            "name": "cancelBatch",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "target",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "signature",
+                    "type": "string"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "data",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "eta",
+                    "type": "uint256"
+                }
+            ],
+            "name": "cancelTransaction",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "claimTimeLockOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "target",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "value",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "signature",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "data",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "eta",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct IGovernor.TxParams[]",
+                    "name": "txs",
+                    "type": "tuple[]"
+                }
+            ],
+            "name": "executeBatch",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "target",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "signature",
+                    "type": "string"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "data",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "eta",
+                    "type": "uint256"
+                }
+            ],
+            "name": "executeTransaction",
+            "outputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "",
+                    "type": "bytes"
+                }
+            ],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "forbidExecutionByContracts",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "isExecutionByContractsAllowed",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "queueAdmins",
+            "outputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "",
+                    "type": "address[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "target",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "signature",
+                    "type": "string"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "data",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "eta",
+                    "type": "uint256"
+                }
+            ],
+            "name": "queueTransaction",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "txHash",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "admin",
+                    "type": "address"
+                }
+            ],
+            "name": "removeQueueAdmin",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint80",
+                    "name": "eta",
+                    "type": "uint80"
+                }
+            ],
+            "name": "startBatch",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "timeLock",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "admin",
+                    "type": "address"
+                }
+            ],
+            "name": "updateVetoAdmin",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "vetoAdmin",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+}

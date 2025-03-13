@@ -1,0 +1,507 @@
+{
+    "address": "0xa16a904ed7aaf474832e5bc3f17af24fc549fd8b",
+    "balance": 0.0,
+    "txNumber": 30,
+    "createdBlockNumber": "15482731",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_recipient",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_owner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "_minters",
+                    "type": "address[]"
+                }
+            ],
+            "stateMutability": "payable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "AlreadySet",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidAmount",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidSignature",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidValue",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidVoucherFees",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "VoucherAlreadyUsed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "WrongArrayLength",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ZeroAddress",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Paused",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "caller",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isAllowed",
+                    "type": "bool"
+                }
+            ],
+            "name": "SetMinter",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Unpaused",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "newRecipient",
+                    "type": "address"
+                }
+            ],
+            "name": "UpdateRecipient",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "voucherId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "VoucherUsed",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "INITIAL_CHAIN_ID",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "minter",
+                    "type": "address"
+                }
+            ],
+            "name": "addMinter",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "redeemer",
+                    "type": "address"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "voucherId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "price",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "token",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "definedWallets",
+                            "type": "address[]"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "recipientFee",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "ownerFee",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "uri",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "signature",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "is1155",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "uint8[]",
+                            "name": "definedWalletsFees",
+                            "type": "uint8[]"
+                        }
+                    ],
+                    "internalType": "struct AssemblyV2.NFTVoucher",
+                    "name": "voucher",
+                    "type": "tuple"
+                }
+            ],
+            "name": "buyWithMint",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "minter",
+                    "type": "address"
+                }
+            ],
+            "name": "isMinter",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "paused",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "recipient",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "minter",
+                    "type": "address"
+                }
+            ],
+            "name": "removeMinter",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "unpause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newRecipient",
+                    "type": "address"
+                }
+            ],
+            "name": "updateRecipient",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "usedVouchers",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "voucherId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "price",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "token",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "definedWallets",
+                            "type": "address[]"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "recipientFee",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "ownerFee",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "uri",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "signature",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "is1155",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "uint8[]",
+                            "name": "definedWalletsFees",
+                            "type": "uint8[]"
+                        }
+                    ],
+                    "internalType": "struct AssemblyV2.NFTVoucher",
+                    "name": "voucher",
+                    "type": "tuple"
+                }
+            ],
+            "name": "verify",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+}

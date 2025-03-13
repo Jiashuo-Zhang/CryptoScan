@@ -1,0 +1,961 @@
+{
+    "address": "0x8eac95b4e4978266d239d9aac72be98fda58463c",
+    "balance": 0.0,
+    "txNumber": 36,
+    "createdBlockNumber": "16831518",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_wrappedNativeToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_platformAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_platformFeePercentage",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_priceFeedAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_adminAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_royaltyRegistryAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_royaltyActive",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "uuid",
+                    "type": "string"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "tokenContract",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "quantity",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "tokenOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "highestBidder",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "tax",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "paymentToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "marketplaceAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "platformFee",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "bidder",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "quotePrice",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "paymentAddress",
+                            "type": "address"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct Marketplace.BidHistory[]",
+                    "name": "bidderlist",
+                    "type": "tuple[]"
+                }
+            ],
+            "name": "AuctionClosed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "uuid",
+                    "type": "string"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "tokenContract",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "quantity",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "tokenOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "buyer",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "tax",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "paymentToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "marketplaceAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "platformFee",
+                    "type": "uint256"
+                }
+            ],
+            "name": "BuyExecuted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "wrappedNativeToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "platformAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "platformFeePercentage",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "priceFeedAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "adminAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "royaltyRegistryAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "royaltyActive",
+                    "type": "bool"
+                }
+            ],
+            "name": "ConstructorExecuted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "tokenContract",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RoyaltyPayout",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "uuid",
+                    "type": "string"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "tokenContract",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "quantity",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "tokenOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "buyer",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "tax",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "paymentToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "marketplaceAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "platformFee",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SaleExecuted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "UpdateFeePercentage",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isActive",
+                    "type": "bool"
+                }
+            ],
+            "name": "UpdateStatus",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "UpdateAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "UpdatedAddress",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "toAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "WithdrawPayout",
+            "type": "event"
+        },
+        {
+            "stateMutability": "payable",
+            "type": "fallback"
+        },
+        {
+            "inputs": [],
+            "name": "adminAddress",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "string",
+                            "name": "uuid",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "tokenContract",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "quantity",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address payable",
+                            "name": "tokenOwner",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "fixedPrice",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "paymentToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tax",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "whitelistedBuyer",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "quotePrice",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "slippage",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "buyer",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct Marketplace.Order",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "sellerSignature",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "address",
+                    "name": "payableToken",
+                    "type": "address"
+                }
+            ],
+            "name": "buy",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "string",
+                            "name": "uuid",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "tokenContract",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "quantity",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address payable",
+                            "name": "tokenOwner",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "fixedPrice",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "paymentToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tax",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "whitelistedBuyer",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "quotePrice",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "slippage",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "buyer",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct Marketplace.Order",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "sellerSignature",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "buyerSignature",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "address",
+                    "name": "payableToken",
+                    "type": "address"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "bidder",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "quotePrice",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "paymentAddress",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct Marketplace.BidHistory[]",
+                    "name": "bidHistory",
+                    "type": "tuple[]"
+                }
+            ],
+            "name": "executeAuction",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "collectionAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getRoyaltyInfo",
+            "outputs": [
+                {
+                    "internalType": "address payable[]",
+                    "name": "recipients",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "bps",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "platformAddress",
+            "outputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "platformFeePercentage",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "priceFeedAddress",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "royaltyActive",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "royaltyRegistryAddress",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "string",
+                            "name": "uuid",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "tokenContract",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "quantity",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address payable",
+                            "name": "tokenOwner",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "fixedPrice",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "paymentToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tax",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "whitelistedBuyer",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "quotePrice",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "slippage",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "buyer",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct Marketplace.Order",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "buyerSignature",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "expirationTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "receivableToken",
+                    "type": "address"
+                }
+            ],
+            "name": "sell",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_adminAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "updateAdminAddress",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_platformAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "updatePlatformAddress",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_platformFeePercentage",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updatePlatformFeePercentage",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_priceFeedAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "updatePriceFeedAddress",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bool",
+                    "name": "_royaltyStatus",
+                    "type": "bool"
+                }
+            ],
+            "name": "updateRoyaltyActive",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_royaltyRegistryAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "updateRoyaltyRegistryAddress",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_wrappedNativeToken",
+                    "type": "address"
+                }
+            ],
+            "name": "updateWrappedNativeToken",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "withdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "wrappedNativeToken",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "stateMutability": "payable",
+            "type": "receive"
+        }
+    ]
+}

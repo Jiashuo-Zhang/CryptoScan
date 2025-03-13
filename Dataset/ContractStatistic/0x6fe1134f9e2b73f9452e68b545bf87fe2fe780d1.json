@@ -1,0 +1,1197 @@
+{
+    "address": "0x6fe1134f9e2b73f9452e68b545bf87fe2fe780d1",
+    "balance": 0.0,
+    "txNumber": 24,
+    "createdBlockNumber": "18201786",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "_xbetsToken",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "Bet_AmountToSmall",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Bet_Closed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Bet_ContractInsufficientTokens",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Bet_InvalidAddress",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Bet_InvalidId",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Bet_InvalidPrediction",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Bet_InvalidState",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Bet_NotClaimable",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Bet_NotResolved",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Bet_OnlyOnePrediction",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NewOwnerIsZeroAddress",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NoHandoverRequest",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Unauthorized",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "id",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "prediction",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "BetPlaced",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "id",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "winningOutcome",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "BetResolved",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "id",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "BettingClosed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "id",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "BettingOpened",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "id",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Claimed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "pendingOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipHandoverCanceled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "pendingOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipHandoverRequested",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "oldOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "addressToId",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "allIds",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "betUsers",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "bets",
+            "outputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "prediction",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "botAddress",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "cancelOwnershipHandover",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_id",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "claimRewards",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_id",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "closeBetting",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "pendingOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "completeOwnershipHandover",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_id",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "_prediction",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "friendBet",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getAllBets",
+            "outputs": [
+                {
+                    "internalType": "bytes32[]",
+                    "name": "",
+                    "type": "bytes32[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_id",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getAmountToClaim",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_userAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_id",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getAmountToClaimUser",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_id",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getBetData",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "totalBet",
+                            "type": "uint256"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint8",
+                                    "name": "prediction",
+                                    "type": "uint8"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "amount",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct FriendTechBetting.BetInfo[]",
+                            "name": "bets",
+                            "type": "tuple[]"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "address",
+                                    "name": "targetAddress",
+                                    "type": "address"
+                                },
+                                {
+                                    "internalType": "address",
+                                    "name": "otherAddress",
+                                    "type": "address"
+                                },
+                                {
+                                    "internalType": "enum FriendTechBetting.States",
+                                    "name": "state",
+                                    "type": "uint8"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "totalOther",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "totalTarget",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "winningOutcome",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "totalUsersOther",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "totalUsersTarget",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct FriendTechBetting.RoundInfo",
+                            "name": "round",
+                            "type": "tuple"
+                        }
+                    ],
+                    "internalType": "struct FriendTechBetting.ReturnIdData",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getClosedBets",
+            "outputs": [
+                {
+                    "internalType": "bytes32[]",
+                    "name": "",
+                    "type": "bytes32[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_id",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_version",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_outcome",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getTotalBetsForOutcome",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_id",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_version",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "_outcome",
+                    "type": "uint8"
+                }
+            ],
+            "name": "getTotalUserOutcome",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_user",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_id",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getUserOutcomes",
+            "outputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_user",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_id",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_version",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "_outcome",
+                    "type": "uint8"
+                }
+            ],
+            "name": "getUserPredictionForOutcome",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_id",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getUsersBetList",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "id",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "enum FriendTechBetting.States",
+                            "name": "state",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "totalBet",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "prediction",
+                            "type": "uint8"
+                        }
+                    ],
+                    "internalType": "struct FriendTechBetting.ReturnInfo[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "isClosed",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "isOpen",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "latestVersion",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "openBets",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "id",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "enum FriendTechBetting.States",
+                    "name": "state",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "totalBet",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "prediction",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_targetAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_otherAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "openBetting",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "result",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "pendingOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "ownershipHandoverExpiresAt",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "result",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "requestOwnershipHandover",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_winningOutcome",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_id",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "resolveBet",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "roundBettors",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "rounds",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "targetAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "otherAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "enum FriendTechBetting.States",
+                    "name": "state",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "totalOther",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "totalTarget",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "winningOutcome",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "totalUsersOther",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "totalUsersTarget",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_botAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "setBotAddress",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "total",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "totalBetsPlayed",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "totalEarned",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "totalVolume",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_recipient",
+                    "type": "address"
+                }
+            ],
+            "name": "withdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_recipient",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "withdrawStuckTokens",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "xbetsToken",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "stateMutability": "payable",
+            "type": "receive"
+        }
+    ]
+}

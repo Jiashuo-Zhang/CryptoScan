@@ -1,0 +1,1573 @@
+{
+    "address": "0x7c888c0cac0886a4ff6d1a4d26f93bfd9698d618",
+    "balance": 0.0,
+    "txNumber": 51,
+    "createdBlockNumber": "17563480",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ITokenMessenger",
+                    "name": "_cctpTokenMessenger",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IMessageTransmitter",
+                    "name": "_cctpMessageTransmitter",
+                    "type": "address"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "chainId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "domain",
+                            "type": "uint32"
+                        }
+                    ],
+                    "internalType": "struct CircleCctpGateway.ChainDomain[]",
+                    "name": "_chainDomains",
+                    "type": "tuple[]"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_asset",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_variableRepaymentEnabled",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_targetGasReserve",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_processingFeeCollector",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_targetExecutor",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_owner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "_managers",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_addOwnerToManagers",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "AssetMessageError",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "caller",
+                    "type": "address"
+                }
+            ],
+            "name": "CallerGuardError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "DataMessageError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "DomainNotSetError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ExecutorError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ListSizeLimitError",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "NonContractAddressError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "OnlyAssetSpenderError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "OnlyClientError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "OnlyCurrentVaultError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "OnlyManagerError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "OnlyMessageTransmitterError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PeerAddressMismatchError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PeerNotSetError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ProcessingFeeError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ReservedTokenError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "SafeApproveError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "SafeTransferError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "SafeTransferNativeError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "TargetAssetAmountMismatchError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "TargetCallerError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "TargetClientNotSetError",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "sourceChainId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "fromAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "TargetFromAddressError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "TargetGasReserveError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "VariableRepaymentNotEnabledError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "VariableTokenNotSetError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ZeroAddressError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ZeroChainIdError",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "actionId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "targetChainId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bool",
+                    "name": "useTargetExecutor",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint64",
+                    "name": "assetMessageNonce",
+                    "type": "uint64"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint64",
+                    "name": "dataMessageNonce",
+                    "type": "uint64"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "assetAmount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "processingFee",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "processingGas",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                }
+            ],
+            "name": "GatewayActionSource",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Paused",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "chainId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint32",
+                    "name": "domain",
+                    "type": "uint32"
+                }
+            ],
+            "name": "RemoveChainDomain",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "chainId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RemovePeer",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "RenounceManagerRole",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bool",
+                    "name": "value",
+                    "type": "bool"
+                }
+            ],
+            "name": "SetAssetSpender",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "enum CallerGuard.CallerGuardMode",
+                    "name": "callerGuardMode",
+                    "type": "uint8"
+                }
+            ],
+            "name": "SetCallerGuardMode",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "chainId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint32",
+                    "name": "domain",
+                    "type": "uint32"
+                }
+            ],
+            "name": "SetChainDomain",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "clientAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "SetClient",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "contractAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bool",
+                    "name": "isListed",
+                    "type": "bool"
+                }
+            ],
+            "name": "SetListedCallerGuardContract",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bool",
+                    "name": "value",
+                    "type": "bool"
+                }
+            ],
+            "name": "SetManager",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "chainId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "peerAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "SetPeer",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "processingFeeCollector",
+                    "type": "address"
+                }
+            ],
+            "name": "SetProcessingFeeCollector",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "targetExecutor",
+                    "type": "address"
+                }
+            ],
+            "name": "SetTargetExecutor",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "gasReserve",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SetTargetGasReserve",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bool",
+                    "name": "variableRepaymentEnabled",
+                    "type": "bool"
+                }
+            ],
+            "name": "SetVariableRepaymentEnabled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "sourceChainId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TargetCctpMessageFailure",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "TargetClientNotSetFailure",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "TargetExecutionFailure",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "sourceChainId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "fromAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "TargetFromAddressFailure",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "sourceChainId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TargetGasReserveFailure",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "TargetPausedFailure",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Unpaused",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "SYSTEM_VERSION_ID",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "asset",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "assetSpenderCount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "callerGuardMode",
+            "outputs": [
+                {
+                    "internalType": "enum CallerGuard.CallerGuardMode",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "cctpMessageTransmitter",
+            "outputs": [
+                {
+                    "internalType": "contract IMessageTransmitter",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "cctpTokenMessenger",
+            "outputs": [
+                {
+                    "internalType": "contract ITokenMessenger",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "chainIdToDomain",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "isSet",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "checkVariableTokenState",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_tokenAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_tokenAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "cleanup",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "client",
+            "outputs": [
+                {
+                    "internalType": "contract IGatewayClient",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "name": "domainToChainId",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "_assetMessage",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "_assetAttestation",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "_dataMessage",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "_dataAttestation",
+                    "type": "bytes"
+                }
+            ],
+            "name": "executeTarget",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "_assetMessage",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "_assetAttestation",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_to",
+                    "type": "address"
+                }
+            ],
+            "name": "extractCctpAsset",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "fullAssetSpenderList",
+            "outputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "",
+                    "type": "address[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "fullListedCallerGuardContractList",
+            "outputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "",
+                    "type": "address[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "fullManagerList",
+            "outputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "",
+                    "type": "address[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "fullPeerChainIdList",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "_sourceDomain",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_sender",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "_messageBody",
+                    "type": "bytes"
+                }
+            ],
+            "name": "handleReceiveMessage",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_account",
+                    "type": "address"
+                }
+            ],
+            "name": "isAssetSpender",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_account",
+                    "type": "address"
+                }
+            ],
+            "name": "isListedCallerGuardContract",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_account",
+                    "type": "address"
+                }
+            ],
+            "name": "isManager",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_tokenAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "isReservedToken",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "listedCallerGuardContractCount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "listedCallerGuardContractIndexMap",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "isSet",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "listedCallerGuardContractList",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "managerCount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "_settings",
+                    "type": "bytes"
+                }
+            ],
+            "name": "messageFee",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "paused",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "peerChainIdIndexMap",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "isSet",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "peerChainIdList",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "peerCount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "peerMap",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "processingFeeCollector",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "_chainIds",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "removeChainDomains",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "_chainIds",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "removePeers",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceManagerRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_forVariableBalance",
+                    "type": "bool"
+                }
+            ],
+            "name": "requestAsset",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "assetAddress",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_targetChainId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "_message",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "_settings",
+                    "type": "bytes"
+                }
+            ],
+            "name": "sendMessage",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_account",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_value",
+                    "type": "bool"
+                }
+            ],
+            "name": "setAssetSpender",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "enum CallerGuard.CallerGuardMode",
+                    "name": "_callerGuardMode",
+                    "type": "uint8"
+                }
+            ],
+            "name": "setCallerGuardMode",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "chainId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "domain",
+                            "type": "uint32"
+                        }
+                    ],
+                    "internalType": "struct CircleCctpGateway.ChainDomain[]",
+                    "name": "_chainDomains",
+                    "type": "tuple[]"
+                }
+            ],
+            "name": "setChainDomains",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "_clientAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "setClient",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "account",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "flag",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct AccountToFlag[]",
+                    "name": "_items",
+                    "type": "tuple[]"
+                }
+            ],
+            "name": "setListedCallerGuardContracts",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_account",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_value",
+                    "type": "bool"
+                }
+            ],
+            "name": "setManager",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "key",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "value",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct KeyToAddressValue[]",
+                    "name": "_peers",
+                    "type": "tuple[]"
+                }
+            ],
+            "name": "setPeers",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_processingFeeCollector",
+                    "type": "address"
+                }
+            ],
+            "name": "setProcessingFeeCollector",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_targetExecutor",
+                    "type": "address"
+                }
+            ],
+            "name": "setTargetExecutor",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_gasReserve",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setTargetGasReserve",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "targetExecutor",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "targetGasReserve",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_tokenAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "tokenBalance",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "unpause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "variableRepaymentEnabled",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "stateMutability": "payable",
+            "type": "receive"
+        }
+    ]
+}

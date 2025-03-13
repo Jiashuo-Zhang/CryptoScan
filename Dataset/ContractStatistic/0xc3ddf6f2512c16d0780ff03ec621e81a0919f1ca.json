@@ -1,0 +1,821 @@
+{
+    "address": "0xc3ddf6f2512c16d0780ff03ec621e81a0919f1ca",
+    "balance": 0.0,
+    "txNumber": 51,
+    "createdBlockNumber": "17295992",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "gravityBridge",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "swapRouter",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "priceRouter",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "adaptor",
+                    "type": "address"
+                }
+            ],
+            "name": "Registry__AdaptorAlreadyTrusted",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "adaptor",
+                    "type": "address"
+                }
+            ],
+            "name": "Registry__AdaptorNotTrusted",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Registry__ContractNotRegistered",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Registry__IdentifierNotUnique",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Registry__InvalidPositionInput",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Registry__NewOwnerCanNotBeZero",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Registry__OnlyCallableByPendingOwner",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Registry__OnlyCallableByZeroId",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Registry__PositionDoesNotExist",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "position",
+                    "type": "uint32"
+                }
+            ],
+            "name": "Registry__PositionIsNotTrusted",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "position",
+                    "type": "address"
+                }
+            ],
+            "name": "Registry__PositionPricingNotSetUp",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "target",
+                    "type": "address"
+                }
+            ],
+            "name": "Registry__TargetAlreadyPaused",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "target",
+                    "type": "address"
+                }
+            ],
+            "name": "Registry__TargetNotPaused",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Registry__TransitionNotPending",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Registry__TransitionPending",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "oldAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "newAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "AddressChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "depositor",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "state",
+                    "type": "bool"
+                }
+            ],
+            "name": "DepositorOnBehalfChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "OwnerTransitionCancelled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnerTransitionComplete",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "startTime",
+                    "type": "uint256"
+                }
+            ],
+            "name": "OwnerTransitionStarted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "id",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "adaptor",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isDebt",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes",
+                    "name": "adaptorData",
+                    "type": "bytes"
+                }
+            ],
+            "name": "PositionAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newContract",
+                    "type": "address"
+                }
+            ],
+            "name": "Registered",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "target",
+                    "type": "address"
+                }
+            ],
+            "name": "TargetPaused",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "target",
+                    "type": "address"
+                }
+            ],
+            "name": "TargetUnpaused",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "PRICE_ROUTER_REGISTRY_SLOT",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "TRANSITION_PERIOD",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "positionId",
+                    "type": "uint32"
+                }
+            ],
+            "name": "addPositionToCellar",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "adaptor",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isDebt",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "adaptorData",
+                    "type": "bytes"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "approvedForDepositOnBehalf",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "targets",
+                    "type": "address[]"
+                }
+            ],
+            "name": "batchPause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "targets",
+                    "type": "address[]"
+                }
+            ],
+            "name": "batchUnpause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "cancelTransition",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "completeTransition",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "adaptor",
+                    "type": "address"
+                }
+            ],
+            "name": "distrustAdaptor",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "positionId",
+                    "type": "uint32"
+                }
+            ],
+            "name": "distrustPosition",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getAddress",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getPositionHashToPositionId",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "name": "getPositionIdToPositionData",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "adaptor",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isDebt",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "adaptorData",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "configurationData",
+                    "type": "bytes"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "isAdaptorTrusted",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "isCallerPaused",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "isIdentifierUsed",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "name": "isPositionTrusted",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "nextId",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pendingOwner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "positionCount",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newContract",
+                    "type": "address"
+                }
+            ],
+            "name": "register",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "adaptor",
+                    "type": "address"
+                }
+            ],
+            "name": "revertIfAdaptorIsNotTrusted",
+            "outputs": [],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "positionId",
+                    "type": "uint32"
+                }
+            ],
+            "name": "revertIfPositionIsNotTrusted",
+            "outputs": [],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "newAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "setAddress",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "depositor",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "state",
+                    "type": "bool"
+                }
+            ],
+            "name": "setApprovedForDepositOnBehalf",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transitionOwner",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "transitionStart",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "adaptor",
+                    "type": "address"
+                }
+            ],
+            "name": "trustAdaptor",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "adaptor",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "adaptorData",
+                    "type": "bytes"
+                }
+            ],
+            "name": "trustPosition",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "positionId",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

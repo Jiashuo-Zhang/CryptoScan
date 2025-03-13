@@ -1,0 +1,637 @@
+{
+    "address": "0x82e37fe802fbc50280a7d323c946ac7c0bdc34e6",
+    "balance": 0.0,
+    "txNumber": 34,
+    "createdBlockNumber": "16821896",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract ICurve",
+                            "name": "want",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "cvx",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "crv",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct DAOStrategyConvex.StrategyTokens",
+                    "name": "_strategyTokens",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_feeAddress",
+                    "type": "address"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "contract ICurve",
+                            "name": "lp",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "ethIndex",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DAOStrategyConvex.CurveConfig",
+                    "name": "_cvxEth",
+                    "type": "tuple"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "contract ICurve",
+                            "name": "lp",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "ethIndex",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DAOStrategyConvex.CurveConfig",
+                    "name": "_crvEth",
+                    "type": "tuple"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IBooster",
+                            "name": "booster",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IBaseRewardPool",
+                            "name": "baseRewardPool",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "pid",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DAOStrategyConvex.ConvexConfig",
+                    "name": "_convexConfig",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "contract IJPEGIndexStaking",
+                    "name": "_jpegIndexStaking",
+                    "type": "address"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint128",
+                            "name": "numerator",
+                            "type": "uint128"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "denominator",
+                            "type": "uint128"
+                        }
+                    ],
+                    "internalType": "struct RateLib.Rate",
+                    "name": "_performanceFee",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidRate",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "wantEarned",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Harvested",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "previousAdminRole",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "newAdminRole",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "RoleAdminChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                }
+            ],
+            "name": "RoleGranted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                }
+            ],
+            "name": "RoleRevoked",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "DEFAULT_ADMIN_ROLE",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "STRATEGIST_ROLE",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "convexConfig",
+            "outputs": [
+                {
+                    "internalType": "contract IBooster",
+                    "name": "booster",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IBaseRewardPool",
+                    "name": "baseRewardPool",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "pid",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "crvEth",
+            "outputs": [
+                {
+                    "internalType": "contract ICurve",
+                    "name": "lp",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "ethIndex",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "cvxEth",
+            "outputs": [
+                {
+                    "internalType": "contract ICurve",
+                    "name": "lp",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "ethIndex",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "deposit",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "deposit",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "depositedAssets",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "earned",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "feeRecipient",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getRoleAdmin",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "grantRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "minOutETH",
+                    "type": "uint256"
+                }
+            ],
+            "name": "harvest",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "hasRole",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "heldAssets",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "performanceFee",
+            "outputs": [
+                {
+                    "internalType": "uint128",
+                    "name": "numerator",
+                    "type": "uint128"
+                },
+                {
+                    "internalType": "uint128",
+                    "name": "denominator",
+                    "type": "uint128"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "renounceRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "revokeRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_newRecipient",
+                    "type": "address"
+                }
+            ],
+            "name": "setFeeRecipient",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint128",
+                            "name": "numerator",
+                            "type": "uint128"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "denominator",
+                            "type": "uint128"
+                        }
+                    ],
+                    "internalType": "struct RateLib.Rate",
+                    "name": "_performanceFee",
+                    "type": "tuple"
+                }
+            ],
+            "name": "setPerformanceFee",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "strategyTokens",
+            "outputs": [
+                {
+                    "internalType": "contract ICurve",
+                    "name": "want",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IERC20",
+                    "name": "cvx",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IERC20",
+                    "name": "crv",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes4",
+                    "name": "interfaceId",
+                    "type": "bytes4"
+                }
+            ],
+            "name": "supportsInterface",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "totalAssets",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "withdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_asset",
+                    "type": "address"
+                }
+            ],
+            "name": "withdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "withdrawAll",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "stateMutability": "payable",
+            "type": "receive"
+        }
+    ]
+}

@@ -1,0 +1,875 @@
+{
+    "address": "0x545ce2e5b603c260cc6b2d1b78a66404e12590d8",
+    "balance": 0.0,
+    "txNumber": 18,
+    "createdBlockNumber": "17324498",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "asset",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "price",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "maxPrice",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PriceRouter__AssetAboveMaxPrice",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "asset",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "price",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "minPrice",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PriceRouter__AssetBelowMinPrice",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "answer",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "expectedAnswer",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PriceRouter__BadAnswer",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "current",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "upper",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PriceRouter__CurrentAboveUpperBound",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "current",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "lower",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PriceRouter__CurrentBelowLowerBound",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "asset",
+                    "type": "address"
+                }
+            ],
+            "name": "PriceRouter__InvalidAsset",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "maxPrice",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "bufferedMaxPrice",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PriceRouter__InvalidMaxPrice",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "minPrice",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "bufferedMinPrice",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PriceRouter__InvalidMinPrice",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PriceRouter__LengthMismatch",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "min",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "max",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PriceRouter__MinPriceGreaterThanMaxPrice",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PriceRouter__NothingToUpdate",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PriceRouter__OnlyAutomationRegistry",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "asset",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "timeSinceLastUpdate",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "heartbeat",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PriceRouter__StalePrice",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "unkownDerivative",
+                    "type": "uint8"
+                }
+            ],
+            "name": "PriceRouter__UnkownDerivative",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "asset",
+                    "type": "address"
+                }
+            ],
+            "name": "PriceRouter__UnsupportedAsset",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PriceRouter__VirtualPriceRateLimiter",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "asset",
+                    "type": "address"
+                }
+            ],
+            "name": "AddAsset",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "DEFAULT_HEART_BEAT",
+            "outputs": [
+                {
+                    "internalType": "uint24",
+                    "name": "",
+                    "type": "uint24"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "DEFAULT_RATE_LIMIT",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "ETH_FAST_GAS_FEED",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "EXPECTED_ANSWER_DEVIATION",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ERC20",
+                    "name": "_asset",
+                    "type": "address"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint8",
+                            "name": "derivative",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "source",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct PriceRouter.AssetSettings",
+                    "name": "_settings",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "_storage",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_expectedAnswer",
+                    "type": "uint256"
+                }
+            ],
+            "name": "addAsset",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "automationRegistry",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "checkData",
+                    "type": "bytes"
+                }
+            ],
+            "name": "checkUpkeep",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "upkeepNeeded",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "performData",
+                    "type": "bytes"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "curveAssets",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "gasConstant",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "getAaveDerivativeStorage",
+            "outputs": [
+                {
+                    "internalType": "contract ERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "getAssetSettings",
+            "outputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "derivative",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "address",
+                    "name": "source",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "getChainlinkDerivativeStorage",
+            "outputs": [
+                {
+                    "internalType": "uint144",
+                    "name": "max",
+                    "type": "uint144"
+                },
+                {
+                    "internalType": "uint80",
+                    "name": "min",
+                    "type": "uint80"
+                },
+                {
+                    "internalType": "uint24",
+                    "name": "heartbeat",
+                    "type": "uint24"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "inETH",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ERC20",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getCurveDerivativeStorage",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ERC20",
+                    "name": "baseAsset",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract ERC20",
+                    "name": "quoteAsset",
+                    "type": "address"
+                }
+            ],
+            "name": "getExchangeRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "exchangeRate",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ERC20[]",
+                    "name": "baseAssets",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "contract ERC20",
+                    "name": "quoteAsset",
+                    "type": "address"
+                }
+            ],
+            "name": "getExchangeRates",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "exchangeRates",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ERC20",
+                    "name": "asset",
+                    "type": "address"
+                }
+            ],
+            "name": "getPriceInUSD",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ERC20",
+                    "name": "baseAsset",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "contract ERC20",
+                    "name": "quoteAsset",
+                    "type": "address"
+                }
+            ],
+            "name": "getValue",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ERC20[]",
+                    "name": "baseAssets",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "amounts",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "contract ERC20",
+                    "name": "quoteAsset",
+                    "type": "address"
+                }
+            ],
+            "name": "getValues",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ERC20[]",
+                    "name": "baseAssets0",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "amounts0",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "contract ERC20[]",
+                    "name": "baseAssets1",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "amounts1",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "contract ERC20",
+                    "name": "quoteAsset",
+                    "type": "address"
+                }
+            ],
+            "name": "getValuesDelta",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "getVirtualPriceBound",
+            "outputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "datum",
+                    "type": "uint96"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "timeLastUpdated",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "posDelta",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "negDelta",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "rateLimit",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ERC20",
+                    "name": "asset",
+                    "type": "address"
+                }
+            ],
+            "name": "isSupported",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "minDelta",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "performData",
+                    "type": "bytes"
+                }
+            ],
+            "name": "performUpkeep",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newRegistry",
+                    "type": "address"
+                }
+            ],
+            "name": "setAutomationRegistry",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "newConstant",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setGasConstant",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "gasFeed",
+                    "type": "address"
+                }
+            ],
+            "name": "setGasFeed",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "newMinDelta",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setMinDelta",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_asset",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_posDelta",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_negDelta",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_rateLimit",
+                    "type": "uint32"
+                }
+            ],
+            "name": "updateVirtualPriceBound",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

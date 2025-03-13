@@ -1,0 +1,612 @@
+{
+    "address": "0x5b89c34d08404548e6ac559612825c70486a2ed6",
+    "balance": 0.0,
+    "txNumber": 416,
+    "createdBlockNumber": "16833834",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_prizePeriodStart",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_prizePeriodBlocks",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_rngRequestTimeout",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "contract ITulipArt",
+                    "name": "_tulipArt",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract RNGInterface",
+                    "name": "_rng",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_numberOfWinners",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "prizePeriodStart",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "prizePeriodBlocks",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "contract ITulipArt",
+                    "name": "tulipArt",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "contract RNGInterface",
+                    "name": "rng",
+                    "type": "address"
+                }
+            ],
+            "name": "Initialized",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "NoWinners",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "numberOfWinners",
+                    "type": "uint256"
+                }
+            ],
+            "name": "NumberOfWinnersSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint32",
+                    "name": "rngRequestId",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "rngLockBlock",
+                    "type": "uint32"
+                }
+            ],
+            "name": "PrizeLotteryAwardCancelled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint32",
+                    "name": "rngRequestId",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "rngLockBlock",
+                    "type": "uint32"
+                }
+            ],
+            "name": "PrizeLotteryAwardStarted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "prizePeriodStartedAt",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PrizeLotteryOpened",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "prizePeriodBlocks",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PrizePeriodBlocksUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "randomNumber",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PrizePoolAwarded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "RngRequestFailed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "rngRequestTimeout",
+                    "type": "uint32"
+                }
+            ],
+            "name": "RngRequestTimeoutSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "contract RNGInterface",
+                    "name": "rngService",
+                    "type": "address"
+                }
+            ],
+            "name": "RngServiceUpdated",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "currentBlock",
+                    "type": "uint256"
+                }
+            ],
+            "name": "calculateNextPrizePeriodStartBlock",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "canCompleteAward",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "canStartAward",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "cancelAward",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "completeAward",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getLastRngLockBlock",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getLastRngRequestId",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_prizePeriodStart",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_prizePeriodBlocks",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_rngRequestTimeout",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "contract ITulipArt",
+                    "name": "_tulipArt",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract RNGInterface",
+                    "name": "_rng",
+                    "type": "address"
+                }
+            ],
+            "name": "initialize",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "isPrizePeriodOver",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "isRngCompleted",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "isRngRequested",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "isRngTimedOut",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "numberOfWinners",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "prizePeriodBlocks",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "prizePeriodEndAt",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "prizePeriodRemainingBlocks",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "prizePeriodStartedAt",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "rng",
+            "outputs": [
+                {
+                    "internalType": "contract RNGInterface",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "rngRequestTimeout",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_count",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setNumberOfWinners",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_prizePeriodBlocks",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setPrizePeriodBlocks",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "_rngRequestTimeout",
+                    "type": "uint32"
+                }
+            ],
+            "name": "setRngRequestTimeout",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract RNGInterface",
+                    "name": "rngService",
+                    "type": "address"
+                }
+            ],
+            "name": "setRngService",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "startAward",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "tulipArt",
+            "outputs": [
+                {
+                    "internalType": "contract ITulipArt",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+}

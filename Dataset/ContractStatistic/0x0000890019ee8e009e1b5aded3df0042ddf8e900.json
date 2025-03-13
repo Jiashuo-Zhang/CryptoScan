@@ -1,0 +1,1459 @@
+{
+    "address": "0x0000890019ee8e009e1b5aded3df0042ddf8e900",
+    "balance": 0.0,
+    "txNumber": 40,
+    "createdBlockNumber": "18628566",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IWETH",
+                    "name": "weth",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract ISignatureTransfer",
+                    "name": "permit2",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "FillOrderCallFailed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidNonce",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidPermitLength",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "OrderExpired",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "EIP712DomainChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "orderHash",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "OrderFilled",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "DOMAIN_SEPARATOR",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "expiryFlagsAndNonce",
+                    "type": "uint256"
+                }
+            ],
+            "name": "decodeExpiryFlagsAndNonce",
+            "outputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "expiry",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isFloatingTxOrigin",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "nonceBucket",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "nonce",
+                    "type": "uint64"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "makerAmountAndTakerAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "decodeMakerAmountAndTakerAmount",
+            "outputs": [
+                {
+                    "internalType": "uint128",
+                    "name": "makerAmount",
+                    "type": "uint128"
+                },
+                {
+                    "internalType": "uint128",
+                    "name": "takerAmount",
+                    "type": "uint128"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "eip712Domain",
+            "outputs": [
+                {
+                    "internalType": "bytes1",
+                    "name": "fields",
+                    "type": "bytes1"
+                },
+                {
+                    "internalType": "string",
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "version",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "chainId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "verifyingContract",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "salt",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "extensions",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "vs",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "encodeConventionalPermit",
+            "outputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "permit",
+                    "type": "bytes"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "nonce",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "vs",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "encodeDaiPermit",
+            "outputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "permit",
+                    "type": "bytes"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "expiry",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isFloatingTxOrigin",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "nonceBucket",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "nonce",
+                    "type": "uint64"
+                }
+            ],
+            "name": "encodeExpiryFlagsAndNonce",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "expiryFlagsAndNonce",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint128",
+                    "name": "makerAmount",
+                    "type": "uint128"
+                },
+                {
+                    "internalType": "uint128",
+                    "name": "takerAmount",
+                    "type": "uint128"
+                }
+            ],
+            "name": "encodeMakerAmountAndTakerAmount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "makerAmountAndTakerAmount",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "txOriginOrMsgSender",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "nonceBucket",
+                    "type": "uint64"
+                }
+            ],
+            "name": "encodeNonceKey",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "key",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "signature",
+                    "type": "bytes"
+                }
+            ],
+            "name": "encodePermitWithBytesSignature",
+            "outputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "permit",
+                    "type": "bytes"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract INativeMetaTransaction",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "functionSignature",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "vs",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "fillOrderCalldata",
+                    "type": "bytes"
+                }
+            ],
+            "name": "executeMetaTransactionAndFillOrder_9fa5349",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "makerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "takerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmountAndTakerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.Order",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "vs",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "permit",
+                    "type": "bytes"
+                }
+            ],
+            "name": "fillOrder2612_28aac12",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "takerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmountAndTakerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.OrderForEth",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "vs",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "permit",
+                    "type": "bytes"
+                }
+            ],
+            "name": "fillOrderForEth2612_df9e901",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "takerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmountAndTakerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.OrderForEth",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "vs",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "permitNonce",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "permitSignature",
+                    "type": "bytes"
+                }
+            ],
+            "name": "fillOrderForEthPermit2_9290ce1",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "takerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmountAndTakerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "platformFeeReceiver",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "platformFee",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.OrderForEthWithFee",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "vs",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "permit",
+                    "type": "bytes"
+                }
+            ],
+            "name": "fillOrderForEthWithFee2612_77c98eb",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "takerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmountAndTakerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "platformFeeReceiver",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "platformFee",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.OrderForEthWithFee",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "vs",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "permitNonce",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "permitSignature",
+                    "type": "bytes"
+                }
+            ],
+            "name": "fillOrderForEthWithFeePermit2_1999ef4",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "takerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmountAndTakerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "platformFeeReceiver",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "platformFee",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.OrderForEthWithFee",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "vs",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "fillOrderForEthWithFee_4ab6832",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "takerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmountAndTakerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.OrderForEth",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "vs",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "fillOrderForEth_5ec836",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "makerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "takerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmountAndTakerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.Order",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "vs",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "permitNonce",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "permitSignature",
+                    "type": "bytes"
+                }
+            ],
+            "name": "fillOrderPermit2_a021f41",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "makerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "platformFeeReceiver",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "platformFee",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.OrderWithEthWithFee",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "vs",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "fillOrderWithEthWithFee_2207618",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "makerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.OrderWithEth",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "vs",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "fillOrderWithEth_5cbdfc3",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "makerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "takerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmountAndTakerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "platformFeeReceiver",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "platformFee",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.OrderWithFee",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "vs",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "permit",
+                    "type": "bytes"
+                }
+            ],
+            "name": "fillOrderWithFee2612_12881c26",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "makerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "takerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmountAndTakerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "platformFeeReceiver",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "platformFee",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.OrderWithFee",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "vs",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "permitNonce",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "permitSignature",
+                    "type": "bytes"
+                }
+            ],
+            "name": "fillOrderWithFeePermit2_a32aaff",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "makerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "takerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmountAndTakerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "platformFeeReceiver",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "platformFee",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.OrderWithFee",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "vs",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "fillOrderWithFee_16fcd5ca",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "makerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "takerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmountAndTakerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.Order",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "vs",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "fillOrder_18cabc5d",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getPermit2",
+            "outputs": [
+                {
+                    "internalType": "contract ISignatureTransfer",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getWETH",
+            "outputs": [
+                {
+                    "internalType": "contract IWETH",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "makerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "takerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmountAndTakerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.Order",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "address",
+                    "name": "txOrigin",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "taker",
+                    "type": "address"
+                }
+            ],
+            "name": "hashOrder",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "takerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmountAndTakerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.OrderForEth",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "address",
+                    "name": "txOrigin",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "taker",
+                    "type": "address"
+                }
+            ],
+            "name": "hashOrderForEth",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "takerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmountAndTakerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "platformFeeReceiver",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "platformFee",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.OrderForEthWithFee",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "address",
+                    "name": "txOrigin",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "taker",
+                    "type": "address"
+                }
+            ],
+            "name": "hashOrderForEthWithFee",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "makerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.OrderWithEth",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "address",
+                    "name": "txOrigin",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "taker",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "takerAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "hashOrderWithEth",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "makerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "platformFeeReceiver",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "platformFee",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.OrderWithEthWithFee",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "address",
+                    "name": "txOrigin",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "taker",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "takerAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "hashOrderWithEthWithFee",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "makerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "takerToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "makerAmountAndTakerAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "expiryFlagsAndNonce",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "platformFeeReceiver",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "platformFee",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DFlowSwap.OrderWithFee",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "address",
+                    "name": "txOrigin",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "taker",
+                    "type": "address"
+                }
+            ],
+            "name": "hashOrderWithFee",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "addressAndNonceBucket",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "orderNonces",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "nonce",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "stateMutability": "payable",
+            "type": "receive"
+        }
+    ]
+}

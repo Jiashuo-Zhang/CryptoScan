@@ -1,0 +1,869 @@
+{
+    "address": "0xa15aaf6987a8e60c0a00ef81fdf10012859878bc",
+    "balance": 0.0,
+    "txNumber": 55,
+    "createdBlockNumber": "17722427",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "trustedForwarder_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "policyManager_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "maximumConsentPeriod_",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "module",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "method",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "reason",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "context",
+                    "type": "string"
+                }
+            ],
+            "name": "Bytes32SetConsistency",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "reason",
+                    "type": "string"
+                }
+            ],
+            "name": "Unacceptable",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                },
+                {
+                    "internalType": "string",
+                    "name": "module",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "method",
+                    "type": "string"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "string",
+                    "name": "reason",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "context",
+                    "type": "string"
+                }
+            ],
+            "name": "Unauthorized",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "admin",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "trustedForwarder_",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "policyManager_",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "maximumConsentPeriod",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Deployed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "revocationDeadline",
+                    "type": "uint256"
+                }
+            ],
+            "name": "GrantDegradedServiceConsent",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "RevokeDegradedServiceConsent",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "previousAdminRole",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "newAdminRole",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "RoleAdminChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                }
+            ],
+            "name": "RoleGranted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                }
+            ],
+            "name": "RoleRevoked",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "merkleRoot",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "birthday",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SetMerkleRootBirthday",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "admin",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint32",
+                    "name": "policyId",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "degradationPeriod",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "degradationFreshness",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SetPolicyParameters",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "DEFAULT_ADMIN_ROLE",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "ROLE_AGGREGATOR",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "ROLE_SERVICE_SUPERVISOR",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "observer",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "subject",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "policyId",
+                    "type": "uint32"
+                }
+            ],
+            "name": "canMitigate",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "canIndeed",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "observer",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "merkleRoot",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "admissionPolicyId",
+                    "type": "uint32"
+                }
+            ],
+            "name": "checkRoot",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "passed",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "defaultDegradationPeriod",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "defaultFreshnessPeriod",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "policyId",
+                    "type": "uint32"
+                }
+            ],
+            "name": "degradationFreshness",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "inSeconds",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "policyId",
+                    "type": "uint32"
+                }
+            ],
+            "name": "degradationPeriod",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "inSeconds",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getRoleAdmin",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "revocationDeadline",
+                    "type": "uint256"
+                }
+            ],
+            "name": "grantDegradedServiceConsent",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "grantRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "hasRole",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "policyId",
+                    "type": "uint32"
+                }
+            ],
+            "name": "isDegraded",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "isIndeed",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "merkleRoot",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "isMerkleRoot",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "isIndeed",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "subject",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "policyId",
+                    "type": "uint32"
+                }
+            ],
+            "name": "isMitigationQualified",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "qualifies",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "forwarder",
+                    "type": "address"
+                }
+            ],
+            "name": "isTrustedForwarder",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "lastUpdate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "latestRoot",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "root",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "maximumConsentPeriod",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "index",
+                    "type": "uint256"
+                }
+            ],
+            "name": "merkleRootAtIndex",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "merkleRoot",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "merkleRootCount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "count",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "policyId",
+                    "type": "uint32"
+                }
+            ],
+            "name": "mitigationCutoff",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "cutoffTime",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "policyManager",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "renounceRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "revokeMitigationConsent",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "revokeRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "merkleRoot",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "birthday",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setMerkleRootBirthday",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "policyId",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "degradationPeriod_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "degradationFreshness_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setPolicyParameters",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "subjectUpdates",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes4",
+                    "name": "",
+                    "type": "bytes4"
+                }
+            ],
+            "name": "supportsInterface",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "userConsentDeadlines",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "userConsentsToMitigation",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "doesIndeed",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+}

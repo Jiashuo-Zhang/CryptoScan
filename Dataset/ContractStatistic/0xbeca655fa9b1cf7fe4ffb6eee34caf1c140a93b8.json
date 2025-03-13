@@ -1,0 +1,1042 @@
+{
+    "address": "0xbeca655fa9b1cf7fe4ffb6eee34caf1c140a93b8",
+    "balance": 0.0,
+    "txNumber": 10,
+    "createdBlockNumber": "15038359",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_owner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_configurator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_finalizer",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IWhitelist",
+                    "name": "_whitelist",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IERC20",
+                    "name": "_biddingToken",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "contract IERC721",
+                    "name": "nft",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "nftId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "start",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "deadline",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint128",
+                    "name": "minBid",
+                    "type": "uint128"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "timeout",
+                    "type": "uint32"
+                }
+            ],
+            "name": "AuctionAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "contract IERC721",
+                    "name": "nft",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "nftId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "start",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Bid",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "contract IERC721",
+                    "name": "nft",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "nftId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "start",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Claimed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "contract IERC721",
+                    "name": "nft",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "nftId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "start",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "deadline",
+                    "type": "uint32"
+                }
+            ],
+            "name": "DeadlineExtended",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "contract IERC721",
+                    "name": "nft",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "nftId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "start",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "winner",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "winnerBid",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Finalized",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "contract IERC721",
+                    "name": "nft",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "nftId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "start",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint128",
+                    "name": "minBid",
+                    "type": "uint128"
+                }
+            ],
+            "name": "MinBidUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "previousAdminRole",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "newAdminRole",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "RoleAdminChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                }
+            ],
+            "name": "RoleGranted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                }
+            ],
+            "name": "RoleRevoked",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TokensRecovered",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Withdrawn",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "BID_DEADLINE_EXTENSION",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "CONFIG_ROLE",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "DEFAULT_ADMIN_ROLE",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "FINALIZE_ROLE",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "MAX_AUCTION_LENGTH",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC721",
+                    "name": "_nft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_nftId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_start",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_deadline",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint128",
+                    "name": "_minBid",
+                    "type": "uint128"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_finalizeTimeout",
+                    "type": "uint32"
+                }
+            ],
+            "name": "addAuction",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC721",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "name": "bid",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC721",
+                    "name": "_nft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_nftId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_start",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "bidToken",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "biddingToken",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC721",
+                    "name": "_nft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_nftId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_start",
+                    "type": "uint32"
+                }
+            ],
+            "name": "claim",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC721",
+                    "name": "_nft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_nftId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_start",
+                    "type": "uint32"
+                }
+            ],
+            "name": "claimAndWithdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC721",
+                    "name": "_nft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_nftId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_start",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "_users",
+                    "type": "address[]"
+                }
+            ],
+            "name": "claimAndWithdrawFor",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC721",
+                    "name": "_nft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_nftId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_start",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_user",
+                    "type": "address"
+                }
+            ],
+            "name": "claimFor",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC721",
+                    "name": "_nft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_nftId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_start",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_winner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "_payoutAddresses",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_payoutAddressValues",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "finalize",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC721",
+                    "name": "_nft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_nftId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_start",
+                    "type": "uint32"
+                }
+            ],
+            "name": "getAuction",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint128",
+                            "name": "minBid",
+                            "type": "uint128"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "deadline",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "finalizeTimeout",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "finalized",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct PropyAuctionV2.Auction",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC721",
+                    "name": "_nft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_nftId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_start",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_bidder",
+                    "type": "address"
+                }
+            ],
+            "name": "getBid",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getRoleAdmin",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "grantRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "hasRole",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC721",
+                    "name": "_nft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_nftId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_start",
+                    "type": "uint32"
+                }
+            ],
+            "name": "isDone",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "_token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_destination",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "recoverTokens",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "renounceRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "revokeRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes4",
+                    "name": "interfaceId",
+                    "type": "bytes4"
+                }
+            ],
+            "name": "supportsInterface",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "unclaimed",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC721",
+                    "name": "_nft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_nftId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_start",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_deadline",
+                    "type": "uint32"
+                }
+            ],
+            "name": "updateDeadline",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC721",
+                    "name": "_nft",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_nftId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_start",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint128",
+                    "name": "_minBid",
+                    "type": "uint128"
+                }
+            ],
+            "name": "updateMinBid",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "whitelist",
+            "outputs": [
+                {
+                    "internalType": "contract IWhitelist",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "withdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_user",
+                    "type": "address"
+                }
+            ],
+            "name": "withdrawFor",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

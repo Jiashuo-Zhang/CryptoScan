@@ -1,0 +1,962 @@
+{
+    "address": "0xeac11bc0388a6bd2262a1826d5cbb758a800e298",
+    "balance": 0.0,
+    "txNumber": 53,
+    "createdBlockNumber": "18981620",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC721A",
+                    "name": "_erc721Address",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IERC20",
+                    "name": "_erc20Address",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_rates",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "_merkleRoots",
+                    "type": "bytes32[]"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "NonZeroValue",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TokenNonExistent",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TokenNotOwned",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "TokensBonded",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "UnbondingInProgress",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "person",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint16[]",
+                    "name": "tokenIds",
+                    "type": "uint16[]"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "claimedAt",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ClaimedRewards",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "person",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint16[]",
+                    "name": "tokenIds",
+                    "type": "uint16[]"
+                }
+            ],
+            "name": "Deposit",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "person",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint16[]",
+                    "name": "tokenIds",
+                    "type": "uint16[]"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "claimedAt",
+                    "type": "uint256"
+                }
+            ],
+            "name": "FailedToClaimRewards",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "person",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint16[]",
+                    "name": "tokenIndexes",
+                    "type": "uint16[]"
+                }
+            ],
+            "name": "Withdraw",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "person",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint16[]",
+                    "name": "tokenIndexes",
+                    "type": "uint16[]"
+                }
+            ],
+            "name": "WithdrawRequested",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint16[]",
+                    "name": "tokenIndexes",
+                    "type": "uint16[]"
+                }
+            ],
+            "name": "WithdrawalCancelled",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "LOCKING_PERIOD",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "UNBONDING_PERCENTAGE",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "calculateCombinedEmissionRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "rate",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "calculateRewards",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "rewards",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "cancelWithdrawal",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "chargeSunset",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "charged",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "claimedAt",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "combinedEmissionRate",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "charges",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "claimedAt",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "combinedEmissionRate",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint16[]",
+                            "name": "tokenIds",
+                            "type": "uint16[]"
+                        }
+                    ],
+                    "internalType": "struct ChargedPosition",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "claimRewards",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "contractURI",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16[]",
+                    "name": "tokenIds",
+                    "type": "uint16[]"
+                },
+                {
+                    "internalType": "uint8[]",
+                    "name": "rarities",
+                    "type": "uint8[]"
+                },
+                {
+                    "internalType": "bytes32[][]",
+                    "name": "proofs",
+                    "type": "bytes32[][]"
+                }
+            ],
+            "name": "deposit",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "rewards",
+                    "type": "uint256"
+                }
+            ],
+            "name": "emergencyRecalculateRewards",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16[]",
+                    "name": "tokenIds",
+                    "type": "uint16[]"
+                }
+            ],
+            "name": "emergencyWithdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "charger",
+                    "type": "address"
+                }
+            ],
+            "name": "emergencyWithdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "erc20Address",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "erc721Address",
+            "outputs": [
+                {
+                    "internalType": "contract IERC721A",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "tokenId",
+                    "type": "uint16"
+                }
+            ],
+            "name": "findRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "rate",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "getTotalChargedTokens",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "totalCharged",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "",
+                    "type": "bytes"
+                }
+            ],
+            "name": "onERC721Received",
+            "outputs": [
+                {
+                    "internalType": "bytes4",
+                    "name": "",
+                    "type": "bytes4"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "users",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "uint16[][]",
+                    "name": "tokenIds",
+                    "type": "uint16[][]"
+                },
+                {
+                    "internalType": "uint8[][]",
+                    "name": "rarities",
+                    "type": "uint8[][]"
+                }
+            ],
+            "name": "ownerDeposit",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pauseTokenEmissions",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "rarity",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16[]",
+                    "name": "tokenIndexes",
+                    "type": "uint16[]"
+                }
+            ],
+            "name": "requestWithdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "rewardRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16[]",
+                    "name": "_tokenIds",
+                    "type": "uint16[]"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_rarity",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setBatchRarity",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_chargeSunset",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setChargeSunset",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC721A",
+                    "name": "_newErc721Address",
+                    "type": "address"
+                }
+            ],
+            "name": "setERC721Address",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_emissionCurve",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setEmissionCurve",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "_newErc20Address",
+                    "type": "address"
+                }
+            ],
+            "name": "setErc20Address",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_lockingPeriod",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setLockingPeriod",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32[]",
+                    "name": "_merkleRoots",
+                    "type": "bytes32[]"
+                }
+            ],
+            "name": "setMerkleRoots",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_rarity",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setRarity",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "_rates",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "setRewardRate",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_tokenAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "setTokenAddress",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "toggleEmissions",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "id",
+                    "type": "uint16"
+                }
+            ],
+            "name": "tokenRarity",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "rarityIndex",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "tokensOfOwner",
+            "outputs": [
+                {
+                    "internalType": "uint16[]",
+                    "name": "tokenIds",
+                    "type": "uint16[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "index",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "rate",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updateRewardRate",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "withdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "withdrawInfo",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint16[]",
+                            "name": "tokenIndexes",
+                            "type": "uint16[]"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "unlockTimestamp",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct WithdrawRequest",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "withdrawTokens",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "withdraws",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "unlockTimestamp",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+}

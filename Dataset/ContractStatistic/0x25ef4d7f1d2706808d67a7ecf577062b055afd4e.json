@@ -1,0 +1,403 @@
+{
+    "address": "0x25ef4d7f1d2706808d67a7ecf577062b055afd4e",
+    "balance": 0.9809,
+    "txNumber": 84,
+    "createdBlockNumber": "16230271",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "scapes",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "twentySevenYearScapes",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint128",
+                    "name": "startingPrice",
+                    "type": "uint128"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "bidBasisIncrease",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "biddingGracePeriod",
+                    "type": "uint64"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "scapeId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "endTimestamp",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionExtended",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "scapeId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "bid",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "message",
+                    "type": "string"
+                }
+            ],
+            "name": "Bid",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "scapeId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "message",
+                    "type": "string"
+                }
+            ],
+            "name": "bid",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "scapeId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "cid",
+                    "type": "string"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "signature",
+                    "type": "bytes"
+                }
+            ],
+            "name": "claim",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "currentBidBasisIncrease",
+            "outputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "",
+                    "type": "uint64"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "scapeId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "currentBidPrice",
+            "outputs": [
+                {
+                    "internalType": "uint128",
+                    "name": "",
+                    "type": "uint128"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "currentBiddingGracePeriod",
+            "outputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "",
+                    "type": "uint64"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "currentStartingPrice",
+            "outputs": [
+                {
+                    "internalType": "uint128",
+                    "name": "",
+                    "type": "uint128"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "scapeId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getAuction",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "latestBidder",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint128",
+                    "name": "latestBid",
+                    "type": "uint128"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "endTimestamp",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "settled",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "rewardsClaimed",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_address",
+                    "type": "address"
+                }
+            ],
+            "name": "getFailedBidBalance",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "scapeId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "endTimestamp",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "signature",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "string",
+                    "name": "message",
+                    "type": "string"
+                }
+            ],
+            "name": "initializeAuction",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "bidBasisIncrease",
+                    "type": "uint64"
+                }
+            ],
+            "name": "setBidBasisIncrease",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "biddingGracePeriod",
+                    "type": "uint64"
+                }
+            ],
+            "name": "setBiddingGracePeriod",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "signer_",
+                    "type": "address"
+                }
+            ],
+            "name": "setSigner",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint128",
+                    "name": "startingPrice",
+                    "type": "uint128"
+                }
+            ],
+            "name": "setStartingPrice",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "scapeIDs",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "withdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "withdrawFailedBidBalance",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

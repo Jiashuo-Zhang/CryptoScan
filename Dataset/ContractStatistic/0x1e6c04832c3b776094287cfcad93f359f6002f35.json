@@ -1,0 +1,2647 @@
+{
+    "address": "0x1e6c04832c3b776094287cfcad93f359f6002f35",
+    "balance": 1.2221,
+    "txNumber": 49,
+    "createdBlockNumber": "18731044",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "defaultAdmin_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "defaultToken_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "vipContract_",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "bidAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "requiredBidAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionBidAmountInsufficient",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "bidAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "transactionValue",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionBidAmountNotEqualValue",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "AuctionBidAmountZero",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "bidAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "minimumBidAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionBidBelowMinimum",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "AuctionBufferBpsExceedsMax",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "AuctionDoesNotExist",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "numberOfBids",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionHasBids",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "AuctionHasEnded",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "AuctionHasNoBids",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "AuctionNotActive",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "endTimestamp",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "currentTimestamp",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionNotEnded",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "startTimestamp",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "currentTimestamp",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionNotStarted",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "AuctionPreviousBidRefundRejected",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "AuctionQueryInvalidRange",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "highestBidAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserveBidAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionReserveNotMet",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "highestBidAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserveBidAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionReserveWasMet",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "startTimestamp",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "endTimestamp",
+                    "type": "uint32"
+                }
+            ],
+            "name": "AuctionStartAfterEnd",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "FinanceRoleRequired",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ListingDoesNotExist",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "expectedTotalPrice",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "transactionValue",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ListingExpectedPriceNotEqualValue",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ListingHasEnded",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "requestedQuantity",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "availableQuantity",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ListingInsufficientQuantity",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ListingNotEnabled",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "pubStartTimestamp",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "endTimestamp",
+                    "type": "uint32"
+                }
+            ],
+            "name": "ListingPubStartAfterEnd",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "expectedTotalPrice",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "actualTotalPrice",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ListingPublicExpectedPriceInvalid",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "purchases",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "limit",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ListingPublicLimitExceeded",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "publicStartTime",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "currentTimestamp",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ListingPublicSaleNotStarted",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "quantity",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "purchased",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ListingPurchasesExceedsQuantity",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "reserve",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "purchased",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ListingPurchasesExceedsReserve",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ListingQueryInvalidRange",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "reserved",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "quantity",
+                    "type": "uint16"
+                }
+            ],
+            "name": "ListingReserveExceedsQuantity",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "expectedTotalPrice",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "actualTotalPrice",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ListingVipExpectedPriceInvalid",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "purchases",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "limit",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ListingVipLimitExceeded",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "requestedQuantity",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "availableQuantity",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ListingVipReserveExceeded",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "vipStartTime",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "currentTimestamp",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ListingVipSaleNotStarted",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "vipStartTimestamp",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "pubStartTimestamp",
+                    "type": "uint32"
+                }
+            ],
+            "name": "ListingVipStartAfterPubStart",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ManagerRoleRequired",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "requested",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "available",
+                    "type": "uint256"
+                }
+            ],
+            "name": "WithdrawalInsufficientBalance",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "WithdrawalRecipientNotApproved",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "WithdrawalRecipientRejectedTransfer",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint56",
+                            "name": "productId",
+                            "type": "uint56"
+                        },
+                        {
+                            "internalType": "enum IProductMarket.AuctionStatus",
+                            "name": "status",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "startTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "endTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "bidBufferBps",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "timeBufferSeconds",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "minimumBidAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "reserveBidAmount",
+                            "type": "uint256"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct IProductMarket.Auction",
+                    "name": "auction",
+                    "type": "tuple"
+                }
+            ],
+            "name": "AuctionAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionCancelled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "bidder",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "bidAmount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "productId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "tokenAwarded",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "bidRefunded",
+                    "type": "bool"
+                }
+            ],
+            "name": "AuctionClosed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "tokenContract",
+                    "type": "address"
+                }
+            ],
+            "name": "AuctionContract",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint56",
+                            "name": "productId",
+                            "type": "uint56"
+                        },
+                        {
+                            "internalType": "enum IProductMarket.AuctionStatus",
+                            "name": "status",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "startTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "endTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "bidBufferBps",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "timeBufferSeconds",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "minimumBidAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "reserveBidAmount",
+                            "type": "uint256"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct IProductMarket.Auction",
+                    "name": "auction",
+                    "type": "tuple"
+                }
+            ],
+            "name": "AuctionUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "IncomeWithdrawal",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "listingId",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint24",
+                            "name": "productId",
+                            "type": "uint24"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "enabled",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "quantity",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "reserved",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "vipLimit",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "pubLimit",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "vipPrice",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "pubPrice",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "endTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "vipStartTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "pubStartTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "resPurchased",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "vipPurchased",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "pubPurchased",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint72",
+                            "name": "vipIncome",
+                            "type": "uint72"
+                        },
+                        {
+                            "internalType": "uint72",
+                            "name": "pubIncome",
+                            "type": "uint72"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct IProductMarket.Listing",
+                    "name": "listing",
+                    "type": "tuple"
+                }
+            ],
+            "name": "ListingAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "listingId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "tokenContract",
+                    "type": "address"
+                }
+            ],
+            "name": "ListingContract",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "listingId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bool",
+                    "name": "enabled",
+                    "type": "bool"
+                }
+            ],
+            "name": "ListingEnabled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "listingId",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint24",
+                            "name": "productId",
+                            "type": "uint24"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "enabled",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "quantity",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "reserved",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "vipLimit",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "pubLimit",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "vipPrice",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "pubPrice",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "endTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "vipStartTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "pubStartTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "resPurchased",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "vipPurchased",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "pubPurchased",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint72",
+                            "name": "vipIncome",
+                            "type": "uint72"
+                        },
+                        {
+                            "internalType": "uint72",
+                            "name": "pubIncome",
+                            "type": "uint72"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct IProductMarket.Listing",
+                    "name": "listing",
+                    "type": "tuple"
+                }
+            ],
+            "name": "ListingUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "bidder",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "bidAmount",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint56",
+                            "name": "productId",
+                            "type": "uint56"
+                        },
+                        {
+                            "internalType": "enum IProductMarket.AuctionStatus",
+                            "name": "status",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "startTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "endTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "bidBufferBps",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "timeBufferSeconds",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "minimumBidAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "reserveBidAmount",
+                            "type": "uint256"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct IProductMarket.Auction",
+                    "name": "auction",
+                    "type": "tuple"
+                }
+            ],
+            "name": "NewBid",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "listingId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "buyer",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "productId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "quantity",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "price",
+                    "type": "uint256"
+                }
+            ],
+            "name": "NewSale",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "previousAdminRole",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "newAdminRole",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "RoleAdminChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                }
+            ],
+            "name": "RoleGranted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                }
+            ],
+            "name": "RoleRevoked",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bool",
+                    "name": "approved",
+                    "type": "bool"
+                }
+            ],
+            "name": "WithdrawalRecipientApproved",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "DEFAULT_ADMIN_ROLE",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "ENV",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "FINANCE_ROLE",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "MANAGER_ROLE",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "VER",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_recipient",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_approved",
+                    "type": "bool"
+                }
+            ],
+            "name": "approveWithdrawalRecipient",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_bidAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "bidInAuction",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_listingId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_buyFor",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_quantity",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_expectedTotalPrice",
+                    "type": "uint256"
+                }
+            ],
+            "name": "buyFromListing",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_auctionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "cancelAuction",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_auctionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "closeAuction",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint56",
+                            "name": "productId",
+                            "type": "uint56"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "startTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "endTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "bidBufferBps",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "timeBufferSeconds",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "minimumBidAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "reserveBidAmount",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct IProductMarket.AuctionParams",
+                    "name": "_params",
+                    "type": "tuple"
+                }
+            ],
+            "name": "createAuction",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint24",
+                            "name": "productId",
+                            "type": "uint24"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "quantity",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "reserved",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "vipLimit",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "pubLimit",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "vipPrice",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "pubPrice",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "endTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "vipStartTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "pubStartTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "enabled",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct IProductMarket.ListingParams",
+                    "name": "_params",
+                    "type": "tuple"
+                }
+            ],
+            "name": "createListing",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "listingId",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_listingId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_enabled",
+                    "type": "bool"
+                }
+            ],
+            "name": "enableListing",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_bidder",
+                    "type": "address"
+                }
+            ],
+            "name": "getAddressBids",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint64",
+                            "name": "auctionId",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "bidTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "bidder",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "bidAmount",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct IProductMarket.Bid[]",
+                    "name": "_bids",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_startId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_endId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getAllAuctions",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "auctionId",
+                            "type": "uint256"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint56",
+                                    "name": "productId",
+                                    "type": "uint56"
+                                },
+                                {
+                                    "internalType": "enum IProductMarket.AuctionStatus",
+                                    "name": "status",
+                                    "type": "uint8"
+                                },
+                                {
+                                    "internalType": "uint32",
+                                    "name": "startTimestamp",
+                                    "type": "uint32"
+                                },
+                                {
+                                    "internalType": "uint32",
+                                    "name": "endTimestamp",
+                                    "type": "uint32"
+                                },
+                                {
+                                    "internalType": "uint64",
+                                    "name": "bidBufferBps",
+                                    "type": "uint64"
+                                },
+                                {
+                                    "internalType": "uint64",
+                                    "name": "timeBufferSeconds",
+                                    "type": "uint64"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "minimumBidAmount",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "reserveBidAmount",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct IProductMarket.Auction",
+                            "name": "auctionData",
+                            "type": "tuple"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint64",
+                                    "name": "auctionId",
+                                    "type": "uint64"
+                                },
+                                {
+                                    "internalType": "uint32",
+                                    "name": "bidTimestamp",
+                                    "type": "uint32"
+                                },
+                                {
+                                    "internalType": "address",
+                                    "name": "bidder",
+                                    "type": "address"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "bidAmount",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct IProductMarket.Bid",
+                            "name": "winningBid",
+                            "type": "tuple"
+                        }
+                    ],
+                    "internalType": "struct IProductMarket.AuctionQuery[]",
+                    "name": "_allAuctions",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_startId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_endId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getAllListings",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "listingId",
+                            "type": "uint256"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint24",
+                                    "name": "productId",
+                                    "type": "uint24"
+                                },
+                                {
+                                    "internalType": "uint8",
+                                    "name": "enabled",
+                                    "type": "uint8"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "quantity",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "reserved",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "vipLimit",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "pubLimit",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint64",
+                                    "name": "vipPrice",
+                                    "type": "uint64"
+                                },
+                                {
+                                    "internalType": "uint64",
+                                    "name": "pubPrice",
+                                    "type": "uint64"
+                                },
+                                {
+                                    "internalType": "uint32",
+                                    "name": "endTimestamp",
+                                    "type": "uint32"
+                                },
+                                {
+                                    "internalType": "uint32",
+                                    "name": "vipStartTimestamp",
+                                    "type": "uint32"
+                                },
+                                {
+                                    "internalType": "uint32",
+                                    "name": "pubStartTimestamp",
+                                    "type": "uint32"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "resPurchased",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "vipPurchased",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "pubPurchased",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint72",
+                                    "name": "vipIncome",
+                                    "type": "uint72"
+                                },
+                                {
+                                    "internalType": "uint72",
+                                    "name": "pubIncome",
+                                    "type": "uint72"
+                                }
+                            ],
+                            "internalType": "struct IProductMarket.Listing",
+                            "name": "listingData",
+                            "type": "tuple"
+                        }
+                    ],
+                    "internalType": "struct IProductMarket.ListingQuery[]",
+                    "name": "_allListings",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_productId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getAllProductAuctions",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "auctionId",
+                            "type": "uint256"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint56",
+                                    "name": "productId",
+                                    "type": "uint56"
+                                },
+                                {
+                                    "internalType": "enum IProductMarket.AuctionStatus",
+                                    "name": "status",
+                                    "type": "uint8"
+                                },
+                                {
+                                    "internalType": "uint32",
+                                    "name": "startTimestamp",
+                                    "type": "uint32"
+                                },
+                                {
+                                    "internalType": "uint32",
+                                    "name": "endTimestamp",
+                                    "type": "uint32"
+                                },
+                                {
+                                    "internalType": "uint64",
+                                    "name": "bidBufferBps",
+                                    "type": "uint64"
+                                },
+                                {
+                                    "internalType": "uint64",
+                                    "name": "timeBufferSeconds",
+                                    "type": "uint64"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "minimumBidAmount",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "reserveBidAmount",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct IProductMarket.Auction",
+                            "name": "auctionData",
+                            "type": "tuple"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint64",
+                                    "name": "auctionId",
+                                    "type": "uint64"
+                                },
+                                {
+                                    "internalType": "uint32",
+                                    "name": "bidTimestamp",
+                                    "type": "uint32"
+                                },
+                                {
+                                    "internalType": "address",
+                                    "name": "bidder",
+                                    "type": "address"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "bidAmount",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct IProductMarket.Bid",
+                            "name": "winningBid",
+                            "type": "tuple"
+                        }
+                    ],
+                    "internalType": "struct IProductMarket.AuctionQuery[]",
+                    "name": "_allAuctions",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_productId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getAllProductListings",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "listingId",
+                            "type": "uint256"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint24",
+                                    "name": "productId",
+                                    "type": "uint24"
+                                },
+                                {
+                                    "internalType": "uint8",
+                                    "name": "enabled",
+                                    "type": "uint8"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "quantity",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "reserved",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "vipLimit",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "pubLimit",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint64",
+                                    "name": "vipPrice",
+                                    "type": "uint64"
+                                },
+                                {
+                                    "internalType": "uint64",
+                                    "name": "pubPrice",
+                                    "type": "uint64"
+                                },
+                                {
+                                    "internalType": "uint32",
+                                    "name": "endTimestamp",
+                                    "type": "uint32"
+                                },
+                                {
+                                    "internalType": "uint32",
+                                    "name": "vipStartTimestamp",
+                                    "type": "uint32"
+                                },
+                                {
+                                    "internalType": "uint32",
+                                    "name": "pubStartTimestamp",
+                                    "type": "uint32"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "resPurchased",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "vipPurchased",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "pubPurchased",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint72",
+                                    "name": "vipIncome",
+                                    "type": "uint72"
+                                },
+                                {
+                                    "internalType": "uint72",
+                                    "name": "pubIncome",
+                                    "type": "uint72"
+                                }
+                            ],
+                            "internalType": "struct IProductMarket.Listing",
+                            "name": "listingData",
+                            "type": "tuple"
+                        }
+                    ],
+                    "internalType": "struct IProductMarket.ListingQuery[]",
+                    "name": "_allListings",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_auctionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getAuction",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "auctionId",
+                            "type": "uint256"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint56",
+                                    "name": "productId",
+                                    "type": "uint56"
+                                },
+                                {
+                                    "internalType": "enum IProductMarket.AuctionStatus",
+                                    "name": "status",
+                                    "type": "uint8"
+                                },
+                                {
+                                    "internalType": "uint32",
+                                    "name": "startTimestamp",
+                                    "type": "uint32"
+                                },
+                                {
+                                    "internalType": "uint32",
+                                    "name": "endTimestamp",
+                                    "type": "uint32"
+                                },
+                                {
+                                    "internalType": "uint64",
+                                    "name": "bidBufferBps",
+                                    "type": "uint64"
+                                },
+                                {
+                                    "internalType": "uint64",
+                                    "name": "timeBufferSeconds",
+                                    "type": "uint64"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "minimumBidAmount",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "reserveBidAmount",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct IProductMarket.Auction",
+                            "name": "auctionData",
+                            "type": "tuple"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint64",
+                                    "name": "auctionId",
+                                    "type": "uint64"
+                                },
+                                {
+                                    "internalType": "uint32",
+                                    "name": "bidTimestamp",
+                                    "type": "uint32"
+                                },
+                                {
+                                    "internalType": "address",
+                                    "name": "bidder",
+                                    "type": "address"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "bidAmount",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct IProductMarket.Bid",
+                            "name": "winningBid",
+                            "type": "tuple"
+                        }
+                    ],
+                    "internalType": "struct IProductMarket.AuctionQuery",
+                    "name": "_auction",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_auctionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getAuctionBids",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint64",
+                            "name": "auctionId",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "bidTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "bidder",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "bidAmount",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct IProductMarket.Bid[]",
+                    "name": "_bids",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_auctionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getAuctionContract",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_listingId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getListing",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "listingId",
+                            "type": "uint256"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint24",
+                                    "name": "productId",
+                                    "type": "uint24"
+                                },
+                                {
+                                    "internalType": "uint8",
+                                    "name": "enabled",
+                                    "type": "uint8"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "quantity",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "reserved",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "vipLimit",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "pubLimit",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint64",
+                                    "name": "vipPrice",
+                                    "type": "uint64"
+                                },
+                                {
+                                    "internalType": "uint64",
+                                    "name": "pubPrice",
+                                    "type": "uint64"
+                                },
+                                {
+                                    "internalType": "uint32",
+                                    "name": "endTimestamp",
+                                    "type": "uint32"
+                                },
+                                {
+                                    "internalType": "uint32",
+                                    "name": "vipStartTimestamp",
+                                    "type": "uint32"
+                                },
+                                {
+                                    "internalType": "uint32",
+                                    "name": "pubStartTimestamp",
+                                    "type": "uint32"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "resPurchased",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "vipPurchased",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint16",
+                                    "name": "pubPurchased",
+                                    "type": "uint16"
+                                },
+                                {
+                                    "internalType": "uint72",
+                                    "name": "vipIncome",
+                                    "type": "uint72"
+                                },
+                                {
+                                    "internalType": "uint72",
+                                    "name": "pubIncome",
+                                    "type": "uint72"
+                                }
+                            ],
+                            "internalType": "struct IProductMarket.Listing",
+                            "name": "listingData",
+                            "type": "tuple"
+                        }
+                    ],
+                    "internalType": "struct IProductMarket.ListingQuery",
+                    "name": "_listing",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_listingId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getListingContract",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getRoleAdmin",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getVipContract",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_auctionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getWinningBidAmount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_recipient",
+                    "type": "address"
+                }
+            ],
+            "name": "getWithdrawalApproved",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "grantRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "hasRole",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "hasRoleWithSwitch",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "renounceRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "revokeRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_allowUnmetReserve",
+                    "type": "bool"
+                }
+            ],
+            "name": "rewardAuction",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_tokenContract",
+                    "type": "address"
+                }
+            ],
+            "name": "setAuctionContract",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_listingId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_tokenContract",
+                    "type": "address"
+                }
+            ],
+            "name": "setListingContract",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_vipContract_",
+                    "type": "address"
+                }
+            ],
+            "name": "setVipContract",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "totalAuctions",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "totalListings",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint56",
+                            "name": "productId",
+                            "type": "uint56"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "startTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "endTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "bidBufferBps",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "timeBufferSeconds",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "minimumBidAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "reserveBidAmount",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct IProductMarket.AuctionParams",
+                    "name": "_params",
+                    "type": "tuple"
+                }
+            ],
+            "name": "updateAuction",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_listingId",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint24",
+                            "name": "productId",
+                            "type": "uint24"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "quantity",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "reserved",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "vipLimit",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint16",
+                            "name": "pubLimit",
+                            "type": "uint16"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "vipPrice",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "pubPrice",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "endTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "vipStartTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "pubStartTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "enabled",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct IProductMarket.ListingParams",
+                    "name": "_params",
+                    "type": "tuple"
+                }
+            ],
+            "name": "updateListing",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "_recipient",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "withdrawIncome",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

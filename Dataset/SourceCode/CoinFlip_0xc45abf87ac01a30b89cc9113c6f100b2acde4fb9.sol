@@ -1,0 +1,97 @@
+{{
+
+  "language": "Solidity",
+
+  "sources": {
+
+    "@openzeppelin/contracts/access/Ownable.sol": {
+
+      "content": "// SPDX-License-Identifier: MIT\n// OpenZeppelin Contracts (last updated v4.9.0) (access/Ownable.sol)\n\npragma solidity ^0.8.0;\n\nimport \"../utils/Context.sol\";\n\n/**\n * @dev Contract module which provides a basic access control mechanism, where\n * there is an account (an owner) that can be granted exclusive access to\n * specific functions.\n *\n * By default, the owner account will be the one that deploys the contract. This\n * can later be changed with {transferOwnership}.\n *\n * This module is used through inheritance. It will make available the modifier\n * `onlyOwner`, which can be applied to your functions to restrict their use to\n * the owner.\n */\nabstract contract Ownable is Context {\n    address private _owner;\n\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\n\n    /**\n     * @dev Initializes the contract setting the deployer as the initial owner.\n     */\n    constructor() {\n        _transferOwnership(_msgSender());\n    }\n\n    /**\n     * @dev Throws if called by any account other than the owner.\n     */\n    modifier onlyOwner() {\n        _checkOwner();\n        _;\n    }\n\n    /**\n     * @dev Returns the address of the current owner.\n     */\n    function owner() public view virtual returns (address) {\n        return _owner;\n    }\n\n    /**\n     * @dev Throws if the sender is not the owner.\n     */\n    function _checkOwner() internal view virtual {\n        require(owner() == _msgSender(), \"Ownable: caller is not the owner\");\n    }\n\n    /**\n     * @dev Leaves the contract without owner. It will not be possible to call\n     * `onlyOwner` functions. Can only be called by the current owner.\n     *\n     * NOTE: Renouncing ownership will leave the contract without an owner,\n     * thereby disabling any functionality that is only available to the owner.\n     */\n    function renounceOwnership() public virtual onlyOwner {\n        _transferOwnership(address(0));\n    }\n\n    /**\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\n     * Can only be called by the current owner.\n     */\n    function transferOwnership(address newOwner) public virtual onlyOwner {\n        require(newOwner != address(0), \"Ownable: new owner is the zero address\");\n        _transferOwnership(newOwner);\n    }\n\n    /**\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\n     * Internal function without access restriction.\n     */\n    function _transferOwnership(address newOwner) internal virtual {\n        address oldOwner = _owner;\n        _owner = newOwner;\n        emit OwnershipTransferred(oldOwner, newOwner);\n    }\n}\n"
+
+    },
+
+    "@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+
+      "content": "// SPDX-License-Identifier: MIT\n// OpenZeppelin Contracts (last updated v4.9.0) (token/ERC20/IERC20.sol)\n\npragma solidity ^0.8.0;\n\n/**\n * @dev Interface of the ERC20 standard as defined in the EIP.\n */\ninterface IERC20 {\n    /**\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\n     * another (`to`).\n     *\n     * Note that `value` may be zero.\n     */\n    event Transfer(address indexed from, address indexed to, uint256 value);\n\n    /**\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\n     * a call to {approve}. `value` is the new allowance.\n     */\n    event Approval(address indexed owner, address indexed spender, uint256 value);\n\n    /**\n     * @dev Returns the amount of tokens in existence.\n     */\n    function totalSupply() external view returns (uint256);\n\n    /**\n     * @dev Returns the amount of tokens owned by `account`.\n     */\n    function balanceOf(address account) external view returns (uint256);\n\n    /**\n     * @dev Moves `amount` tokens from the caller's account to `to`.\n     *\n     * Returns a boolean value indicating whether the operation succeeded.\n     *\n     * Emits a {Transfer} event.\n     */\n    function transfer(address to, uint256 amount) external returns (bool);\n\n    /**\n     * @dev Returns the remaining number of tokens that `spender` will be\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\n     * zero by default.\n     *\n     * This value changes when {approve} or {transferFrom} are called.\n     */\n    function allowance(address owner, address spender) external view returns (uint256);\n\n    /**\n     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.\n     *\n     * Returns a boolean value indicating whether the operation succeeded.\n     *\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\n     * that someone may use both the old and the new allowance by unfortunate\n     * transaction ordering. One possible solution to mitigate this race\n     * condition is to first reduce the spender's allowance to 0 and set the\n     * desired value afterwards:\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\n     *\n     * Emits an {Approval} event.\n     */\n    function approve(address spender, uint256 amount) external returns (bool);\n\n    /**\n     * @dev Moves `amount` tokens from `from` to `to` using the\n     * allowance mechanism. `amount` is then deducted from the caller's\n     * allowance.\n     *\n     * Returns a boolean value indicating whether the operation succeeded.\n     *\n     * Emits a {Transfer} event.\n     */\n    function transferFrom(address from, address to, uint256 amount) external returns (bool);\n}\n"
+
+    },
+
+    "@openzeppelin/contracts/utils/Context.sol": {
+
+      "content": "// SPDX-License-Identifier: MIT\n// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)\n\npragma solidity ^0.8.0;\n\n/**\n * @dev Provides information about the current execution context, including the\n * sender of the transaction and its data. While these are generally available\n * via msg.sender and msg.data, they should not be accessed in such a direct\n * manner, since when dealing with meta-transactions the account sending and\n * paying for execution may not be the actual sender (as far as an application\n * is concerned).\n *\n * This contract is only required for intermediate, library-like contracts.\n */\nabstract contract Context {\n    function _msgSender() internal view virtual returns (address) {\n        return msg.sender;\n    }\n\n    function _msgData() internal view virtual returns (bytes calldata) {\n        return msg.data;\n    }\n}\n"
+
+    },
+
+    "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router01.sol": {
+
+      "content": "pragma solidity >=0.6.2;\n\ninterface IUniswapV2Router01 {\n    function factory() external pure returns (address);\n    function WETH() external pure returns (address);\n\n    function addLiquidity(\n        address tokenA,\n        address tokenB,\n        uint amountADesired,\n        uint amountBDesired,\n        uint amountAMin,\n        uint amountBMin,\n        address to,\n        uint deadline\n    ) external returns (uint amountA, uint amountB, uint liquidity);\n    function addLiquidityETH(\n        address token,\n        uint amountTokenDesired,\n        uint amountTokenMin,\n        uint amountETHMin,\n        address to,\n        uint deadline\n    ) external payable returns (uint amountToken, uint amountETH, uint liquidity);\n    function removeLiquidity(\n        address tokenA,\n        address tokenB,\n        uint liquidity,\n        uint amountAMin,\n        uint amountBMin,\n        address to,\n        uint deadline\n    ) external returns (uint amountA, uint amountB);\n    function removeLiquidityETH(\n        address token,\n        uint liquidity,\n        uint amountTokenMin,\n        uint amountETHMin,\n        address to,\n        uint deadline\n    ) external returns (uint amountToken, uint amountETH);\n    function removeLiquidityWithPermit(\n        address tokenA,\n        address tokenB,\n        uint liquidity,\n        uint amountAMin,\n        uint amountBMin,\n        address to,\n        uint deadline,\n        bool approveMax, uint8 v, bytes32 r, bytes32 s\n    ) external returns (uint amountA, uint amountB);\n    function removeLiquidityETHWithPermit(\n        address token,\n        uint liquidity,\n        uint amountTokenMin,\n        uint amountETHMin,\n        address to,\n        uint deadline,\n        bool approveMax, uint8 v, bytes32 r, bytes32 s\n    ) external returns (uint amountToken, uint amountETH);\n    function swapExactTokensForTokens(\n        uint amountIn,\n        uint amountOutMin,\n        address[] calldata path,\n        address to,\n        uint deadline\n    ) external returns (uint[] memory amounts);\n    function swapTokensForExactTokens(\n        uint amountOut,\n        uint amountInMax,\n        address[] calldata path,\n        address to,\n        uint deadline\n    ) external returns (uint[] memory amounts);\n    function swapExactETHForTokens(uint amountOutMin, address[] calldata path, address to, uint deadline)\n        external\n        payable\n        returns (uint[] memory amounts);\n    function swapTokensForExactETH(uint amountOut, uint amountInMax, address[] calldata path, address to, uint deadline)\n        external\n        returns (uint[] memory amounts);\n    function swapExactTokensForETH(uint amountIn, uint amountOutMin, address[] calldata path, address to, uint deadline)\n        external\n        returns (uint[] memory amounts);\n    function swapETHForExactTokens(uint amountOut, address[] calldata path, address to, uint deadline)\n        external\n        payable\n        returns (uint[] memory amounts);\n\n    function quote(uint amountA, uint reserveA, uint reserveB) external pure returns (uint amountB);\n    function getAmountOut(uint amountIn, uint reserveIn, uint reserveOut) external pure returns (uint amountOut);\n    function getAmountIn(uint amountOut, uint reserveIn, uint reserveOut) external pure returns (uint amountIn);\n    function getAmountsOut(uint amountIn, address[] calldata path) external view returns (uint[] memory amounts);\n    function getAmountsIn(uint amountOut, address[] calldata path) external view returns (uint[] memory amounts);\n}\n"
+
+    },
+
+    "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol": {
+
+      "content": "pragma solidity >=0.6.2;\n\nimport './IUniswapV2Router01.sol';\n\ninterface IUniswapV2Router02 is IUniswapV2Router01 {\n    function removeLiquidityETHSupportingFeeOnTransferTokens(\n        address token,\n        uint liquidity,\n        uint amountTokenMin,\n        uint amountETHMin,\n        address to,\n        uint deadline\n    ) external returns (uint amountETH);\n    function removeLiquidityETHWithPermitSupportingFeeOnTransferTokens(\n        address token,\n        uint liquidity,\n        uint amountTokenMin,\n        uint amountETHMin,\n        address to,\n        uint deadline,\n        bool approveMax, uint8 v, bytes32 r, bytes32 s\n    ) external returns (uint amountETH);\n\n    function swapExactTokensForTokensSupportingFeeOnTransferTokens(\n        uint amountIn,\n        uint amountOutMin,\n        address[] calldata path,\n        address to,\n        uint deadline\n    ) external;\n    function swapExactETHForTokensSupportingFeeOnTransferTokens(\n        uint amountOutMin,\n        address[] calldata path,\n        address to,\n        uint deadline\n    ) external payable;\n    function swapExactTokensForETHSupportingFeeOnTransferTokens(\n        uint amountIn,\n        uint amountOutMin,\n        address[] calldata path,\n        address to,\n        uint deadline\n    ) external;\n}\n"
+
+    },
+
+    "contracts/Lock.sol": {
+
+      "content": "// SPDX-License-Identifier: UNLICENSED\npragma solidity ^0.8.9;\n\nimport \"@openzeppelin/contracts/access/Ownable.sol\";\nimport \"@openzeppelin/contracts/token/ERC20/IERC20.sol\";\nimport \"@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol\";\n\ncontract CoinFlip is Ownable {\n    enum coinSelection {\n        HEAD,\n        TAIL\n    }\n\n    event newResultRequested(uint256 requestId);\n    event ResultRecived(uint256 requestId);\n    event LinkBoughtSuccess(uint256 fromBnb);\n    event LinkBoughtFaild(uint256 avilableBnb, uint256 requireBnb);\n\n    struct CoinFlipStatus {\n        uint256 randomWord;\n        address player;\n        bool isWin;\n        bool chainLinkFullFilled;\n        coinSelection bet;\n        uint256 betAmount;\n    }\n\n    uint256 reward = 194;\n\n    address public feeAdmin = 0x86B36EdEEe4051F86a74DC0F3efc26571595a0Af;\n\n    address private deadAddress = 0x000000000000000000000000000000000000dEaD;\n\n    IUniswapV2Router02 public router =\n        IUniswapV2Router02(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D);\n\n    // admin fees percentage\n    uint256 public tokenFee = 100;\n    uint256 public burnFee = 300;\n    uint256 public lpFee = 100;\n\n    uint256 public maxPoolPercentage = 5;\n\n    IERC20 public betToken;\n    uint256 public minimumBetAmount;\n    uint256 public maxBetAmount;\n\n    mapping(uint256 => CoinFlipStatus) public betStatus;\n\n    receive() external payable {}\n\n    constructor() {\n        betToken = IERC20(0xa34Ee6108Fe427f91edce0D6520d9fEc0E64F67b);\n        minimumBetAmount = 66066050 * 10 ** 9;\n        maxBetAmount = 33033025033 * 10 ** 9;\n\n        betToken.approve(address(router), type(uint256).max);\n    }\n\n    function flipCoin(\n        coinSelection choise,\n        uint256 _betAmount\n    ) external returns (uint256) {\n        require(\n            minimumBetAmount <= _betAmount,\n            \"You should bet more than minimum bet amount\"\n        );\n        require(\n            maxBetAmount >= _betAmount,\n            \"You can not bet more than maximum bet amount\"\n        );\n\n        uint256 oldBalance = betToken.balanceOf(address(this));\n\n        require(\n            _betAmount <= ((oldBalance * maxPoolPercentage) / 100),\n            \"Use less token amount to bet\"\n        );\n\n        betToken.transferFrom(msg.sender, address(this), _betAmount);\n\n        // take admin fees\n        uint256 tokensFee = (_betAmount * tokenFee) / 10000;\n        uint256 burnTokens = (_betAmount * burnFee) / 10000;\n        uint256 lpTokenFee = (_betAmount * lpFee) / 10000;\n\n        swapAndLiquify(lpTokenFee);\n\n        betToken.transfer(feeAdmin, tokensFee);\n        betToken.transfer(deadAddress, burnTokens);\n\n        uint256 requestId = uint256(\n            keccak256(abi.encodePacked(block.timestamp, block.difficulty))\n        );\n\n        betStatus[requestId] = CoinFlipStatus({\n            randomWord: 0,\n            player: msg.sender,\n            isWin: false,\n            chainLinkFullFilled: false,\n            bet: choise,\n            betAmount: _betAmount\n        });\n\n        emit newResultRequested(requestId);\n\n        return requestId;\n    }\n\n    function fulfillRandomWords(\n        uint256 _requestId,\n        uint256 _randomWord\n    ) external onlyOwner {\n        betStatus[_requestId].randomWord = _randomWord;\n        betStatus[_requestId].chainLinkFullFilled = true;\n\n        coinSelection result = coinSelection.HEAD;\n\n        if (_randomWord % 2 == 0) {\n            result = coinSelection.TAIL;\n        }\n\n        if (betStatus[_requestId].bet == result) {\n            betStatus[_requestId].isWin = true;\n\n            uint256 winingAmount = (betStatus[_requestId].betAmount * reward) /\n                100;\n\n            betToken.transfer(betStatus[_requestId].player, winingAmount);\n        }\n\n        emit ResultRecived(_requestId);\n    }\n\n    function getStatus(\n        uint256 requestId\n    ) public view returns (CoinFlipStatus memory) {\n        return betStatus[requestId];\n    }\n\n    function withdrawBnb(uint256 amount) external onlyOwner {\n        payable(msg.sender).transfer(amount);\n    }\n\n    function withdrawBep20Tokens(\n        address _token,\n        uint256 _amount\n    ) external onlyOwner {\n        IERC20(_token).transfer(msg.sender, _amount);\n    }\n\n    function changeRewardPercentage(uint256 _percentage) external onlyOwner {\n        reward = _percentage;\n    }\n\n    function changeMinimumBetAmount(uint256 _amount) external onlyOwner {\n        minimumBetAmount = _amount;\n    }\n\n    function changeMaxBetAmount(uint256 _amount) external onlyOwner {\n        minimumBetAmount = _amount;\n    }\n\n    function changeAdminFeePercentages(\n        uint256 _burnFee,\n        uint256 _tokenFee,\n        uint256 _lpFee\n    ) external {\n        require(\n            msg.sender == feeAdmin,\n            \"Only Super Admin can call this function\"\n        );\n\n        burnFee = _burnFee;\n        tokenFee = _tokenFee;\n        lpFee = _lpFee;\n    }\n\n    function swapAndLiquify(uint256 tokens) private {\n        // split the contract balance into halves\n        uint256 half = tokens / 2;\n        uint256 otherHalf = tokens - half;\n\n        // capture the contract's current ETH balance.\n        // this is so that we can capture exactly the amount of ETH that the\n        // swap creates, and not make the liquidity event include any ETH that\n        // has been manually sent to the contract\n        uint256 initialBalance = address(this).balance;\n\n        // swap tokens for ETH\n        swapTokensForEth(half); // <- this breaks the ETH -> HATE swap when swap+liquify is triggered\n\n        // how much ETH did we just swap into?\n        uint256 newBalance = address(this).balance - initialBalance;\n\n        // add liquidity to uniswap\n        addLiquidity(otherHalf, newBalance);\n    }\n\n    function swapTokensForEth(uint256 tokenAmount) private {\n        // generate the uniswap pair path of token -> weth\n        address[] memory path = new address[](2);\n        path[0] = address(betToken);\n        path[1] = router.WETH();\n        // make the swap\n        router.swapExactTokensForETHSupportingFeeOnTransferTokens(\n            tokenAmount,\n            0, // accept any amount of ETH\n            path,\n            address(this),\n            block.timestamp\n        );\n    }\n\n    function addLiquidity(uint256 tokenAmount, uint256 bnbAmount) private {\n        // add the liquidity\n        router.addLiquidityETH{value: bnbAmount}(\n            address(betToken),\n            tokenAmount,\n            0, // slippage is unavoidable\n            0, // slippage is unavoidable\n            address(this),\n            block.timestamp\n        );\n    }\n}\n"
+
+    }
+
+  },
+
+  "settings": {
+
+    "optimizer": {
+
+      "enabled": true,
+
+      "runs": 2000,
+
+      "details": {
+
+        "yul": true,
+
+        "yulDetails": {
+
+          "stackAllocation": true,
+
+          "optimizerSteps": "dhfoDgvulfnTUtnIf"
+
+        }
+
+      }
+
+    },
+
+    "outputSelection": {
+
+      "*": {
+
+        "*": [
+
+          "evm.bytecode",
+
+          "evm.deployedBytecode",
+
+          "devdoc",
+
+          "userdoc",
+
+          "metadata",
+
+          "abi"
+
+        ]
+
+      }
+
+    },
+
+    "libraries": {}
+
+  }
+
+}}

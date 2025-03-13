@@ -1,0 +1,1191 @@
+{
+    "address": "0x151301d8de53c2e7f5d9b10fce36bd1fcf332bc6",
+    "balance": 0.0,
+    "txNumber": 229,
+    "createdBlockNumber": "18164913",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "hypcTokenAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "hypcNFTAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "swapContractAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "defaultFee",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "AddressNotRegistered",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "BackingFundsMustBePositive",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "CantTransferDepositToSelf",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "CantTransferProposalToSelf",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "DeadlineMustBeInFutureByOneHour",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "DepositMustBeUpdatedBeforeWithdrawn",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "HYPCDepositExceedsProposalRequest",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "HYPCDepositMustBePositive",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidDepositIndex",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidNFT",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidProposalIndex",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidSwapContract",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidTermNumber",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidToken",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidTokenIndex",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "MustBeProposalOwner",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NotEnoughTimeSinceLastInterestCollection",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NumberNFTsPositive",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NumberNFTsTooLarge",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PoolFeeDoesntMatch",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ProposalIsExpired",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ProposalIsNotPending",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ProposalMustBeCompleted",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ProposalMustBeFilled",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ProposalMustBeInStartedState",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ProposalMustBeStartedOrCompleted",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ProposalMustNotBeInStartedState",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ProposalMustReachEndOfTerm",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "RedeemingTooManyTokens",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "SwappingTooManyTokens",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "TokensMustBeRedeemedFirst",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "TokensStillNeedToBeRedeemed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "UsersMustWithdrawFromProposal",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "string",
+                    "name": "assignment",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "tokenIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "assignmentRef",
+                    "type": "string"
+                }
+            ],
+            "name": "AssignmentChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "DepositCreated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "poolFee",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PoolFeeSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                }
+            ],
+            "name": "ProposalCanceled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ProposalCompleted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "numberNFTs",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "deadline",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ProposalCreated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                }
+            ],
+            "name": "ProposalFinished",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ProposalStarted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "redeemedTokens",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TokensRedeemed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "tokensToSwap",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TokensSwapped",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "depositIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TransferDeposit",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "numberNFTs",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TransferProposal",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "depositIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "interestChange",
+                    "type": "uint256"
+                }
+            ],
+            "name": "UpdateDeposit",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "depositIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "WithdrawDeposit",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "addToTransferRegistry",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "cancelProposal",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenIndex",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "assignmentString",
+                    "type": "string"
+                }
+            ],
+            "name": "changeAssignment",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "completeProposal",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "createDeposit",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "termNum",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "backingFunds",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "numberNFTs",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "deadline",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "specifiedFee",
+                    "type": "uint256"
+                }
+            ],
+            "name": "createProposal",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "finishProposal",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "getDepositsLength",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getProposalAssignmentString",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getProposalTokenId",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getProposalTokensLength",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getProposalsLength",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "getUserDeposits",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "amount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "proposalIndex",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "interestTime",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct CrowdFundHYPCPoolV2.UserDeposit[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "hypcNFT",
+            "outputs": [
+                {
+                    "internalType": "contract ICHYPC",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "hypcToken",
+            "outputs": [
+                {
+                    "internalType": "contract IHYPC",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "",
+                    "type": "bytes"
+                }
+            ],
+            "name": "onERC721Received",
+            "outputs": [
+                {
+                    "internalType": "bytes4",
+                    "name": "",
+                    "type": "bytes4"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "poolFee",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "proposals",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "term",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "interestRateAPR",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "deadline",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "startTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "depositedAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "backingFunds",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "enum CrowdFundHYPCPoolV2.Term",
+                    "name": "status",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "numberNFTs",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokensToRedeem",
+                    "type": "uint256"
+                }
+            ],
+            "name": "redeemTokens",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "removeFromTransferRegistry",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "fee",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setPoolFee",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "startProposal",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "swapContract",
+            "outputs": [
+                {
+                    "internalType": "contract IHYPCSwap",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokensToSwap",
+                    "type": "uint256"
+                }
+            ],
+            "name": "swapTokens",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "depositIndex",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                }
+            ],
+            "name": "transferDeposit",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                }
+            ],
+            "name": "transferProposal",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "transferRegistry",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "depositIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updateDeposit",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "userDeposits",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "proposalIndex",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "interestTime",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "depositIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "withdrawDeposit",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

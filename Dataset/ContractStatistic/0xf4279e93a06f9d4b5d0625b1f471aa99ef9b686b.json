@@ -1,0 +1,846 @@
+{
+    "address": "0xf4279e93a06f9d4b5d0625b1f471aa99ef9b686b",
+    "balance": 0.0,
+    "txNumber": 23,
+    "createdBlockNumber": "16985191",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_gravityBridge",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "FeesAndReserves__CellarAlreadySetup",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "FeesAndReserves__CellarNotSetup",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "FeesAndReserves__ContractNotShutdown",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "FeesAndReserves__ContractShutdown",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "FeesAndReserves__InvalidCut",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "FeesAndReserves__InvalidManagementFee",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "FeesAndReserves__InvalidPerformanceFee",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "FeesAndReserves__InvalidReserveAsset",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "FeesAndReserves__InvalidResetPercent",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "FeesAndReserves__InvalidUpkeep",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "FeesAndReserves__MinimumUpkeepFrequencyNotMet",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "FeesAndReserves__NotEnoughFeesOwed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "FeesAndReserves__NotEnoughReserves",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "FeesAndReserves__NothingToPayout",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "FeesAndReserves__UpkeepTimeCheckFailed",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "cellar",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AssetsAddedToReserves",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "cellar",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AssetsWithdrawnFromReserves",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "cellar",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "totalFeesReady",
+                    "type": "uint256"
+                }
+            ],
+            "name": "FeesPrepared",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "cellar",
+                    "type": "address"
+                }
+            ],
+            "name": "FeesSent",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "cellar",
+                    "type": "address"
+                }
+            ],
+            "name": "HighWatermarkReset",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "cellar",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "newFee",
+                    "type": "uint32"
+                }
+            ],
+            "name": "ManagementFeeChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "cellar",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "newFee",
+                    "type": "uint32"
+                }
+            ],
+            "name": "PerformanceFeeChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isShutdown",
+                    "type": "bool"
+                }
+            ],
+            "name": "ShutdownChanged",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "AUTOMATION_REGISTRY",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "BPS_DECIMALS",
+            "outputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "ETH_FAST_GAS_FEED",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "FEES_DISTRIBUTOR",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "MAX_MANAGEMENT_FEE",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "MAX_PERFORMANCE_FEE",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "MINIMUM_UPKEEP_FREQUENCY",
+            "outputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "",
+                    "type": "uint64"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "NORMALIZED_DECIMALS",
+            "outputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "PRECISION_MULTIPLIER",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "SECONDS_IN_A_YEAR",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "addAssetsToReserves",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract Cellar",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "cellarToUpkeepData",
+            "outputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "frequency",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "maxGas",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "lastUpkeepTime",
+                    "type": "uint64"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "newFrequency",
+                    "type": "uint64"
+                }
+            ],
+            "name": "changeUpkeepFrequency",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "newMaxGas",
+                    "type": "uint64"
+                }
+            ],
+            "name": "changeUpkeepMaxGas",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "checkData",
+                    "type": "bytes"
+                }
+            ],
+            "name": "checkUpkeep",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "upkeepNeeded",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "performData",
+                    "type": "bytes"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract Cellar",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "feesReadyForClaim",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract Cellar",
+                    "name": "cellar",
+                    "type": "address"
+                }
+            ],
+            "name": "getMetaData",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract ERC20",
+                            "name": "reserveAsset",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "managementFee",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "timestamp",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "reserves",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "exactHighWatermark",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "totalAssets",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "feesOwed",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "cellarDecimals",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "reserveAssetDecimals",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "performanceFee",
+                            "type": "uint32"
+                        }
+                    ],
+                    "internalType": "struct FeesAndReserves.MetaData",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "gravityBridge",
+            "outputs": [
+                {
+                    "internalType": "contract IGravity",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "initiateShutdown",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "isShutdown",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "liftShutdown",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract Cellar",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "metaData",
+            "outputs": [
+                {
+                    "internalType": "contract ERC20",
+                    "name": "reserveAsset",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "managementFee",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "timestamp",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserves",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "exactHighWatermark",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "totalAssets",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "feesOwed",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "cellarDecimals",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "reserveAssetDecimals",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "performanceFee",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract Cellar",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "pendingMetaData",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "pendingManagementFee",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "pendingPerformanceFee",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "performData",
+                    "type": "bytes"
+                }
+            ],
+            "name": "performUpkeep",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "prepareFees",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract Cellar",
+                    "name": "cellar",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "resetPercent",
+                    "type": "uint32"
+                }
+            ],
+            "name": "resetHWM",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract Cellar",
+                    "name": "cellar",
+                    "type": "address"
+                }
+            ],
+            "name": "sendFees",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "gasFeed",
+                    "type": "address"
+                }
+            ],
+            "name": "setGasFeed",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "managementFee",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "performanceFee",
+                    "type": "uint32"
+                }
+            ],
+            "name": "setupMetaData",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "managementFee",
+                    "type": "uint32"
+                }
+            ],
+            "name": "updateManagementFee",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "performanceFee",
+                    "type": "uint32"
+                }
+            ],
+            "name": "updatePerformanceFee",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "withdrawAssetsFromReserves",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

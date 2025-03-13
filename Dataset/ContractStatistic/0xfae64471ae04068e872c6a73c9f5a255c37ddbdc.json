@@ -1,0 +1,526 @@
+{
+    "address": "0xfae64471ae04068e872c6a73c9f5a255c37ddbdc",
+    "balance": 0.0,
+    "txNumber": 21,
+    "createdBlockNumber": "15576298",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IPriceProvidersRepository",
+                    "name": "_priceProvidersRepository",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IUniswapV3Factory",
+                    "name": "_factory",
+                    "type": "address"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint32",
+                            "name": "periodForAvgPrice",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "blockTime",
+                            "type": "uint8"
+                        }
+                    ],
+                    "internalType": "struct UniswapV3PriceProviderV2.PriceCalculationData",
+                    "name": "_priceCalculationData",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint8",
+                    "name": "blockTime",
+                    "type": "uint8"
+                }
+            ],
+            "name": "NewBlockTime",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "period",
+                    "type": "uint32"
+                }
+            ],
+            "name": "NewPeriod",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newPendingOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipPending",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "asset",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "contract IUniswapV3Pool[]",
+                    "name": "pools",
+                    "type": "address[]"
+                }
+            ],
+            "name": "PoolsForAsset",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "VERSION",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "acceptOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IUniswapV3Pool[]",
+                    "name": "_pools",
+                    "type": "address[]"
+                }
+            ],
+            "name": "adjustOracleCardinality",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_asset",
+                    "type": "address"
+                }
+            ],
+            "name": "assetOldestTimestamp",
+            "outputs": [
+                {
+                    "internalType": "uint32[]",
+                    "name": "oldestTimestamps",
+                    "type": "uint32[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_asset",
+                    "type": "address"
+                }
+            ],
+            "name": "assetSupported",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "_blockTime",
+                    "type": "uint8"
+                }
+            ],
+            "name": "changeBlockTime",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "_period",
+                    "type": "uint32"
+                }
+            ],
+            "name": "changePeriodForAvgPrice",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_asset",
+                    "type": "address"
+                }
+            ],
+            "name": "getPrice",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "price",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IUniswapV3Pool",
+                    "name": "_pool",
+                    "type": "address"
+                }
+            ],
+            "name": "observationsStatus",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "bufferFull",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "enoughObservations",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "currentCardinality",
+                    "type": "uint16"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pendingOwner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_asset",
+                    "type": "address"
+                }
+            ],
+            "name": "pools",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IUniswapV3Pool",
+                            "name": "pool",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "token0IsInterim",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct UniswapV3PriceProviderV2.PricePath[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "priceCalculationData",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "periodForAvgPrice",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "blockTime",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "priceProviderPing",
+            "outputs": [
+                {
+                    "internalType": "bytes4",
+                    "name": "",
+                    "type": "bytes4"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "priceProvidersRepository",
+            "outputs": [
+                {
+                    "internalType": "contract IPriceProvidersRepository",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IUniswapV3Pool",
+                    "name": "_pool",
+                    "type": "address"
+                }
+            ],
+            "name": "quotePrice",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "price",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "quoteToken",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "removePendingOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IUniswapV3Pool",
+                    "name": "_pool",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "_currentObservationIndex",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "_currentObservationCardinality",
+                    "type": "uint16"
+                }
+            ],
+            "name": "resolveOldestObservationTimestamp",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "oldestTimestamp",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_asset",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IUniswapV3Pool[]",
+                    "name": "_pools",
+                    "type": "address[]"
+                }
+            ],
+            "name": "setupAsset",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newPendingOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferPendingOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "uniswapV3Factory",
+            "outputs": [
+                {
+                    "internalType": "contract IUniswapV3Factory",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_asset",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IUniswapV3Pool[]",
+                    "name": "_pools",
+                    "type": "address[]"
+                }
+            ],
+            "name": "verifyPools",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IUniswapV3Pool",
+                            "name": "pool",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "token0IsInterim",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct UniswapV3PriceProviderV2.PricePath[]",
+                    "name": "path",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+}

@@ -1,0 +1,899 @@
+{
+    "address": "0x59d55d53a715b3b4581c52098bcb4075c2941dba",
+    "balance": 0.0,
+    "txNumber": 49,
+    "createdBlockNumber": "17981149",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IController",
+                    "name": "_controller",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "contract ISetToken",
+                    "name": "setToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isAnyoneAllowedToBid",
+                    "type": "bool"
+                }
+            ],
+            "name": "AnyoneBidUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "contract ISetToken",
+                    "name": "setToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "newPositionMultiplier",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AssetTargetsRaised",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "contract ISetToken",
+                    "name": "setToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "sendToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "receiveToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "bidder",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "contract IAuctionPriceAdapterV1",
+                    "name": "priceAdapter",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isSellAuction",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "price",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "netQuantitySentBySet",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "netQuantityReceivedBySet",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "protocolFee",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "setTotalSupply",
+                    "type": "uint256"
+                }
+            ],
+            "name": "BidExecuted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "contract ISetToken",
+                    "name": "setToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "bidder",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isBidderAllowed",
+                    "type": "bool"
+                }
+            ],
+            "name": "BidderStatusUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "contract ISetToken",
+                    "name": "setToken",
+                    "type": "address"
+                }
+            ],
+            "name": "LockedRebalanceEndedEarly",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "contract ISetToken",
+                    "name": "setToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "newRaiseTargetPercentage",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RaiseTargetPercentageUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "contract ISetToken",
+                    "name": "setToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "contract IERC20",
+                    "name": "quoteAsset",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isSetTokenLocked",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "rebalanceDuration",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "initialPositionMultiplier",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address[]",
+                    "name": "componentsInvolved",
+                    "type": "address[]"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "targetUnit",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "priceAdapterName",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "priceAdapterConfigData",
+                            "type": "bytes"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct AuctionRebalanceModuleV1.AuctionExecutionParams[]",
+                    "name": "auctionParameters",
+                    "type": "tuple[]"
+                }
+            ],
+            "name": "RebalanceStarted",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "_setToken",
+                    "type": "address"
+                }
+            ],
+            "name": "allTargetsMet",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "_setToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IERC20",
+                    "name": "_component",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IERC20",
+                    "name": "_quoteAsset",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_componentAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_quoteAssetLimit",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_isSellAuction",
+                    "type": "bool"
+                }
+            ],
+            "name": "bid",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "_setToken",
+                    "type": "address"
+                }
+            ],
+            "name": "canRaiseAssetTargets",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "_setToken",
+                    "type": "address"
+                }
+            ],
+            "name": "canUnlockEarly",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "controller",
+            "outputs": [
+                {
+                    "internalType": "contract IController",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "executionInfo",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "targetUnit",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "priceAdapterName",
+                    "type": "string"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "priceAdapterConfigData",
+                    "type": "bytes"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "_setToken",
+                    "type": "address"
+                }
+            ],
+            "name": "getAllowedBidders",
+            "outputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "",
+                    "type": "address[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "_setToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IERC20",
+                    "name": "_component",
+                    "type": "address"
+                }
+            ],
+            "name": "getAuctionSizeAndDirection",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "isSellAuction",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "componentQuantity",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "_setToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IERC20",
+                    "name": "_component",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IERC20",
+                    "name": "_quoteAsset",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_componentQuantity",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_quoteQuantityLimit",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_isSellAuction",
+                    "type": "bool"
+                }
+            ],
+            "name": "getBidPreview",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract ISetToken",
+                            "name": "setToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "sendToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "receiveToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IAuctionPriceAdapterV1",
+                            "name": "priceAdapter",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "priceAdapterConfigData",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isSellAuction",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "auctionQuantity",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "componentPrice",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "quantitySentBySet",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "quantityReceivedBySet",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "preBidTokenSentBalance",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "preBidTokenReceivedBalance",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "setTotalSupply",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct AuctionRebalanceModuleV1.BidInfo",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "_setToken",
+                    "type": "address"
+                }
+            ],
+            "name": "getQuoteAssetBalance",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "_setToken",
+                    "type": "address"
+                }
+            ],
+            "name": "getRebalanceComponents",
+            "outputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "",
+                    "type": "address[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "_setToken",
+                    "type": "address"
+                }
+            ],
+            "name": "initialize",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "_setToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_bidder",
+                    "type": "address"
+                }
+            ],
+            "name": "isAllowedBidder",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "_setToken",
+                    "type": "address"
+                }
+            ],
+            "name": "isQuoteAssetExcessOrAtTarget",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "_setToken",
+                    "type": "address"
+                }
+            ],
+            "name": "isRebalanceDurationElapsed",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "permissionInfo",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "isAnyoneAllowedToBid",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "_setToken",
+                    "type": "address"
+                }
+            ],
+            "name": "raiseAssetTargets",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "rebalanceInfo",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "quoteAsset",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "rebalanceStartTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "rebalanceDuration",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "positionMultiplier",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "raiseTargetPercentage",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "removeModule",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "_setToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_status",
+                    "type": "bool"
+                }
+            ],
+            "name": "setAnyoneBid",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "_setToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "_bidders",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "bool[]",
+                    "name": "_statuses",
+                    "type": "bool[]"
+                }
+            ],
+            "name": "setBidderStatus",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "_setToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_raiseTargetPercentage",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setRaiseTargetPercentage",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "_setToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IERC20",
+                    "name": "_quoteAsset",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "_newComponents",
+                    "type": "address[]"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "targetUnit",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "priceAdapterName",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "priceAdapterConfigData",
+                            "type": "bytes"
+                        }
+                    ],
+                    "internalType": "struct AuctionRebalanceModuleV1.AuctionExecutionParams[]",
+                    "name": "_newComponentsAuctionParams",
+                    "type": "tuple[]"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "targetUnit",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "priceAdapterName",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "priceAdapterConfigData",
+                            "type": "bytes"
+                        }
+                    ],
+                    "internalType": "struct AuctionRebalanceModuleV1.AuctionExecutionParams[]",
+                    "name": "_oldComponentsAuctionParams",
+                    "type": "tuple[]"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_shouldLockSetToken",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_rebalanceDuration",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_initialPositionMultiplier",
+                    "type": "uint256"
+                }
+            ],
+            "name": "startRebalance",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISetToken",
+                    "name": "_setToken",
+                    "type": "address"
+                }
+            ],
+            "name": "unlock",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

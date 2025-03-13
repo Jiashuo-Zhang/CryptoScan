@@ -1,0 +1,1069 @@
+{
+    "address": "0x2d4e8121aee68679054018037832947a3e0bcf8a",
+    "balance": 0.0,
+    "txNumber": 2429,
+    "createdBlockNumber": "18163035",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract AggregatorV3Interface",
+                    "name": "priceFeed",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "fundsWalletAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "signerAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "dopAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "claimsContractAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IERC20",
+                    "name": "usdt",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "lastRound",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "Blacklisted",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "BuyNotEnable",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ClaimNotEnable",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "DeadlineExpired",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "EndTimeIncorrect",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "IdenticalValue",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidEndTime",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidSignature",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidStartTime",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "OnlyClaimsContract",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PriceGreaterThanNextRound",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PriceInvalid",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PriceLessThanOldRound",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "RoundEnded",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "RoundIncorrect",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "RoundNotStarted",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "StartTimeIncorrect",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "UnexpectedPriceDifference",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ValueZero",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ZeroAddress",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "which",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "accessNow",
+                    "type": "bool"
+                }
+            ],
+            "name": "BlacklistUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "oldAccess",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "newAccess",
+                    "type": "bool"
+                }
+            ],
+            "name": "BuyEnableUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "oldAccess",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "newAccess",
+                    "type": "bool"
+                }
+            ],
+            "name": "ClaimEnableUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "by",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint8",
+                    "name": "round",
+                    "type": "uint8"
+                }
+            ],
+            "name": "Claimed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "by",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint8[]",
+                    "name": "rounds",
+                    "type": "uint8[]"
+                }
+            ],
+            "name": "ClaimedBatch",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "oldDopAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "newDopAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "DopTokenUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "oldAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "newAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "DopWalletUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "oldAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "newAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "FundsWalletUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "by",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amountEth",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amountUsd",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint8",
+                    "name": "round",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "price",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "dopPurchased",
+                    "type": "uint256"
+                }
+            ],
+            "name": "InvestedWithClaimAmount",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "by",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "code",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amountInvestedEth",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint8",
+                    "name": "round",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "price",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "dopPurchased",
+                    "type": "uint256"
+                }
+            ],
+            "name": "InvestedWithEth",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "by",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "code",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amountInUsd",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint8",
+                    "name": "round",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "price",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "dopPurchased",
+                    "type": "uint256"
+                }
+            ],
+            "name": "InvestedWithUSDT",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint8",
+                    "name": "newRound",
+                    "type": "uint8"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "startTime",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "endTime",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "price",
+                            "type": "uint256"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct PreSaleDop.RoundData",
+                    "name": "roundData",
+                    "type": "tuple"
+                }
+            ],
+            "name": "RoundCreated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint8",
+                    "name": "round",
+                    "type": "uint8"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "startTime",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "endTime",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "price",
+                            "type": "uint256"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct PreSaleDop.RoundData",
+                    "name": "roundData",
+                    "type": "tuple"
+                }
+            ],
+            "name": "RoundUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "oldSigner",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "newSigner",
+                    "type": "address"
+                }
+            ],
+            "name": "SignerUpdated",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "USDT",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "blacklistAddress",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "buyEnable",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newDopWallet",
+                    "type": "address"
+                }
+            ],
+            "name": "changeDopWallet",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newFundsWallet",
+                    "type": "address"
+                }
+            ],
+            "name": "changeFundsWallet",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newSigner",
+                    "type": "address"
+                }
+            ],
+            "name": "changeSigner",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "claimEnable",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "round",
+                    "type": "uint8"
+                }
+            ],
+            "name": "claimTokens",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8[]",
+                    "name": "roundsBatch",
+                    "type": "uint8[]"
+                }
+            ],
+            "name": "claimTokensBatch",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "name": "claims",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "claimsContract",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "startTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "endTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "price",
+                    "type": "uint256"
+                }
+            ],
+            "name": "createNewRound",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "dopToken",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "dopWallet",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bool",
+                    "name": "enabled",
+                    "type": "bool"
+                }
+            ],
+            "name": "enableBuy",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bool",
+                    "name": "enabled",
+                    "type": "bool"
+                }
+            ],
+            "name": "enableClaim",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "fundsWallet",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getLatestPriceEth",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getRoundCount",
+            "outputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "round",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amountUsd",
+                    "type": "uint256"
+                }
+            ],
+            "name": "purchaseWithClaim",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "code",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "round",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "deadline",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "minAmountDop",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "v",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "s",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "purchaseWithEth",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "investment",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "code",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "round",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "deadline",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "v",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "s",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "purchaseWithUsdt",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "name": "rounds",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "startTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "endTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "price",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "signerWallet",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "which",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "access",
+                    "type": "bool"
+                }
+            ],
+            "name": "updateBlackListedUser",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "newDopAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "updateDopToken",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "round",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "startTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "endTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "price",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updateRound",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

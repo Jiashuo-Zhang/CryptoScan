@@ -1,0 +1,450 @@
+{
+    "address": "0xcac23b64ab47391646553e94399f4c35baea1a10",
+    "balance": 0.0,
+    "txNumber": 16,
+    "createdBlockNumber": "18693953",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract ISystemRegistry",
+                    "name": "_systemRegistry",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                }
+            ],
+            "name": "AlreadyRegistered",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                }
+            ],
+            "name": "MappingDoesNotExist",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                }
+            ],
+            "name": "MissingTokenOracle",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "newOracle",
+                    "type": "address"
+                }
+            ],
+            "name": "ReplaceAlreadyMatches",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "oldExpected",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "oldActual",
+                    "type": "address"
+                }
+            ],
+            "name": "ReplaceOldMismatch",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "source1",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "source2",
+                    "type": "address"
+                }
+            ],
+            "name": "SystemMismatch",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "UndefinedAddress",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "paramName",
+                    "type": "string"
+                }
+            ],
+            "name": "ZeroAddress",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "pool",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "oracle",
+                    "type": "address"
+                }
+            ],
+            "name": "PoolRegistered",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "pool",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "oldOracle",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOracle",
+                    "type": "address"
+                }
+            ],
+            "name": "PoolRegistrationReplaced",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "pool",
+                    "type": "address"
+                }
+            ],
+            "name": "PoolRemoved",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "oracle",
+                    "type": "address"
+                }
+            ],
+            "name": "TokenRegistered",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "oldOracle",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "newOracle",
+                    "type": "address"
+                }
+            ],
+            "name": "TokenRegistrationReplaced",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                }
+            ],
+            "name": "TokenRemoved",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "accessController",
+            "outputs": [
+                {
+                    "internalType": "contract IAccessController",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                }
+            ],
+            "name": "getPriceInEth",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "price",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "pool",
+                    "type": "address"
+                }
+            ],
+            "name": "getSpotPriceInEth",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "price",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getSystemRegistry",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "poolMappings",
+            "outputs": [
+                {
+                    "internalType": "contract ISpotPriceOracle",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IPriceOracle",
+                    "name": "oracle",
+                    "type": "address"
+                }
+            ],
+            "name": "registerMapping",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "pool",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract ISpotPriceOracle",
+                    "name": "oracle",
+                    "type": "address"
+                }
+            ],
+            "name": "registerPoolMapping",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                }
+            ],
+            "name": "removeMapping",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "pool",
+                    "type": "address"
+                }
+            ],
+            "name": "removePoolMapping",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IPriceOracle",
+                    "name": "oldOracle",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IPriceOracle",
+                    "name": "newOracle",
+                    "type": "address"
+                }
+            ],
+            "name": "replaceMapping",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "pool",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract ISpotPriceOracle",
+                    "name": "oldOracle",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract ISpotPriceOracle",
+                    "name": "newOracle",
+                    "type": "address"
+                }
+            ],
+            "name": "replacePoolMapping",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "tokenMappings",
+            "outputs": [
+                {
+                    "internalType": "contract IPriceOracle",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+}

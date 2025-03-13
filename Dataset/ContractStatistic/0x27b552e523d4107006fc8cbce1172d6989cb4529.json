@@ -1,0 +1,1431 @@
+{
+    "address": "0x27b552e523d4107006fc8cbce1172d6989cb4529",
+    "balance": 0.0,
+    "txNumber": 16,
+    "createdBlockNumber": "16033263",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "stableToken_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IWETH",
+                    "name": "weth_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IPancakeRouter02",
+                    "name": "router_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "owner_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract StakingShadow",
+                    "name": "stakingShadow_",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "strategyName",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AddBank",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                }
+            ],
+            "name": "AddLegalToken",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "strategyName",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isSafe",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "rateX1000",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AddStrategy",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address[]",
+                    "name": "newSwapPath",
+                    "type": "address[]"
+                }
+            ],
+            "name": "ChangeSwapPath",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "deposit",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ClaimedTokens",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "depositId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Deposited",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "string",
+                    "name": "strategyName",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "withdrawId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "FulfilledDeposited",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "string",
+                    "name": "strategyName",
+                    "type": "string"
+                }
+            ],
+            "name": "FulfilledRewards",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "depositId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Requested",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "strategyName",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isLegal",
+                    "type": "bool"
+                }
+            ],
+            "name": "SetLegalTokenForStrategy",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "newSlippageX1000",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SetSlippage",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "strategyName",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isPause",
+                    "type": "bool"
+                }
+            ],
+            "name": "SetStrategyPause",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "depositId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Withdrawed",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "WETH",
+            "outputs": [
+                {
+                    "internalType": "contract IWETH",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "YEAR",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "strategyName",
+                    "type": "string"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isSafe",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "rateX1000",
+                    "type": "uint256"
+                }
+            ],
+            "name": "addStrategy",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "strategyName",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "period",
+                    "type": "uint256"
+                }
+            ],
+            "name": "calculateReward",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "depositId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "calculateWithdrawAmount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "strategyName",
+                    "type": "string"
+                }
+            ],
+            "name": "calculateWithdrawAmountAdmin",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "depositedInTokens",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "depositedInStableTokenForTokens",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "depositedInStableTokens",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "strategyName",
+                    "type": "string"
+                }
+            ],
+            "name": "calculateWithdrawAmountAdminRewards",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_totalRewards",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "depositId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "canClaim",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "depositId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "canWithdraw",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "can",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "stableTokenTotal",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "totalAmount",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "depositId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "claimRewards",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "maxStableAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "claimTokens",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "currentDepositId",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "strategyName",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "period",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "contract IERC20Metadata",
+                    "name": "token",
+                    "type": "address"
+                }
+            ],
+            "name": "deposit",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "strategyName",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "period",
+                    "type": "uint256"
+                }
+            ],
+            "name": "depositEth",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC20Metadata",
+                    "name": "token",
+                    "type": "address"
+                }
+            ],
+            "name": "deposited",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "strategyName",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amountMaxInStable",
+                    "type": "uint256"
+                }
+            ],
+            "name": "fulfillDeposited",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "strategyName",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amountMaxInStable",
+                    "type": "uint256"
+                }
+            ],
+            "name": "fulfillRewards",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "i",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getDeposit",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "strategyName",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "user",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IERC20Metadata",
+                            "name": "token",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "deposited",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "reward",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "timestamp",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "withdrawId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "period",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "endTimestamp",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "lastRewardId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "enum Staking.Status",
+                            "name": "status",
+                            "type": "uint8"
+                        }
+                    ],
+                    "internalType": "struct Staking.Deposit",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getDepositsLength",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "i",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getHistoryById",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "enum Staking.HistoryType",
+                            "name": "historyType",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "timestamp",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "user",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "stableAmount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "strategyName",
+                            "type": "string"
+                        }
+                    ],
+                    "internalType": "struct Staking.History",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getHistoryLength",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getRegistredTokens",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20Metadata[]",
+                    "name": "",
+                    "type": "address[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "depositId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getRewardsToClaim",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getStrategyNames",
+            "outputs": [
+                {
+                    "internalType": "string[]",
+                    "name": "",
+                    "type": "string[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "withdrawId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "strategyName",
+                    "type": "string"
+                },
+                {
+                    "internalType": "contract IERC20Metadata",
+                    "name": "token",
+                    "type": "address"
+                }
+            ],
+            "name": "getTokenManager",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "deposited",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "reward",
+                            "type": "uint256"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "bool",
+                                    "name": "fulfilled",
+                                    "type": "bool"
+                                },
+                                {
+                                    "internalType": "bool",
+                                    "name": "fullDeposited",
+                                    "type": "bool"
+                                },
+                                {
+                                    "internalType": "bool",
+                                    "name": "fullReward",
+                                    "type": "bool"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "deposited",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "reward",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct Staking.Bank",
+                            "name": "bank",
+                            "type": "tuple"
+                        }
+                    ],
+                    "internalType": "struct Staking.TokenManager",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC20Metadata",
+                    "name": "token",
+                    "type": "address"
+                }
+            ],
+            "name": "getTokenParameters",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract IERC20Metadata",
+                            "name": "token",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "swapPath",
+                            "type": "address[]"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "reverseSwapPath",
+                            "type": "address[]"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "symbol",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "name",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "decimals",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct Staking.TokenParameters",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "getUserDeposits",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC20Metadata",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "swapPath",
+                    "type": "address[]"
+                }
+            ],
+            "name": "isCorrectSwapPath",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                },
+                {
+                    "internalType": "contract IERC20Metadata",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "isLegalToken",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "lastRewardsFulfillTimestamp",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "minPeriod",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "strategyName",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "purchaseStableTokens",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC20Metadata",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "swapPath",
+                    "type": "address[]"
+                }
+            ],
+            "name": "registerToken",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "depositId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "requestWithdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "path",
+                    "type": "address[]"
+                }
+            ],
+            "name": "reversePath",
+            "outputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "",
+                    "type": "address[]"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "router",
+            "outputs": [
+                {
+                    "internalType": "contract IPancakeRouter02",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "newClaimOffset",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setClaimOffset",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "newSlippageX1000",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setSlippage",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "strategyName",
+                    "type": "string"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isPause",
+                    "type": "bool"
+                }
+            ],
+            "name": "setStrategyPause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "strategyName",
+                    "type": "string"
+                },
+                {
+                    "internalType": "contract IERC20Metadata",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isLegal",
+                    "type": "bool"
+                }
+            ],
+            "name": "setTokenForStrategy",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "slippageX1000",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "stableToken",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "name": "stableTokenBank",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "stakingShadow",
+            "outputs": [
+                {
+                    "internalType": "contract StakingShadow",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "name": "strategiesParameters",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isSafe",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "rateX1000",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isPaused",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "withdrawId",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                },
+                {
+                    "internalType": "contract IERC20Metadata",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "totalRewards",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "depositId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "withdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "stateMutability": "payable",
+            "type": "receive"
+        }
+    ]
+}

@@ -1,0 +1,537 @@
+{
+    "address": "0x0dca49d777fd938ee476d400d0b477222bd10aa9",
+    "balance": 0.007737144958003017,
+    "txNumber": 44,
+    "createdBlockNumber": "16039566",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract WitnetRequestBoard",
+                    "name": "_witnetRequestBoard",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract WitnetRequestRandomness",
+                    "name": "_witnetRequestRandomness",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_balance",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_fee",
+                    "type": "uint256"
+                }
+            ],
+            "name": "balanceTooLow",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_requester",
+                    "type": "address"
+                }
+            ],
+            "name": "disallowedRequester",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_maxFee",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_fee",
+                    "type": "uint256"
+                }
+            ],
+            "name": "maxFeeTooLow",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_queryId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "randomnessNotAvailable",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "maxFee",
+                    "type": "uint256"
+                }
+            ],
+            "name": "MaxFeeSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint32",
+                    "name": "requestId",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "randomNumber",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RandomNumberCompleted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint32",
+                    "name": "requestId",
+                    "type": "uint32"
+                }
+            ],
+            "name": "RandomNumberFailed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint32",
+                    "name": "requestId",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                }
+            ],
+            "name": "RandomNumberRequested",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Received",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "requester",
+                    "type": "address"
+                }
+            ],
+            "name": "RequesterAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "requester",
+                    "type": "address"
+                }
+            ],
+            "name": "RequesterRemoved",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint32",
+                    "name": "requestId",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "witnetRequestId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RngRequested",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "contract WitnetRequestRandomness",
+                    "name": "witnetRequestRandomness",
+                    "type": "address"
+                }
+            ],
+            "name": "WitnetRequestRandomnessSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "contract WitnetRequestBoard",
+                    "name": "witnetRequestBoard",
+                    "type": "address"
+                }
+            ],
+            "name": "WrbSet",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_requester",
+                    "type": "address"
+                }
+            ],
+            "name": "addAllowedRequester",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "requestId",
+                    "type": "uint32"
+                }
+            ],
+            "name": "fetchRandomness",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getLastRequestId",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "requestId",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getRequestFee",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "feeToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "requestFee",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_gasPrice",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getRequestFee",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "requestFee",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "requestId",
+                    "type": "uint32"
+                }
+            ],
+            "name": "isRequestComplete",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "isCompleted",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "requestId",
+                    "type": "uint32"
+                }
+            ],
+            "name": "isRngFetchable",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "isFetchable",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "maxFee",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "requestId",
+                    "type": "uint32"
+                }
+            ],
+            "name": "randomNumber",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "randomNum",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "refund",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_requester",
+                    "type": "address"
+                }
+            ],
+            "name": "removeAllowedRequester",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "requestCount",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "requestRandomNumber",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "requestId",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "lockBlock",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_maxFee",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setMaxFee",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract WitnetRequestRandomness",
+                    "name": "_witnetRequestRandomness",
+                    "type": "address"
+                }
+            ],
+            "name": "setWitnetRequestRandomness",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "witnet",
+            "outputs": [
+                {
+                    "internalType": "contract WitnetRequestBoard",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "witnetRandomnessRequest",
+            "outputs": [
+                {
+                    "internalType": "contract WitnetRequestRandomness",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "stateMutability": "payable",
+            "type": "receive"
+        }
+    ]
+}

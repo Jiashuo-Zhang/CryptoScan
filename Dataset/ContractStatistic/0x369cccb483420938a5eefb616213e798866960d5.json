@@ -1,0 +1,797 @@
+{
+    "address": "0x369cccb483420938a5eefb616213e798866960d5",
+    "balance": 0.0,
+    "txNumber": 89,
+    "createdBlockNumber": "17277017",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_weth",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_initialAdmin",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_priceOracleSigner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_orderValidityOracleSigner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "_feeBips",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_feeRecipient",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_protocol",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint64",
+                    "name": "feeBips",
+                    "type": "uint64"
+                }
+            ],
+            "name": "FeesUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "maker",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "orderHash",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "OrderCancelled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "maker",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "taker",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "orderHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "proceeds",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "fees",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "optionContract",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "optionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "OrderFilled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "oracle",
+                    "type": "address"
+                }
+            ],
+            "name": "OrderValidityOracleSignerUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "newState",
+                    "type": "bool"
+                }
+            ],
+            "name": "PauseUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "oracle",
+                    "type": "address"
+                }
+            ],
+            "name": "PriceOracleSignerUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "protocol",
+                    "type": "address"
+                }
+            ],
+            "name": "ProtocolAddressSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                }
+            ],
+            "name": "ProtocolFeeRecipientUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "previousAdminRole",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "newAdminRole",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "RoleAdminChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                }
+            ],
+            "name": "RoleGranted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                }
+            ],
+            "name": "RoleRevoked",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "DEFAULT_ADMIN_ROLE",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "FEES_ROLE",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "ORACLE_ROLE",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "PAUSER_ROLE",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "PROTOCOL_ROLE",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "enum PoolOrders.OrderDirection",
+                            "name": "direction",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "maker",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "orderExpiry",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "nonce",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "size",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "enum PoolOrders.OptionType",
+                            "name": "optionType",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "maxStrikePriceMultiple",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "minOptionDuration",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "maxOptionDuration",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "maxPriceSignalAge",
+                            "type": "uint64"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "contract IPropertyValidator",
+                                    "name": "propertyValidator",
+                                    "type": "address"
+                                },
+                                {
+                                    "internalType": "bytes",
+                                    "name": "propertyData",
+                                    "type": "bytes"
+                                }
+                            ],
+                            "internalType": "struct PoolOrders.Property[]",
+                            "name": "nftProperties",
+                            "type": "tuple[]"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "optionMarketAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "impliedVolBips",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "skewDecimal",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "riskFreeRateBips",
+                            "type": "uint64"
+                        }
+                    ],
+                    "internalType": "struct PoolOrders.Order",
+                    "name": "order",
+                    "type": "tuple"
+                }
+            ],
+            "name": "cancelOrder",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getRoleAdmin",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "grantRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "hasRole",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "renounceRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "revokeRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "enum PoolOrders.OrderDirection",
+                            "name": "direction",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "maker",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "orderExpiry",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "nonce",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "size",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "enum PoolOrders.OptionType",
+                            "name": "optionType",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "maxStrikePriceMultiple",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "minOptionDuration",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "maxOptionDuration",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "maxPriceSignalAge",
+                            "type": "uint64"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "contract IPropertyValidator",
+                                    "name": "propertyValidator",
+                                    "type": "address"
+                                },
+                                {
+                                    "internalType": "bytes",
+                                    "name": "propertyData",
+                                    "type": "bytes"
+                                }
+                            ],
+                            "internalType": "struct PoolOrders.Property[]",
+                            "name": "nftProperties",
+                            "type": "tuple[]"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "optionMarketAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "impliedVolBips",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "skewDecimal",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "riskFreeRateBips",
+                            "type": "uint64"
+                        }
+                    ],
+                    "internalType": "struct PoolOrders.Order",
+                    "name": "order",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "orderSignature",
+                    "type": "bytes"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "assetPriceInWei",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "priceObservedTimestamp",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "goodTilTimestamp",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "signature",
+                            "type": "bytes"
+                        }
+                    ],
+                    "internalType": "struct HookBidPool.AssetPriceClaim",
+                    "name": "assetPrice",
+                    "type": "tuple"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "orderHash",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "goodTilTimestamp",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "signature",
+                            "type": "bytes"
+                        }
+                    ],
+                    "internalType": "struct HookBidPool.OrderValidityOracleClaim",
+                    "name": "orderValidityOracleClaim",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "saleProceeds",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "optionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "sellOption",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "_feeBips",
+                    "type": "uint64"
+                }
+            ],
+            "name": "setFeeBips",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_feeRecipient",
+                    "type": "address"
+                }
+            ],
+            "name": "setFeeRecipient",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_orderValidityOracleSigner",
+                    "type": "address"
+                }
+            ],
+            "name": "setOrderValidityOracleSigner",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bool",
+                    "name": "_paused",
+                    "type": "bool"
+                }
+            ],
+            "name": "setPoolPaused",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_priceOracleSigner",
+                    "type": "address"
+                }
+            ],
+            "name": "setPriceOracleSigner",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_protocol",
+                    "type": "address"
+                }
+            ],
+            "name": "setProtocol",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes4",
+                    "name": "interfaceId",
+                    "type": "bytes4"
+                }
+            ],
+            "name": "supportsInterface",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+}

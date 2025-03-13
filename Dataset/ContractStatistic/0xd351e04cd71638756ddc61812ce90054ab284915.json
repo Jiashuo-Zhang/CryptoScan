@@ -1,0 +1,508 @@
+{
+    "address": "0xd351e04cd71638756ddc61812ce90054ab284915",
+    "balance": 0.0,
+    "txNumber": 34,
+    "createdBlockNumber": "15513055",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "_canvas_dimension",
+                    "type": "uint16"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                }
+            ],
+            "name": "MergeCanvas_AddressAtMaxPixelCapacity",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "reason",
+                    "type": "string"
+                }
+            ],
+            "name": "MergeCanvas_AlreadyMerged",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "MergeCanvas_FailedBidRefund",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "bid",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "curr_price",
+                    "type": "uint256"
+                }
+            ],
+            "name": "MergeCanvas_InsufficientBid",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                }
+            ],
+            "name": "MergeCanvas_NotContributor",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                }
+            ],
+            "name": "MergeCanvas_NotOwner",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "x",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "max_value",
+                    "type": "uint16"
+                }
+            ],
+            "name": "MergeCanvas_XCoordinateOutOfBounds",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "y",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "max_value",
+                    "type": "uint16"
+                }
+            ],
+            "name": "MergeCanvas_YCoordinateOutOfBounds",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "x",
+                    "type": "uint16"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "y",
+                    "type": "uint16"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint8",
+                            "name": "R",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "G",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "B",
+                            "type": "uint8"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct IMergeCanvas.RGB",
+                    "name": "new_color",
+                    "type": "tuple"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "new_owner",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "new_price",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PixelChange",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "x",
+                    "type": "uint16"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "y",
+                    "type": "uint16"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint8",
+                            "name": "R",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "G",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "B",
+                            "type": "uint8"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct IMergeCanvas.RGB",
+                    "name": "new_color",
+                    "type": "tuple"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "old_owner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "new_owner",
+                    "type": "address"
+                }
+            ],
+            "name": "PixelChangeFail",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "CANVAS_DIMENSION",
+            "outputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "",
+                    "type": "uint16"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "_x",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "_y",
+                    "type": "uint16"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint8",
+                            "name": "R",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "G",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "B",
+                            "type": "uint8"
+                        }
+                    ],
+                    "internalType": "struct IMergeCanvas.RGB",
+                    "name": "_new_color",
+                    "type": "tuple"
+                }
+            ],
+            "name": "changePixelColor",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16[]",
+                    "name": "_x",
+                    "type": "uint16[]"
+                },
+                {
+                    "internalType": "uint16[]",
+                    "name": "_y",
+                    "type": "uint16[]"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint8",
+                            "name": "R",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "G",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "B",
+                            "type": "uint8"
+                        }
+                    ],
+                    "internalType": "struct IMergeCanvas.RGB[]",
+                    "name": "_new_color",
+                    "type": "tuple[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_prices",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "changePixelsColor",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_address",
+                    "type": "address"
+                }
+            ],
+            "name": "getAddressPixels",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "address_pixels",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "_x",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "_y",
+                    "type": "uint16"
+                }
+            ],
+            "name": "getPixelColor",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint8",
+                            "name": "R",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "G",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "B",
+                            "type": "uint8"
+                        }
+                    ],
+                    "internalType": "struct IMergeCanvas.RGB",
+                    "name": "color",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "_x",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "_y",
+                    "type": "uint16"
+                }
+            ],
+            "name": "getPixelOwner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "_x",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "_y",
+                    "type": "uint16"
+                }
+            ],
+            "name": "getPixelPrice",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "pixel_price",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_address",
+                    "type": "address"
+                }
+            ],
+            "name": "hasContributed",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "mergeNow",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "mergeStatus",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_address",
+                    "type": "address"
+                }
+            ],
+            "name": "numberOfPixels",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bool",
+                    "name": "_allow",
+                    "type": "bool"
+                }
+            ],
+            "name": "setBatchAllowed",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "withdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

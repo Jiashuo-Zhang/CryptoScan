@@ -1,0 +1,763 @@
+{
+    "address": "0xfcc46d2fde6b6eb9ab9f2c8e39802020c8ca4299",
+    "balance": 0.0,
+    "txNumber": 161,
+    "createdBlockNumber": "17726076",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract INonfungiblePositionManager",
+                    "name": "_npm",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_operator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_withdrawer",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_TWAPSeconds",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint16",
+                    "name": "_maxTWAPTickDifference",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "_protocolRewardX64",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "_swapRouterOptions",
+                    "type": "address[]"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "EtherSendFailed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidConfig",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "LiquidityChanged",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "MissingSwapData",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NoLiquidity",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NotConfigured",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NotReady",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NotWETH",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "SlippageError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "SwapFailed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "TWAPCheckFailed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "Unauthorized",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isSwap",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amountReturned0",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amountReturned1",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token0",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token1",
+                    "type": "address"
+                }
+            ],
+            "name": "Executed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "newOperator",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "active",
+                    "type": "bool"
+                }
+            ],
+            "name": "OperatorChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isActive",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "token0Swap",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "token1Swap",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "int24",
+                    "name": "token0TriggerTick",
+                    "type": "int24"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "int24",
+                    "name": "token1TriggerTick",
+                    "type": "int24"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint64",
+                    "name": "token0SlippageX64",
+                    "type": "uint64"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint64",
+                    "name": "token1SlippageX64",
+                    "type": "uint64"
+                }
+            ],
+            "name": "PositionConfigured",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint8",
+                    "name": "swapRouterIndex",
+                    "type": "uint8"
+                }
+            ],
+            "name": "SwapRouterChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "TWAPSeconds",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "maxTWAPTickDifference",
+                    "type": "uint16"
+                }
+            ],
+            "name": "TWAPConfigChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "newWithdrawer",
+                    "type": "address"
+                }
+            ],
+            "name": "WithdrawerChanged",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "MAX_TWAP_TICK_DIFFERENCE",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "MIN_TWAP_SECONDS",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "TWAPSeconds",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "bool",
+                            "name": "isActive",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "token0Swap",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "token1Swap",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "int24",
+                            "name": "token0TriggerTick",
+                            "type": "int24"
+                        },
+                        {
+                            "internalType": "int24",
+                            "name": "token1TriggerTick",
+                            "type": "int24"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "token0SlippageX64",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "token1SlippageX64",
+                            "type": "uint64"
+                        }
+                    ],
+                    "internalType": "struct AutoExit.PositionConfig",
+                    "name": "config",
+                    "type": "tuple"
+                }
+            ],
+            "name": "configToken",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "swapData",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "liquidity",
+                            "type": "uint128"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amountRemoveMin0",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amountRemoveMin1",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "deadline",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct AutoExit.ExecuteParams",
+                    "name": "params",
+                    "type": "tuple"
+                }
+            ],
+            "name": "execute",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "factory",
+            "outputs": [
+                {
+                    "internalType": "contract IUniswapV3Factory",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "maxTWAPTickDifference",
+            "outputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "",
+                    "type": "uint16"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "nonfungiblePositionManager",
+            "outputs": [
+                {
+                    "internalType": "contract INonfungiblePositionManager",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "operators",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "positionConfigs",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "isActive",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "token0Swap",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "token1Swap",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "int24",
+                    "name": "token0TriggerTick",
+                    "type": "int24"
+                },
+                {
+                    "internalType": "int24",
+                    "name": "token1TriggerTick",
+                    "type": "int24"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "token0SlippageX64",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "token1SlippageX64",
+                    "type": "uint64"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "protocolRewardX64",
+            "outputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "",
+                    "type": "uint64"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_operator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_active",
+                    "type": "bool"
+                }
+            ],
+            "name": "setOperator",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "_swapRouterIndex",
+                    "type": "uint8"
+                }
+            ],
+            "name": "setSwapRouter",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "_maxTWAPTickDifference",
+                    "type": "uint16"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "_TWAPSeconds",
+                    "type": "uint32"
+                }
+            ],
+            "name": "setTWAPConfig",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_withdrawer",
+                    "type": "address"
+                }
+            ],
+            "name": "setWithdrawer",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "swapRouterIndex",
+            "outputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "swapRouterOption0",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "swapRouterOption1",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "swapRouterOption2",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "weth",
+            "outputs": [
+                {
+                    "internalType": "contract IWETH9",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "tokens",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                }
+            ],
+            "name": "withdrawBalances",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                }
+            ],
+            "name": "withdrawETH",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "withdrawer",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "stateMutability": "payable",
+            "type": "receive"
+        }
+    ]
+}

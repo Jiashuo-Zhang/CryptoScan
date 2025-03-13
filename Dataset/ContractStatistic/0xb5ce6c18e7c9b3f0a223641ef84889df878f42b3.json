@@ -1,0 +1,592 @@
+{
+    "address": "0xb5ce6c18e7c9b3f0a223641ef84889df878f42b3",
+    "balance": 0.0,
+    "txNumber": 11,
+    "createdBlockNumber": "17085850",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "gameRegistry_",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "ConsumedProof",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "role",
+                    "type": "string"
+                },
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "GameRegistry_NoPermissions",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "index",
+                    "type": "uint8"
+                }
+            ],
+            "name": "GameRegistry_StageOutOfBounds",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "gateId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "activeAt",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Gate_NotActive",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "gateId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Gate_NotEnabled",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "gateId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Gate_OutOfBounds",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "GatekeeperInvalidProof",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NoGates",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "stageId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Stage_OutOfBounds",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "gateId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TooMuchHoneyJarInGate",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "bundleId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "gateId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "activationTime",
+                    "type": "uint256"
+                }
+            ],
+            "name": "GateActivated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "bundleId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "gateId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "GateAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "bundleId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "index",
+                    "type": "uint256"
+                }
+            ],
+            "name": "GateReset",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "bundleId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "gateId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "enabled",
+                    "type": "bool"
+                }
+            ],
+            "name": "GateSetEnabled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "bundleId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "gateId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "maxClaimable",
+                    "type": "uint256"
+                }
+            ],
+            "name": "GetSetMaxClaimable",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "bundleId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "gateId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "numClaimed",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "proof",
+                    "type": "bytes32[]"
+                }
+            ],
+            "name": "addClaimed",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "bundleId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "root_",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "maxClaimable_",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "stageIndex_",
+                    "type": "uint8"
+                }
+            ],
+            "name": "addGate",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "bundleId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "index",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "player",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "amount",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "proof",
+                    "type": "bytes32[]"
+                }
+            ],
+            "name": "calculateClaimable",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "claimAmount",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "consumedProofs",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "consumedProofsList",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "gameRegistry",
+            "outputs": [
+                {
+                    "internalType": "contract GameRegistry",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "bundleId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "gateId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "isGateOpen",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "bundleId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "resetAllGates",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "bundleId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "index",
+                    "type": "uint256"
+                }
+            ],
+            "name": "resetGate",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "bundleId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "index",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "enabled",
+                    "type": "bool"
+                }
+            ],
+            "name": "setGateEnabled",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "bundleId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "index",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "maxClaimable_",
+                    "type": "uint32"
+                }
+            ],
+            "name": "setGateMaxClaimable",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "bundleId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "startGatesForBundle",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "tokenToGates",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "enabled",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "stageIndex",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "claimedCount",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "maxClaimable",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "gateRoot",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "activeAt",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "bundleId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "index",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "player",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "amount",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "proof",
+                    "type": "bytes32[]"
+                }
+            ],
+            "name": "validateProof",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "validProof",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+}

@@ -1,0 +1,1421 @@
+{
+    "address": "0xf7fb3a4c33017db39b376fe594859b087379dbb0",
+    "balance": 0.0,
+    "txNumber": 22,
+    "createdBlockNumber": "18039117",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract Renderer",
+                    "name": "_renderer",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_beneficiary",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "payable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "AlreadyCommitted",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "AlreadyRevealed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InsufficientBalance",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InsufficientWager",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidChoice",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidGame",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidPlayer",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidReveal",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidRounds",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidStage",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidWager",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "TimeElapsed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "TransferFailed",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "approved",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Approval",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "approved",
+                    "type": "bool"
+                }
+            ],
+            "name": "ApprovalForAll",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_fromTokenId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_toTokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "BatchMetadataUpdate",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint40",
+                    "name": "_gameId",
+                    "type": "uint40"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "_player1",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint72",
+                    "name": "_wager",
+                    "type": "uint72"
+                }
+            ],
+            "name": "Cancel",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint40",
+                    "name": "_gameId",
+                    "type": "uint40"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint8",
+                    "name": "_round",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "_player",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "_commitment",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "enum Stage",
+                    "name": "_stage",
+                    "type": "uint8"
+                }
+            ],
+            "name": "Commit",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint40",
+                    "name": "_gameId",
+                    "type": "uint40"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint8",
+                    "name": "_round",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint40",
+                    "name": "_revealBlock",
+                    "type": "uint40"
+                }
+            ],
+            "name": "CurrentRound",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint40",
+                    "name": "_gameId",
+                    "type": "uint40"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "_player2",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint72",
+                    "name": "_pot",
+                    "type": "uint72"
+                }
+            ],
+            "name": "JoinGame",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "MetadataUpdate",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint40",
+                    "name": "_gameId",
+                    "type": "uint40"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint8",
+                    "name": "_rounds",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "_player1",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint72",
+                    "name": "_wager",
+                    "type": "uint72"
+                }
+            ],
+            "name": "NewGame",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint40",
+                    "name": "_gameId",
+                    "type": "uint40"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint8",
+                    "name": "_round",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint40",
+                    "name": "_commitBlock",
+                    "type": "uint40"
+                }
+            ],
+            "name": "NextRound",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Paused",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint40",
+                    "name": "_gameId",
+                    "type": "uint40"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint8",
+                    "name": "_round",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint40",
+                    "name": "_commitBlock",
+                    "type": "uint40"
+                }
+            ],
+            "name": "ResetRound",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint40",
+                    "name": "_gameId",
+                    "type": "uint40"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint8",
+                    "name": "_round",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "_player",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "enum Choice",
+                    "name": "_choice",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "enum Stage",
+                    "name": "_stage",
+                    "type": "uint8"
+                }
+            ],
+            "name": "Reveal",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint40",
+                    "name": "_gameId",
+                    "type": "uint40"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint8",
+                    "name": "_round",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "enum Stage",
+                    "name": "_stage",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "_winner",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "_player1",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "enum Choice",
+                    "name": "_choice1",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint96",
+                    "name": "_p1Wins",
+                    "type": "uint96"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "_player2",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "enum Choice",
+                    "name": "_choice2",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint96",
+                    "name": "_p2Wins",
+                    "type": "uint96"
+                }
+            ],
+            "name": "Settle",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Transfer",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Unpaused",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "_sender",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "_to",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "_balance",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Withdraw",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "BLOCK_DURATION",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "MIN_WAGER",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "approve",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                }
+            ],
+            "name": "balanceOf",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "balances",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "beneficiary",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint40",
+                    "name": "_gameId",
+                    "type": "uint40"
+                }
+            ],
+            "name": "cancel",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint40",
+                    "name": "_gameId",
+                    "type": "uint40"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_commitment",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "commit",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "currentId",
+            "outputs": [
+                {
+                    "internalType": "uint40",
+                    "name": "",
+                    "type": "uint40"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint40",
+                    "name": "",
+                    "type": "uint40"
+                }
+            ],
+            "name": "games",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "player",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint96",
+                            "name": "wins",
+                            "type": "uint96"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "commitment",
+                            "type": "bytes32"
+                        }
+                    ],
+                    "internalType": "struct Player",
+                    "name": "p1",
+                    "type": "tuple"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "player",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint96",
+                            "name": "wins",
+                            "type": "uint96"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "commitment",
+                            "type": "bytes32"
+                        }
+                    ],
+                    "internalType": "struct Player",
+                    "name": "p2",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "enum Stage",
+                    "name": "stage",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "totalRounds",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "currentRound",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint72",
+                    "name": "pot",
+                    "type": "uint72"
+                },
+                {
+                    "internalType": "address",
+                    "name": "winner",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getApproved",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_player",
+                    "type": "address"
+                },
+                {
+                    "internalType": "enum Choice",
+                    "name": "_choice",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_secret",
+                    "type": "string"
+                }
+            ],
+            "name": "getCommit",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_player",
+                    "type": "address"
+                }
+            ],
+            "name": "getProfitMargin",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "profits",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "wages",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "totalGames",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint40",
+                    "name": "_gameId",
+                    "type": "uint40"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "_round",
+                    "type": "uint8"
+                }
+            ],
+            "name": "getRound",
+            "outputs": [
+                {
+                    "internalType": "enum Choice",
+                    "name": "p1Choice",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "enum Choice",
+                    "name": "p2Choice",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint40",
+                    "name": "commitBlock",
+                    "type": "uint40"
+                },
+                {
+                    "internalType": "uint40",
+                    "name": "revealBlock",
+                    "type": "uint40"
+                },
+                {
+                    "internalType": "address",
+                    "name": "winner",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_player",
+                    "type": "address"
+                },
+                {
+                    "internalType": "enum Choice",
+                    "name": "_choice",
+                    "type": "uint8"
+                }
+            ],
+            "name": "getUsageRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "usage",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "totalGames",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "totalRounds",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_player",
+                    "type": "address"
+                }
+            ],
+            "name": "getWinRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "gamesWon",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "roundsWon",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "totalGames",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "totalRounds",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                }
+            ],
+            "name": "isApprovedForAll",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint40",
+                    "name": "_gameId",
+                    "type": "uint40"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_commitment",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "joinGame",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes[]",
+                    "name": "_data",
+                    "type": "bytes[]"
+                }
+            ],
+            "name": "multicall",
+            "outputs": [
+                {
+                    "internalType": "bytes[]",
+                    "name": "results",
+                    "type": "bytes[]"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "name",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "_rounds",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_commitment",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "newGame",
+            "outputs": [
+                {
+                    "internalType": "uint40",
+                    "name": "",
+                    "type": "uint40"
+                }
+            ],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ownerOf",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pause",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "paused",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "rake",
+            "outputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "",
+                    "type": "uint16"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "recorder",
+            "outputs": [
+                {
+                    "internalType": "contract Recorder",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renderer",
+            "outputs": [
+                {
+                    "internalType": "contract Renderer",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint40",
+                    "name": "_gameId",
+                    "type": "uint40"
+                },
+                {
+                    "internalType": "enum Choice",
+                    "name": "_choice",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_secret",
+                    "type": "string"
+                }
+            ],
+            "name": "reveal",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "safeTransferFrom",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "data",
+                    "type": "bytes"
+                }
+            ],
+            "name": "safeTransferFrom",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "approved",
+                    "type": "bool"
+                }
+            ],
+            "name": "setApprovalForAll",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_beneficiary",
+                    "type": "address"
+                }
+            ],
+            "name": "setBeneficiary",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint16",
+                    "name": "_rake",
+                    "type": "uint16"
+                }
+            ],
+            "name": "setRake",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint40",
+                    "name": "_gameId",
+                    "type": "uint40"
+                }
+            ],
+            "name": "settle",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes4",
+                    "name": "interfaceId",
+                    "type": "bytes4"
+                }
+            ],
+            "name": "supportsInterface",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "symbol",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "tokenURI",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "totalSupply",
+            "outputs": [
+                {
+                    "internalType": "uint40",
+                    "name": "",
+                    "type": "uint40"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "transferFrom",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "unpause",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_to",
+                    "type": "address"
+                }
+            ],
+            "name": "withdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

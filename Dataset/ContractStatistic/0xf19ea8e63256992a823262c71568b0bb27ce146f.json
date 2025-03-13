@@ -1,0 +1,1864 @@
+{
+    "address": "0xf19ea8e63256992a823262c71568b0bb27ce146f",
+    "balance": 0.0,
+    "txNumber": 17,
+    "createdBlockNumber": "16832869",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "key",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "value",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct KeyToAddressValue[]",
+                    "name": "_gateways",
+                    "type": "tuple[]"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_feeCollector",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_feeCollectorLocal",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_targetGasReserve",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_owner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "_managers",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_addOwnerToManagers",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "DuplicateGatewayAddressError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "GatewayNotSetError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ListSizeLimitError",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "NonContractAddressError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "OnlyManagerError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ReservedTokenError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "RouterNotSetError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "SafeTransferError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "SafeTransferNativeError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "SwapAmountMaxLessThanMinError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "SwapAmountMinGreaterThanMaxError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "SystemFeeValueError",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "VaultNotSetError",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "gatewayType",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RemoveGateway",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "routerType",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RemoveRouter",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "vaultType",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RemoveVault",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "RenounceManagerRole",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "feeCollector",
+                    "type": "address"
+                }
+            ],
+            "name": "SetFeeCollector",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "feeCollector",
+                    "type": "address"
+                }
+            ],
+            "name": "SetFeeCollectorLocal",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "gatewayType",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "gatewayAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "SetGateway",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bool",
+                    "name": "value",
+                    "type": "bool"
+                }
+            ],
+            "name": "SetManager",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "routerType",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "routerAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "SetRouter",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "routerType",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "routerTransfer",
+                    "type": "address"
+                }
+            ],
+            "name": "SetRouterTransfer",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SetSwapAmountMax",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SetSwapAmountMin",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "systemFee",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SetSystemFee",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "systemFeeLocal",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SetSystemFeeLocal",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "gasReserve",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SetTargetGasReserve",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "vaultType",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "vaultAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "SetVault",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "vaultType",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "key",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "value",
+                            "type": "uint256"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct KeyToValue[]",
+                    "name": "decimalsData",
+                    "type": "tuple[]"
+                }
+            ],
+            "name": "SetVaultDecimals",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "whitelistAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bool",
+                    "name": "value",
+                    "type": "bool"
+                }
+            ],
+            "name": "SetWhitelist",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "vaultType",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256[]",
+                    "name": "chainIds",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "UnsetVaultDecimals",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "SYSTEM_VERSION_ID",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_tokenAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_tokenAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "cleanup",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "feeCollector",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "feeCollectorLocal",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "fullGatewayTypeList",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "fullManagerList",
+            "outputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "",
+                    "type": "address[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "fullRouterTypeList",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "fullVaultDecimalsChainIdList",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "fullVaultTypeList",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "fullWhitelist",
+            "outputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "",
+                    "type": "address[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "gatewayMap",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "gatewayTypeCount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "gatewayTypeIndexMap",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "isSet",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "gatewayTypeList",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "isGatewayAddress",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_account",
+                    "type": "address"
+                }
+            ],
+            "name": "isManager",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_tokenAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "isReservedToken",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_account",
+                    "type": "address"
+                }
+            ],
+            "name": "isWhitelist",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_caller",
+                    "type": "address"
+                }
+            ],
+            "name": "localAmountCalculationSettings",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "systemFeeLocal",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isWhitelist",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct ISettings.LocalAmountCalculationSettings",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_caller",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_routerType",
+                    "type": "uint256"
+                }
+            ],
+            "name": "localSettings",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "router",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "routerTransfer",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "systemFeeLocal",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "feeCollectorLocal",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isWhitelist",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct ISettings.LocalSettings",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "managerCount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_gatewayType",
+                    "type": "uint256"
+                }
+            ],
+            "name": "messageFeeEstimateSettings",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "gateway",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct ISettings.MessageFeeEstimateSettings",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_gatewayType",
+                    "type": "uint256"
+                }
+            ],
+            "name": "removeGateway",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "_routerTypes",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "removeRouters",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_vaultType",
+                    "type": "uint256"
+                }
+            ],
+            "name": "removeVault",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceManagerRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "routerMap",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "routerTransferMap",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "routerTypeCount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "routerTypeIndexMap",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "isSet",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "routerTypeList",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_feeCollector",
+                    "type": "address"
+                }
+            ],
+            "name": "setFeeCollector",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_feeCollector",
+                    "type": "address"
+                }
+            ],
+            "name": "setFeeCollectorLocal",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_gatewayType",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_gatewayAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "setGateway",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_account",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_value",
+                    "type": "bool"
+                }
+            ],
+            "name": "setManager",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_routerType",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_routerTransfer",
+                    "type": "address"
+                }
+            ],
+            "name": "setRouterTransfer",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "key",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "value",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct KeyToAddressValue[]",
+                    "name": "_routers",
+                    "type": "tuple[]"
+                }
+            ],
+            "name": "setRouters",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setSwapAmountMax",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setSwapAmountMin",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_systemFee",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setSystemFee",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_systemFeeLocal",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setSystemFeeLocal",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_gasReserve",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setTargetGasReserve",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_vaultType",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_vaultAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "setVault",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_vaultType",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "key",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "value",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct KeyToValue[]",
+                    "name": "_decimalsData",
+                    "type": "tuple[]"
+                }
+            ],
+            "name": "setVaultDecimals",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_whitelistAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_value",
+                    "type": "bool"
+                }
+            ],
+            "name": "setWhitelist",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_caller",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_targetChainId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_gatewayType",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_routerType",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_vaultType",
+                    "type": "uint256"
+                }
+            ],
+            "name": "sourceSettings",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "gateway",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "router",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "routerTransfer",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "vault",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "sourceVaultDecimals",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "targetVaultDecimals",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "systemFee",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "feeCollector",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isWhitelist",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "swapAmountMin",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "swapAmountMax",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct ISettings.SourceSettings",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_vaultType",
+                    "type": "uint256"
+                }
+            ],
+            "name": "swapAmountLimits",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "min",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "max",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "swapAmountMax",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "swapAmountMin",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "systemFee",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "systemFeeLocal",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "targetGasReserve",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_vaultType",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_routerType",
+                    "type": "uint256"
+                }
+            ],
+            "name": "targetSettings",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "router",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "routerTransfer",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "vault",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "gasReserve",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct ISettings.TargetSettings",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_tokenAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "tokenBalance",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_vaultType",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_chainIds",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "unsetVaultDecimals",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_vaultType",
+                    "type": "uint256"
+                }
+            ],
+            "name": "variableBalanceRepaymentSettings",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "vault",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct ISettings.VariableBalanceRepaymentSettings",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_caller",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_vaultType",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_fromChainId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_toChainId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "vaultAmountCalculationSettings",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "fromDecimals",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "toDecimals",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "systemFee",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isWhitelist",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct ISettings.VaultAmountCalculationSettings",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_vaultType",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_chainId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "vaultDecimals",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "vaultDecimalsChainIdCount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "vaultDecimalsChainIdIndexMap",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "isSet",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "vaultDecimalsChainIdList",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "vaultDecimalsTable",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "isSet",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "vaultMap",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "vaultTypeCount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "vaultTypeIndexMap",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "isSet",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "vaultTypeList",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "whitelist",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "whitelistCount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "whitelistIndexMap",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "isSet",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+}

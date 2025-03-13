@@ -1,0 +1,1233 @@
+{
+    "address": "0x791194ea499a36cfba3bc5b543954c8b507847f6",
+    "balance": 0.0,
+    "txNumber": 371,
+    "createdBlockNumber": "14929531",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "baseTokenURI",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "defaultTokenURIPrefix",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "payable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "emitter",
+                    "type": "address"
+                }
+            ],
+            "name": "ArrayLengthMismatch",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "emitter",
+                    "type": "address"
+                }
+            ],
+            "name": "EditionAlreadyMinted",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "emitter",
+                    "type": "address"
+                }
+            ],
+            "name": "EditionNumberExceedsEditionSize",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "emitter",
+                    "type": "address"
+                }
+            ],
+            "name": "EditionNumberMustBePositive",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "emitter",
+                    "type": "address"
+                }
+            ],
+            "name": "EditionSizeMustBeGreaterThanOne",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "emitter",
+                    "type": "address"
+                }
+            ],
+            "name": "ProjectIdMustBePositive",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "emitter",
+                    "type": "address"
+                }
+            ],
+            "name": "ProjectIsMintedAsSeries",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "emitter",
+                    "type": "address"
+                }
+            ],
+            "name": "ProjectIsMintedAsSingleEdition",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "emitter",
+                    "type": "address"
+                }
+            ],
+            "name": "SeriesAlreadyCreated",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "emitter",
+                    "type": "address"
+                }
+            ],
+            "name": "SeriesNotFound",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "emitter",
+                    "type": "address"
+                }
+            ],
+            "name": "TokenNotFound",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "emitter",
+                    "type": "address"
+                }
+            ],
+            "name": "ZeroAddressNotAllowed",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "baseTokenURI",
+                    "type": "string"
+                }
+            ],
+            "name": "BaseTokenURISet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "defaultTokenURIPrefix",
+                    "type": "string"
+                }
+            ],
+            "name": "DefaultTokenURIPrefixSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "creator",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint64",
+                    "name": "projectId",
+                    "type": "uint64"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "editionNumber",
+                    "type": "uint32"
+                }
+            ],
+            "name": "EditionMinted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "previousAdminRole",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "newAdminRole",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "RoleAdminChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                }
+            ],
+            "name": "RoleGranted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                }
+            ],
+            "name": "RoleRevoked",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint64",
+                    "name": "projectId",
+                    "type": "uint64"
+                }
+            ],
+            "name": "SeriesCreated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint64",
+                    "name": "projectId",
+                    "type": "uint64"
+                }
+            ],
+            "name": "SeriesParamsSet",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "DEFAULT_ADMIN_ROLE",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "MINTER_ROLE",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "projectId",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "editionNumber",
+                    "type": "uint32"
+                }
+            ],
+            "name": "createEditionId",
+            "outputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "",
+                    "type": "uint96"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "projectId",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "editionSize",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "string",
+                    "name": "tokenURIPrefix",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "tokenURISuffix",
+                    "type": "string"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "addEditionToTokenURISuffix",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "string",
+                    "name": "tokenURIExtension",
+                    "type": "string"
+                }
+            ],
+            "name": "createSeries",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getBaseTokenURI",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getDefaultTokenURIPrefix",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "creator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getFullTokenURI",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getRoleAdmin",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "index",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getRoleMember",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getRoleMemberCount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getRoleMembers",
+            "outputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "",
+                    "type": "address[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "projectId",
+                    "type": "uint64"
+                }
+            ],
+            "name": "getSeries",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "bool",
+                            "name": "hasEntry",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "editionSize",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "editionCount",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "tokenURIPrefix",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "tokenURISuffix",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "addEditionToTokenURISuffix",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "tokenURIExtension",
+                            "type": "string"
+                        }
+                    ],
+                    "internalType": "struct ITokengateManifoldExtension.Series",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "creator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getTokenInfo",
+            "outputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "projectId",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "editionNumber",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "creator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getTokenURISuffix",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "grantRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "hasRole",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "projectId",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "editionNumber",
+                    "type": "uint32"
+                }
+            ],
+            "name": "isMinted",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "projectId",
+                    "type": "uint64"
+                }
+            ],
+            "name": "isSeries",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "creator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "projectId",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "editionNumber",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isFullTokenURI",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "string",
+                    "name": "tokenURIData",
+                    "type": "string"
+                }
+            ],
+            "name": "mintSeries",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "creator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "projectId",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "startEditionNumber",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "nbEditions",
+                    "type": "uint32"
+                }
+            ],
+            "name": "mintSeriesBatch1",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "creator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "projectId",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "startEditionNumber",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "nbEditions",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "bool[]",
+                    "name": "isFullTokenURIs",
+                    "type": "bool[]"
+                },
+                {
+                    "internalType": "string[]",
+                    "name": "tokenURIData",
+                    "type": "string[]"
+                }
+            ],
+            "name": "mintSeriesBatch1",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "creator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "recipients",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "uint64[]",
+                    "name": "projectIds",
+                    "type": "uint64[]"
+                },
+                {
+                    "internalType": "uint32[]",
+                    "name": "editionNumbers",
+                    "type": "uint32[]"
+                }
+            ],
+            "name": "mintSeriesBatchN",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "creator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "recipients",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "uint64[]",
+                    "name": "projectIds",
+                    "type": "uint64[]"
+                },
+                {
+                    "internalType": "uint32[]",
+                    "name": "editionNumbers",
+                    "type": "uint32[]"
+                },
+                {
+                    "internalType": "bool[]",
+                    "name": "isFullTokenURIs",
+                    "type": "bool[]"
+                },
+                {
+                    "internalType": "string[]",
+                    "name": "tokenURIData",
+                    "type": "string[]"
+                }
+            ],
+            "name": "mintSeriesBatchN",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "creator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "projectId",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isFullTokenURI",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "string",
+                    "name": "tokenURIData",
+                    "type": "string"
+                }
+            ],
+            "name": "mintSingle",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "creator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "recipients",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "uint64[]",
+                    "name": "projectIds",
+                    "type": "uint64[]"
+                },
+                {
+                    "internalType": "bool[]",
+                    "name": "isFullTokenURIs",
+                    "type": "bool[]"
+                },
+                {
+                    "internalType": "string[]",
+                    "name": "tokenURIData",
+                    "type": "string[]"
+                }
+            ],
+            "name": "mintSingleBatch",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "creator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "recipients",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "uint64[]",
+                    "name": "projectIds",
+                    "type": "uint64[]"
+                }
+            ],
+            "name": "mintSingleBatch",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "renounceRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "revokeRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "baseTokenURI",
+                    "type": "string"
+                }
+            ],
+            "name": "setBaseTokenURI",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "defaultTokenURIPrefix_",
+                    "type": "string"
+                }
+            ],
+            "name": "setDefaultTokenURIPrefix",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "projectId",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "string",
+                    "name": "tokenURIPrefix",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "tokenURISuffix",
+                    "type": "string"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "addEditionToTokenURISuffix",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "string",
+                    "name": "tokenURIExtension",
+                    "type": "string"
+                }
+            ],
+            "name": "setSeriesParams",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "creator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isFullTokenURI",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "string",
+                    "name": "tokenURIData",
+                    "type": "string"
+                }
+            ],
+            "name": "setTokenURIData",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "creator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "tokenIds",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "bool[]",
+                    "name": "isFullTokenURIs",
+                    "type": "bool[]"
+                },
+                {
+                    "internalType": "string[]",
+                    "name": "tokenURIData",
+                    "type": "string[]"
+                }
+            ],
+            "name": "setTokenURIDataBatch",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "editionId",
+                    "type": "uint96"
+                }
+            ],
+            "name": "splitEditionId",
+            "outputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "projectId",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "editionNumber",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes4",
+                    "name": "interfaceId",
+                    "type": "bytes4"
+                }
+            ],
+            "name": "supportsInterface",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "addr",
+                    "type": "address"
+                }
+            ],
+            "name": "toString",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "creator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "tokenURI",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+}

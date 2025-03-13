@@ -1,0 +1,527 @@
+{
+    "address": "0x36888c29a7dcf91d3102a5b3e515bd355cbf75d4",
+    "balance": 0.0,
+    "txNumber": 323,
+    "createdBlockNumber": "17842406",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC721",
+                    "name": "sheetNFT_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IERC721",
+                    "name": "botsNFT_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "allocationSheetIdStart_",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "allocatee",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "allocation",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "totalClaimedAfter",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SpreadSheet__AllocationExceeded",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "allocatee",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "allocation",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SpreadSheet__InvalidAllocationProof",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "sheetId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SpreadSheet__InvalidAllocationSheetId",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "sheetId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "botsId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SpreadSheet__InvalidTransitionProof",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "SpreadSheet__MismatchedInputs",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "SpreadSheet__ZeroClaim",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256[]",
+                    "name": "sheetIds",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "AdminWithdraw",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "claimer",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256[]",
+                    "name": "sheetIds",
+                    "type": "uint256[]"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "allocation",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ClaimSheetsViaAllocation",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "claimer",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256[]",
+                    "name": "sheetIds",
+                    "type": "uint256[]"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256[]",
+                    "name": "botsIds",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "ClaimSheetsViaTransition",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "PauseClaims",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Paused",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "newAllocationMerkleRoot",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "SetAllocationMerkleRoot",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "newTransitionMerkleRoot",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "SetTransitionMerkleRoot",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "UnpauseClaims",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Unpaused",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "sheetIds",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "adminWithdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "allocationMerkleRoot",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "allocationSheetIdStart",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "botsNFT",
+            "outputs": [
+                {
+                    "internalType": "contract IERC721",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "sheetIdsToClaimViaTransition",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "sheetIdsToClaimViaAllocation",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "botsIdsToBurnViaTransition",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "allocationAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32[][]",
+                    "name": "transitionProofs",
+                    "type": "bytes32[][]"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "allocationProof",
+                    "type": "bytes32[]"
+                }
+            ],
+            "name": "claimSheets",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "sheetIdsToClaim",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "allocation",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "allocationProof",
+                    "type": "bytes32[]"
+                }
+            ],
+            "name": "claimSheetsViaAllocation",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "sheetIdsToClaim",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "botsIdsToBurn",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "bytes32[][]",
+                    "name": "transitionProofs",
+                    "type": "bytes32[][]"
+                }
+            ],
+            "name": "claimSheetsViaTransition",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pauseClaims",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "paused",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "newAllocationMerkleRoot",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "setAllocationMerkleRoot",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "newTransitionMerkleRoot",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "setTransitionMerkleRoot",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "sheetNFT",
+            "outputs": [
+                {
+                    "internalType": "contract IERC721",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "totalClaimed",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "transitionMerkleRoot",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "unpauseClaims",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

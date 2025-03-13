@@ -1,0 +1,1036 @@
+{
+    "address": "0x2a514dd3765be7f108df3ceb2c666c30c70ec588",
+    "balance": 0.0,
+    "txNumber": 60,
+    "createdBlockNumber": "16351843",
+    "abi": [
+        {
+            "inputs": [],
+            "name": "CommitmentMismatch",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidBidAmount",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidCalldata",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidCliffPercent",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidPrivateKey",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidProof",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidReserve",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidSorting",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidState",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidTimestamp",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "TokenDoesNotExist",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "UnauthorizedCaller",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "UnexpectedBalanceChange",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionCanceled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "seller",
+                    "type": "address"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "baseToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "quoteToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "reserveQuotePerBase",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "totalBaseAmount",
+                            "type": "uint128"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "minimumBidQuote",
+                            "type": "uint128"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "merkleRoot",
+                            "type": "bytes32"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint256",
+                                    "name": "x",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "y",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct ECCMath.Point",
+                            "name": "pubKey",
+                            "type": "tuple"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct ISizeSealed.AuctionParameters",
+                    "name": "params",
+                    "type": "tuple"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint32",
+                            "name": "startTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "endTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "vestingStartTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "vestingEndTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "cliffPercent",
+                            "type": "uint128"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct ISizeSealed.Timings",
+                    "name": "timings",
+                    "type": "tuple"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes",
+                    "name": "encryptedPrivKey",
+                    "type": "bytes"
+                }
+            ],
+            "name": "AuctionCreated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256[]",
+                    "name": "bidIndices",
+                    "type": "uint256[]"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "filledBase",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "filledQuote",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionFinalized",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "bidIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint128",
+                    "name": "quoteAmount",
+                    "type": "uint128"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "commitment",
+                    "type": "bytes32"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "x",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "y",
+                            "type": "uint256"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct ECCMath.Point",
+                    "name": "pubKey",
+                    "type": "tuple"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "encryptedMessage",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes",
+                    "name": "encryptedPrivateKey",
+                    "type": "bytes"
+                }
+            ],
+            "name": "Bid",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "bidIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "BidCanceled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "bidIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "BidRefund",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "privateKey",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RevealedKey",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "bidIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "withdrawAmount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "remainingAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Withdrawal",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint128",
+                    "name": "quoteAmount",
+                    "type": "uint128"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "commitment",
+                    "type": "bytes32"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "x",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "y",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct ECCMath.Point",
+                    "name": "pubKey",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "encryptedMessage",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "encryptedPrivateKey",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "proof",
+                    "type": "bytes32[]"
+                }
+            ],
+            "name": "bid",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "cancelAuction",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "bidIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "cancelBid",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "message",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "computeCommitment",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint128",
+                    "name": "baseAmount",
+                    "type": "uint128"
+                },
+                {
+                    "internalType": "bytes16",
+                    "name": "salt",
+                    "type": "bytes16"
+                }
+            ],
+            "name": "computeMessage",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "baseToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "quoteToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "reserveQuotePerBase",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "totalBaseAmount",
+                            "type": "uint128"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "minimumBidQuote",
+                            "type": "uint128"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "merkleRoot",
+                            "type": "bytes32"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint256",
+                                    "name": "x",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "y",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct ECCMath.Point",
+                            "name": "pubKey",
+                            "type": "tuple"
+                        }
+                    ],
+                    "internalType": "struct ISizeSealed.AuctionParameters",
+                    "name": "auctionParams",
+                    "type": "tuple"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint32",
+                            "name": "startTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "endTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "vestingStartTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "vestingEndTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "cliffPercent",
+                            "type": "uint128"
+                        }
+                    ],
+                    "internalType": "struct ISizeSealed.Timings",
+                    "name": "timings",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "encryptedSellerPrivKey",
+                    "type": "bytes"
+                }
+            ],
+            "name": "createAuction",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "currentAuctionId",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "bidIndices",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "finalize",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getAuctionData",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "seller",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "finalized",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "clearingBase",
+                            "type": "uint128"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "clearingQuote",
+                            "type": "uint128"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "privKey",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct ISizeSealed.AuctionData",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "bidIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getBid",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "sender",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "quoteAmount",
+                            "type": "uint128"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "filledBaseAmount",
+                            "type": "uint128"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "baseWithdrawn",
+                            "type": "uint128"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "commitment",
+                            "type": "bytes32"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint256",
+                                    "name": "x",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "y",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct ECCMath.Point",
+                            "name": "pubKey",
+                            "type": "tuple"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "encryptedMessage",
+                            "type": "bytes32"
+                        }
+                    ],
+                    "internalType": "struct ISizeSealed.EncryptedBid",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getTimings",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint32",
+                            "name": "startTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "endTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "vestingStartTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "vestingEndTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "cliffPercent",
+                            "type": "uint128"
+                        }
+                    ],
+                    "internalType": "struct ISizeSealed.Timings",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "idToAuction",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint32",
+                            "name": "startTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "endTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "vestingStartTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint32",
+                            "name": "vestingEndTimestamp",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "cliffPercent",
+                            "type": "uint128"
+                        }
+                    ],
+                    "internalType": "struct ISizeSealed.Timings",
+                    "name": "timings",
+                    "type": "tuple"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "seller",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "finalized",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "clearingBase",
+                            "type": "uint128"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "clearingQuote",
+                            "type": "uint128"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "privKey",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct ISizeSealed.AuctionData",
+                    "name": "data",
+                    "type": "tuple"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "baseToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "quoteToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "reserveQuotePerBase",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "totalBaseAmount",
+                            "type": "uint128"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "minimumBidQuote",
+                            "type": "uint128"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "merkleRoot",
+                            "type": "bytes32"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "uint256",
+                                    "name": "x",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "y",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct ECCMath.Point",
+                            "name": "pubKey",
+                            "type": "tuple"
+                        }
+                    ],
+                    "internalType": "struct ISizeSealed.AuctionParameters",
+                    "name": "params",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "bidIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "refund",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "privateKey",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "finalizeData",
+                    "type": "bytes"
+                }
+            ],
+            "name": "reveal",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint128",
+                    "name": "baseAmount",
+                    "type": "uint128"
+                }
+            ],
+            "name": "tokensAvailableForWithdrawal",
+            "outputs": [
+                {
+                    "internalType": "uint128",
+                    "name": "tokensAvailable",
+                    "type": "uint128"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "bidIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "withdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

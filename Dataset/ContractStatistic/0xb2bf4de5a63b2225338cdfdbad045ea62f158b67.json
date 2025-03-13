@@ -1,0 +1,506 @@
+{
+    "address": "0xb2bf4de5a63b2225338cdfdbad045ea62f158b67",
+    "balance": 0.0,
+    "txNumber": 153,
+    "createdBlockNumber": "17669930",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IPositionManager",
+                    "name": "positionManager_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IAMM",
+                    "name": "amm_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract IWstETH",
+                    "name": "wstETH_",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "AmmCannotBeZero",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "caller",
+                    "type": "address"
+                }
+            ],
+            "name": "CallerIsNotPositionManager",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "CollateralTokenCannotBeZero",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidInitiator",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "PositionManagerCannotBeZero",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "UnsupportedToken",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "WstETHAddressCannotBeZero",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ZeroDebtChange",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "position",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "principalCollateralChange",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "principalCollateralIncrease",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "debtChange",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isDebtIncrease",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "leveragedCollateralChange",
+                    "type": "uint256"
+                }
+            ],
+            "name": "LeveragedPositionAdjusted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferStarted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "position",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "collateralChange",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isCollateralIncrease",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "debtChange",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isDebtIncrease",
+                    "type": "bool"
+                }
+            ],
+            "name": "StETHLeveragedPositionChange",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "MAX_LEFTOVER_R",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "acceptOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "amm",
+            "outputs": [
+                {
+                    "internalType": "contract IAMM",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "collateralToken",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "debtChange",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isDebtIncrease",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "principalCollateralChange",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "principalCollateralIncrease",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "ammData",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "minReturnOrAmountToSell",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "maxFeePercentage",
+                    "type": "uint256"
+                }
+            ],
+            "name": "manageLeveragedPosition",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "debtChange",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isDebtIncrease",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "stETHCollateralChange",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "stETHCollateralIncrease",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "ammData",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "minReturnOrAmountToSell",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "maxFeePercentage",
+                    "type": "uint256"
+                }
+            ],
+            "name": "manageLeveragedPositionStETH",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "initiator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "fee",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "data",
+                    "type": "bytes"
+                }
+            ],
+            "name": "onFlashLoan",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pendingOwner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "positionManager",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "raftCollateralToken",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20Indexable",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "raftDebtToken",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20Indexable",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                }
+            ],
+            "name": "rescueTokens",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "stETH",
+            "outputs": [
+                {
+                    "internalType": "contract IStETH",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "underlyingCollateralToken",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "wstETH",
+            "outputs": [
+                {
+                    "internalType": "contract IWstETH",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+}

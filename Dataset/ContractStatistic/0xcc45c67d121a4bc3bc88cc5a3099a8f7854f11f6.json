@@ -1,0 +1,569 @@
+{
+    "address": "0xcc45c67d121a4bc3bc88cc5a3099a8f7854f11f6",
+    "balance": 0.1652924383125,
+    "txNumber": 586,
+    "createdBlockNumber": "18212091",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "owner_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "manager_",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidMergeValue",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "dealer",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "feeRatio",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes",
+                    "name": "extraInfo",
+                    "type": "bytes"
+                }
+            ],
+            "name": "DealerUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ETHDeposit",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint64",
+                    "name": "startBlock",
+                    "type": "uint64"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint64",
+                    "name": "endBlock",
+                    "type": "uint64"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint64",
+                    "name": "submitTimestamp",
+                    "type": "uint64"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "profitRoot",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "stateTransTreeRoot",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "SubmissionUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "submitter",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "marginAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SubmitterRegistered",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint64",
+                    "name": "chainId",
+                    "type": "uint64"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "debt",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Withdraw",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "challengeStatus",
+            "outputs": [
+                {
+                    "internalType": "enum IORFeeManager.ChallengeStatus",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "durationCheck",
+            "outputs": [
+                {
+                    "internalType": "enum IORFeeManager.FeeMangerDuration",
+                    "name": "duration",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getCurrentBlockInfo",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint64",
+                            "name": "startBlock",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "endBlock",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "uint64",
+                            "name": "submitTimestamp",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "profitRoot",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "stateTransTreeRoot",
+                            "type": "bytes32"
+                        }
+                    ],
+                    "internalType": "struct IORFeeManager.Submission",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "dealer",
+                    "type": "address"
+                }
+            ],
+            "name": "getDealerInfo",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "feeRatio",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "extraInfoHash",
+                            "type": "bytes32"
+                        }
+                    ],
+                    "internalType": "struct IORFeeManager.DealerInfo",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "marginAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_submitter",
+                    "type": "address"
+                }
+            ],
+            "name": "registerSubmitter",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "response",
+                    "type": "bytes"
+                }
+            ],
+            "name": "responsePositioning",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "marginAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_submitter",
+                    "type": "address"
+                }
+            ],
+            "name": "startChallenge",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "submissions",
+            "outputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "startBlock",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "endBlock",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "submitTimestamp",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "profitRoot",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "stateTransTreeRoot",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "startBlock",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "endBlock",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "profitRoot",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "stateTransTreeRoot",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "submit",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "submitter",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "feeRatio",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "extraInfo",
+                    "type": "bytes"
+                }
+            ],
+            "name": "updateDealer",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "withdrawLock",
+            "outputs": [
+                {
+                    "internalType": "uint64",
+                    "name": "",
+                    "type": "uint64"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "withdrawUser",
+                    "type": "address"
+                }
+            ],
+            "name": "withdrawLockCheck",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint64",
+                            "name": "chainId",
+                            "type": "uint64"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "token",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "user",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "debt",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct MerkleTreeLib.SMTLeaf[]",
+                    "name": "smtLeaves",
+                    "type": "tuple[]"
+                },
+                {
+                    "internalType": "bytes32[][]",
+                    "name": "siblings",
+                    "type": "bytes32[][]"
+                },
+                {
+                    "internalType": "uint8[]",
+                    "name": "startIndex",
+                    "type": "uint8[]"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "firstZeroBits",
+                    "type": "bytes32[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "bitmaps",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "withdrawAmount",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "withdrawVerification",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "stateMutability": "payable",
+            "type": "receive"
+        }
+    ]
+}

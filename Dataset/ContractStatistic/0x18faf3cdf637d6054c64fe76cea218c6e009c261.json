@@ -1,0 +1,1592 @@
+{
+    "address": "0x18faf3cdf637d6054c64fe76cea218c6e009c261",
+    "balance": 0.0,
+    "txNumber": 24,
+    "createdBlockNumber": "17834445",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract MinimalForwarder",
+                    "name": "forwarder",
+                    "type": "address"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "timeBuffer",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "reservePrice",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "minBidIncrementPercentage",
+                            "type": "uint8"
+                        }
+                    ],
+                    "internalType": "struct DogMoneyAuctionHouse.AuctionSettings",
+                    "name": "auctionSettings",
+                    "type": "tuple"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "fundsReceiver",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IERC20",
+                            "name": "reserveCurrency",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "swapRouter",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IWETH",
+                            "name": "WETH9",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct UniversalPaymentReceiver.PaymentSettings",
+                    "name": "paymentSettings",
+                    "type": "tuple"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "erc1155",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct DogMoneyAuctionHouse.NFTGate",
+                    "name": "_gate",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "extended",
+                    "type": "bool"
+                }
+            ],
+            "name": "AuctionBid",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "startTime",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "endTime",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionCreated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "endTime",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionExtended",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "minBidIncrementPercentage",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionMinBidIncrementPercentageUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "reservePrice",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionReservePriceUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "winner",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionSettled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "timeBuffer",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionTimeBufferUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Paused",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "QueueUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Unpaused",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "WETH9",
+            "outputs": [
+                {
+                    "internalType": "contract IWETH",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "_trustedForwarder",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "auction",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "bool",
+                            "name": "isInitialized",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "metadataURI",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "reservePrice",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "erc20Addresses",
+                            "type": "address[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc20Amounts",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "erc721Addresses",
+                            "type": "address[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc721TokenIds",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "erc1155Addresses",
+                            "type": "address[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc1155Amounts",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc1155TokenIds",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "duration",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct IDogMoneyAuctionHouse.AuctionPack",
+                    "name": "auctionPack",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "startTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "endTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address payable",
+                    "name": "bidder",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "settled",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "cancelled",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "lastAttempt",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "cancelAuction",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "cancelCurrentAuction",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "bool",
+                            "name": "isInitialized",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "metadataURI",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "reservePrice",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "erc20Addresses",
+                            "type": "address[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc20Amounts",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "erc721Addresses",
+                            "type": "address[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc721TokenIds",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "erc1155Addresses",
+                            "type": "address[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc1155Amounts",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc1155TokenIds",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "duration",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct IDogMoneyAuctionHouse.AuctionPack",
+                    "name": "auctionPack",
+                    "type": "tuple"
+                }
+            ],
+            "name": "createAuction",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "createAuction",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "contract IERC20",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "swapPath",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amountIn",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amountOutMinimum",
+                    "type": "uint256"
+                }
+            ],
+            "name": "createBid",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "contract IERC20",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "swapPath",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amountIn",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amountOutMinimum",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                }
+            ],
+            "name": "createBidFor",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "fundsReceiver",
+            "outputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "gateErc1155",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "gateTokenId",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bool",
+                    "name": "canRestartCycle",
+                    "type": "bool"
+                }
+            ],
+            "name": "getNextAuction",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "bool",
+                                    "name": "isInitialized",
+                                    "type": "bool"
+                                },
+                                {
+                                    "internalType": "string",
+                                    "name": "metadataURI",
+                                    "type": "string"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "reservePrice",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "address[]",
+                                    "name": "erc20Addresses",
+                                    "type": "address[]"
+                                },
+                                {
+                                    "internalType": "uint256[]",
+                                    "name": "erc20Amounts",
+                                    "type": "uint256[]"
+                                },
+                                {
+                                    "internalType": "address[]",
+                                    "name": "erc721Addresses",
+                                    "type": "address[]"
+                                },
+                                {
+                                    "internalType": "uint256[]",
+                                    "name": "erc721TokenIds",
+                                    "type": "uint256[]"
+                                },
+                                {
+                                    "internalType": "address[]",
+                                    "name": "erc1155Addresses",
+                                    "type": "address[]"
+                                },
+                                {
+                                    "internalType": "uint256[]",
+                                    "name": "erc1155Amounts",
+                                    "type": "uint256[]"
+                                },
+                                {
+                                    "internalType": "uint256[]",
+                                    "name": "erc1155TokenIds",
+                                    "type": "uint256[]"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "duration",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct IDogMoneyAuctionHouse.AuctionPack",
+                            "name": "auctionPack",
+                            "type": "tuple"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "startTime",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "endTime",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address payable",
+                            "name": "bidder",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "settled",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "cancelled",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "lastAttempt",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct IDogMoneyAuctionHouse.Auction",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "auctionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getPastAuction",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "bool",
+                                    "name": "isInitialized",
+                                    "type": "bool"
+                                },
+                                {
+                                    "internalType": "string",
+                                    "name": "metadataURI",
+                                    "type": "string"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "reservePrice",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "address[]",
+                                    "name": "erc20Addresses",
+                                    "type": "address[]"
+                                },
+                                {
+                                    "internalType": "uint256[]",
+                                    "name": "erc20Amounts",
+                                    "type": "uint256[]"
+                                },
+                                {
+                                    "internalType": "address[]",
+                                    "name": "erc721Addresses",
+                                    "type": "address[]"
+                                },
+                                {
+                                    "internalType": "uint256[]",
+                                    "name": "erc721TokenIds",
+                                    "type": "uint256[]"
+                                },
+                                {
+                                    "internalType": "address[]",
+                                    "name": "erc1155Addresses",
+                                    "type": "address[]"
+                                },
+                                {
+                                    "internalType": "uint256[]",
+                                    "name": "erc1155Amounts",
+                                    "type": "uint256[]"
+                                },
+                                {
+                                    "internalType": "uint256[]",
+                                    "name": "erc1155TokenIds",
+                                    "type": "uint256[]"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "duration",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct IDogMoneyAuctionHouse.AuctionPack",
+                            "name": "auctionPack",
+                            "type": "tuple"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "startTime",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "endTime",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address payable",
+                            "name": "bidder",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "settled",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "cancelled",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "lastAttempt",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct IDogMoneyAuctionHouse.Auction",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "int256",
+                    "name": "i",
+                    "type": "int256"
+                }
+            ],
+            "name": "getQueuedAuction",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "internalType": "bool",
+                                    "name": "isInitialized",
+                                    "type": "bool"
+                                },
+                                {
+                                    "internalType": "string",
+                                    "name": "metadataURI",
+                                    "type": "string"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "reservePrice",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "address[]",
+                                    "name": "erc20Addresses",
+                                    "type": "address[]"
+                                },
+                                {
+                                    "internalType": "uint256[]",
+                                    "name": "erc20Amounts",
+                                    "type": "uint256[]"
+                                },
+                                {
+                                    "internalType": "address[]",
+                                    "name": "erc721Addresses",
+                                    "type": "address[]"
+                                },
+                                {
+                                    "internalType": "uint256[]",
+                                    "name": "erc721TokenIds",
+                                    "type": "uint256[]"
+                                },
+                                {
+                                    "internalType": "address[]",
+                                    "name": "erc1155Addresses",
+                                    "type": "address[]"
+                                },
+                                {
+                                    "internalType": "uint256[]",
+                                    "name": "erc1155Amounts",
+                                    "type": "uint256[]"
+                                },
+                                {
+                                    "internalType": "uint256[]",
+                                    "name": "erc1155TokenIds",
+                                    "type": "uint256[]"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "duration",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct IDogMoneyAuctionHouse.AuctionPack",
+                            "name": "auctionPack",
+                            "type": "tuple"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "startTime",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "endTime",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address payable",
+                            "name": "bidder",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "settled",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "cancelled",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "lastAttempt",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct IDogMoneyAuctionHouse.Auction",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "forwarder",
+                    "type": "address"
+                }
+            ],
+            "name": "isTrustedForwarder",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "maxTokensPerType",
+            "outputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "minBidIncrementPercentage",
+            "outputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "minimumBid",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "minimum",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "nextAuctionHead",
+            "outputs": [
+                {
+                    "internalType": "int256",
+                    "name": "",
+                    "type": "int256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "int256",
+                    "name": "",
+                    "type": "int256"
+                }
+            ],
+            "name": "nextAuctions",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "bool",
+                            "name": "isInitialized",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "metadataURI",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "reservePrice",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "erc20Addresses",
+                            "type": "address[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc20Amounts",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "erc721Addresses",
+                            "type": "address[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc721TokenIds",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "erc1155Addresses",
+                            "type": "address[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc1155Amounts",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc1155TokenIds",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "duration",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct IDogMoneyAuctionHouse.AuctionPack",
+                    "name": "auctionPack",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "startTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "endTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address payable",
+                    "name": "bidder",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "settled",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "cancelled",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "lastAttempt",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "numAuctions",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "numNextAuctions",
+            "outputs": [
+                {
+                    "internalType": "int256",
+                    "name": "",
+                    "type": "int256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "pastAuctions",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "bool",
+                            "name": "isInitialized",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "metadataURI",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "reservePrice",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "erc20Addresses",
+                            "type": "address[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc20Amounts",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "erc721Addresses",
+                            "type": "address[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc721TokenIds",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "erc1155Addresses",
+                            "type": "address[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc1155Amounts",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc1155TokenIds",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "duration",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct IDogMoneyAuctionHouse.AuctionPack",
+                    "name": "auctionPack",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "startTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "endTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address payable",
+                    "name": "bidder",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "settled",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "cancelled",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "lastAttempt",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "paused",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "reserveCurrency",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "reservePrice",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "_fundsReceiver",
+                    "type": "address"
+                }
+            ],
+            "name": "setFundsReceiver",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "_minBidIncrementPercentage",
+                    "type": "uint8"
+                }
+            ],
+            "name": "setMinBidIncrementPercentage",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_erc1155",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setNFTGate",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "bool",
+                            "name": "isInitialized",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "metadataURI",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "reservePrice",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "erc20Addresses",
+                            "type": "address[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc20Amounts",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "erc721Addresses",
+                            "type": "address[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc721TokenIds",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "erc1155Addresses",
+                            "type": "address[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc1155Amounts",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "erc1155TokenIds",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "duration",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct IDogMoneyAuctionHouse.AuctionPack[]",
+                    "name": "auctionPacks",
+                    "type": "tuple[]"
+                }
+            ],
+            "name": "setNextAuctions",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_reservePrice",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setReservePrice",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_timeBuffer",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setTimeBuffer",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bool",
+                    "name": "forceSettle",
+                    "type": "bool"
+                }
+            ],
+            "name": "settleAuction",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "settleAuction",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "swapRouter",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "timeBuffer",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "unpause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "stateMutability": "payable",
+            "type": "receive"
+        }
+    ]
+}

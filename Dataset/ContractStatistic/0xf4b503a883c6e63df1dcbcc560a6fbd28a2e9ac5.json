@@ -1,0 +1,1269 @@
+{
+    "address": "0xf4b503a883c6e63df1dcbcc560a6fbd28a2e9ac5",
+    "balance": 0.0,
+    "txNumber": 15,
+    "createdBlockNumber": "16988434",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "chainSlug_",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "hasher_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "transmitManager_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "executionManager_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "capacitorFactory_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "owner_",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "AlreadyAttested",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InsufficientFees",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidAttester",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidConnection",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidProof",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidRetry",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "MessageAlreadyExecuted",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "NoPermit",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NotExecutor",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "OnlyNominee",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "OnlyOwner",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "SwitchboardExists",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "VerificationFailed",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "capacitorFactory",
+                    "type": "address"
+                }
+            ],
+            "name": "CapacitorFactorySet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "msgId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "result",
+                    "type": "string"
+                }
+            ],
+            "name": "ExecutionFailed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "msgId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes",
+                    "name": "result",
+                    "type": "bytes"
+                }
+            ],
+            "name": "ExecutionFailedBytes",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "executionManager",
+                    "type": "address"
+                }
+            ],
+            "name": "ExecutionManagerSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "msgId",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "ExecutionSuccess",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "hasher",
+                    "type": "address"
+                }
+            ],
+            "name": "HasherSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "localChainSlug",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "localPlug",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "dstChainSlug",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "dstPlug",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "msgId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "msgGasLimit",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes",
+                    "name": "payload",
+                    "type": "bytes"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "transmissionFees",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "switchboardFees",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "executionFee",
+                            "type": "uint256"
+                        }
+                    ],
+                    "indexed": false,
+                    "internalType": "struct ISocket.Fees",
+                    "name": "fees",
+                    "type": "tuple"
+                }
+            ],
+            "name": "MessageOutbound",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "claimer",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnerClaimed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "nominee",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnerNominated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "transmitter",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "packetId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "root",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "PacketProposed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "packetId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "oldRoot",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "newRoot",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "PacketRootUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "transmitter",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "packetId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "root",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes",
+                    "name": "signature",
+                    "type": "bytes"
+                }
+            ],
+            "name": "PacketVerifiedAndSealed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "plug",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "siblingChainSlug",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "siblingPlug",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "inboundSwitchboard",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "outboundSwitchboard",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "capacitor",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "decapacitor",
+                    "type": "address"
+                }
+            ],
+            "name": "PlugConnected",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "grantee",
+                    "type": "address"
+                }
+            ],
+            "name": "RoleGranted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "role",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "revokee",
+                    "type": "address"
+                }
+            ],
+            "name": "RoleRevoked",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "switchboard",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "siblingChainSlug",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "capacitor",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "decapacitor",
+                    "type": "address"
+                }
+            ],
+            "name": "SwitchboardAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "transmitManager",
+                    "type": "address"
+                }
+            ],
+            "name": "TransmitManagerSet",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "capacitorFactory__",
+            "outputs": [
+                {
+                    "internalType": "contract ICapacitorFactory",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "capacitorToSlug",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "capacitors__",
+            "outputs": [
+                {
+                    "internalType": "contract ICapacitor",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "chainSlug",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "claimOwner",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "siblingChainSlug_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "siblingPlug_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "inboundSwitchboard_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "outboundSwitchboard_",
+                    "type": "address"
+                }
+            ],
+            "name": "connect",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "decapacitors__",
+            "outputs": [
+                {
+                    "internalType": "contract IDecapacitor",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "packetId_",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "localPlug_",
+                    "type": "address"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "msgId",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "executionFee",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "msgGasLimit",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "payload",
+                            "type": "bytes"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "decapacitorProof",
+                            "type": "bytes"
+                        }
+                    ],
+                    "internalType": "struct ISocket.MessageDetails",
+                    "name": "messageDetails_",
+                    "type": "tuple"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "signature_",
+                    "type": "bytes"
+                }
+            ],
+            "name": "execute",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "executionManager__",
+            "outputs": [
+                {
+                    "internalType": "contract IExecutionManager",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "msgGasLimit_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "remoteChainSlug_",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "plug_",
+                    "type": "address"
+                }
+            ],
+            "name": "getMinFees",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "totalFees",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "plugAddress_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "siblingChainSlug_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getPlugConfig",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "siblingPlug",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "inboundSwitchboard__",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "outboundSwitchboard__",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "capacitor__",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "decapacitor__",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32[]",
+                    "name": "roleNames_",
+                    "type": "bytes32[]"
+                },
+                {
+                    "internalType": "address[]",
+                    "name": "grantees_",
+                    "type": "address[]"
+                }
+            ],
+            "name": "grantBatchRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "roleName_",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "chainSlug_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "grantee_",
+                    "type": "address"
+                }
+            ],
+            "name": "grantRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role_",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "grantee_",
+                    "type": "address"
+                }
+            ],
+            "name": "grantRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "roleName_",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "chainSlug_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "address_",
+                    "type": "address"
+                }
+            ],
+            "name": "hasRole",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role_",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "address_",
+                    "type": "address"
+                }
+            ],
+            "name": "hasRole",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "hasher__",
+            "outputs": [
+                {
+                    "internalType": "contract IHasher",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "packetId_",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "isPacketProposed",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "messageCount",
+            "outputs": [
+                {
+                    "internalType": "uint224",
+                    "name": "",
+                    "type": "uint224"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "messageExecuted",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "nominee_",
+                    "type": "address"
+                }
+            ],
+            "name": "nominateOwner",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "nominee",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "remoteChainSlug_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "msgGasLimit_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "payload_",
+                    "type": "bytes"
+                }
+            ],
+            "name": "outbound",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "msgId",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "packetIdRoots",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "packetId_",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "root_",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "signature_",
+                    "type": "bytes"
+                }
+            ],
+            "name": "propose",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "switchBoardAddress_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "maxPacketLength_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "siblingChainSlug_",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "capacitorType_",
+                    "type": "uint32"
+                }
+            ],
+            "name": "registerSwitchBoard",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "token_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "userAddress_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "rescueFunds",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "roleName_",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "chainSlug_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "grantee_",
+                    "type": "address"
+                }
+            ],
+            "name": "revokeRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "role_",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "revokee_",
+                    "type": "address"
+                }
+            ],
+            "name": "revokeRole",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "rootProposedAt",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "batchSize_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "capacitorAddress_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "signature_",
+                    "type": "bytes"
+                }
+            ],
+            "name": "seal",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "capacitorFactory_",
+                    "type": "address"
+                }
+            ],
+            "name": "setCapacitorFactory",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "executionManager_",
+                    "type": "address"
+                }
+            ],
+            "name": "setExecutionManager",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "hasher_",
+                    "type": "address"
+                }
+            ],
+            "name": "setHasher",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "transmitManager_",
+                    "type": "address"
+                }
+            ],
+            "name": "setTransmitManager",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "transmitManager__",
+            "outputs": [
+                {
+                    "internalType": "contract ITransmitManager",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+}

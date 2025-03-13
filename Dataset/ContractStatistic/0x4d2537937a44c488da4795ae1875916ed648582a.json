@@ -1,0 +1,632 @@
+{
+    "address": "0x4d2537937a44c488da4795ae1875916ed648582a",
+    "balance": 0.0,
+    "txNumber": 46,
+    "createdBlockNumber": "18436648",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "tokenContract",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "houseWallet",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "ActiveRace",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "AlreadyClaimed",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "AlreadyPlacedBet",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "BettingEndedAlready",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "BettingStillActive",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "DidntParticipate",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "DidntWin",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidHouse",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidLane",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidRaceId",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidToken",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "MissingTokenApproval",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NoActiveRace",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NotEnoughTokens",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "RaceDataMismatch",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "raceId",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "addr",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint8",
+                    "name": "lane",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "BetAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "raceId",
+                    "type": "uint32"
+                }
+            ],
+            "name": "BettingEnded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "raceId",
+                    "type": "uint32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint8",
+                    "name": "winningLane",
+                    "type": "uint8"
+                }
+            ],
+            "name": "RaceEnded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "raceId",
+                    "type": "uint32"
+                }
+            ],
+            "name": "RaceStarted",
+            "type": "event"
+        },
+        {
+            "stateMutability": "payable",
+            "type": "fallback"
+        },
+        {
+            "inputs": [],
+            "name": "_totalRaces",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "betData",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "claimed",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "lane",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "name": "betPerRacePerLane",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "lane",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "betRace",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "bettors",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "claimAllWinnings",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "raceId",
+                    "type": "uint32"
+                }
+            ],
+            "name": "claimWinnings",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "currentRace",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "endBetting",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "winningLane",
+                    "type": "uint8"
+                }
+            ],
+            "name": "endRace",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "index",
+                    "type": "uint32"
+                }
+            ],
+            "name": "getRaceBets",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "bettor",
+                    "type": "address"
+                }
+            ],
+            "name": "getUnclaimedBalance",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "house",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "raceId",
+                    "type": "uint32"
+                }
+            ],
+            "name": "houseWithdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "lastRace",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "bettor",
+                    "type": "address"
+                }
+            ],
+            "name": "participatedInRaces",
+            "outputs": [
+                {
+                    "internalType": "uint32[]",
+                    "name": "",
+                    "type": "uint32[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "raceData",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "active",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "bettingActive",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "houseWithdrew",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "winningLane",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "totalBet",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "startRace",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "sweep",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "token",
+            "outputs": [
+                {
+                    "internalType": "contract IHotWheels",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "totalAmountWon",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "totalBetsMade",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "bettor",
+                    "type": "address"
+                }
+            ],
+            "name": "unclaimedWinnings",
+            "outputs": [
+                {
+                    "internalType": "uint32[]",
+                    "name": "",
+                    "type": "uint32[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "stateMutability": "payable",
+            "type": "receive"
+        }
+    ]
+}

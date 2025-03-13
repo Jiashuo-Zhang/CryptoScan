@@ -1,0 +1,1946 @@
+{
+    "address": "0x1356f3b78a792873d355347ac351d2585a826674",
+    "balance": 0.0,
+    "txNumber": 279,
+    "createdBlockNumber": "16926730",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_admin",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_treasury",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "max",
+                    "type": "uint96"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "given",
+                    "type": "uint96"
+                }
+            ],
+            "name": "AboveMax",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "AlreadyOpened",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "min",
+                    "type": "uint96"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "given",
+                    "type": "uint96"
+                }
+            ],
+            "name": "BelowMin",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "CantClose",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "fund",
+                    "type": "address"
+                }
+            ],
+            "name": "FundExists",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "FundraisingComplete",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "desired",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "given",
+                    "type": "address"
+                }
+            ],
+            "name": "NoAccess",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                }
+            ],
+            "name": "NoBaseToken",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NotFinalised",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "NotValidPlugin",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ZeroAddress",
+            "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "ZeroAmount",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "admin",
+                    "type": "address"
+                }
+            ],
+            "name": "AdminChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "baseToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isBaseToken",
+                    "type": "bool"
+                }
+            ],
+            "name": "BaseTokenUpdate",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "CancelVault",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "investor",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "Claimed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "investor",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "DepositIntoFund",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "depositToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isDepositToken",
+                    "type": "bool"
+                }
+            ],
+            "name": "DepositTokenUpdate",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "salt",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "fundDeadline",
+                    "type": "uint256"
+                }
+            ],
+            "name": "FundDeadlineChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "stf",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "FundraisingClosed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_maxFundraisingPeriod",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_mFee",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_pFee",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "_owner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "_admin",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "_treasury",
+                    "type": "address"
+                }
+            ],
+            "name": "InitializeSpot",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint96",
+                    "name": "managerFee",
+                    "type": "uint96"
+                }
+            ],
+            "name": "ManagerFeeChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "manager",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isManaging",
+                    "type": "bool"
+                }
+            ],
+            "name": "ManagingFundUpdate",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint40",
+                    "name": "maxFundraisingPeriod",
+                    "type": "uint40"
+                }
+            ],
+            "name": "MaxFundraisingPeriodChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "depositToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint96",
+                    "name": "minAmount",
+                    "type": "uint96"
+                }
+            ],
+            "name": "MinInvestmentAmountChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "baseToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "depositToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "fundraisingPeriod",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "manager",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "salt",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "chainId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint96",
+                    "name": "capacity",
+                    "type": "uint96"
+                }
+            ],
+            "name": "NewFundCreated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnerChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Paused",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "plugin",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "_isPlugin",
+                    "type": "bool"
+                }
+            ],
+            "name": "PluginUpdate",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint96",
+                    "name": "protocolFee",
+                    "type": "uint96"
+                }
+            ],
+            "name": "ProtocolFeeChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "swap",
+                    "type": "address"
+                }
+            ],
+            "name": "StfxSwapUpdate",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "trade",
+                    "type": "address"
+                }
+            ],
+            "name": "StfxTradeUpdate",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "baseToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "depositToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint96",
+                    "name": "capacity",
+                    "type": "uint96"
+                }
+            ],
+            "name": "TokenCapacityUpdate",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "baseToken",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "stfxTrade",
+                    "type": "address"
+                }
+            ],
+            "name": "TradeMappingUpdate",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "treasury",
+                    "type": "address"
+                }
+            ],
+            "name": "TreasuryChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Unpaused",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint96",
+                    "name": "amount",
+                    "type": "uint96"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                }
+            ],
+            "name": "Withdraw",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "_amount",
+                    "type": "uint96"
+                }
+            ],
+            "name": "addMinInvestmentAmount",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_plugin",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_isPlugin",
+                    "type": "bool"
+                }
+            ],
+            "name": "addPlugin",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "baseToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "depositToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "capacity",
+                    "type": "uint96"
+                }
+            ],
+            "name": "addTokenCapacity",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_baseToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_stfxTrade",
+                    "type": "address"
+                }
+            ],
+            "name": "addTradeMapping",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "admin",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "cancelVault",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_baseToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_isBaseToken",
+                    "type": "bool"
+                }
+            ],
+            "name": "changeBaseToken",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_depositToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_isDepositToken",
+                    "type": "bool"
+                }
+            ],
+            "name": "changeDepositToken",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "claim",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "claimAmount",
+            "outputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "",
+                    "type": "uint96"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "claimPartialAmount",
+            "outputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "",
+                    "type": "uint96"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_salt",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_investor",
+                    "type": "address"
+                }
+            ],
+            "name": "claimableAmount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "closeFundraising",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "remaining",
+                    "type": "uint96"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "closeSpot",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "baseToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "depositToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint40",
+                            "name": "fundraisingPeriod",
+                            "type": "uint40"
+                        }
+                    ],
+                    "internalType": "struct ISpotStorage.StfSpot",
+                    "name": "_stf",
+                    "type": "tuple"
+                }
+            ],
+            "name": "createNewStf",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "salt",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "salt",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "amount",
+                    "type": "uint96"
+                }
+            ],
+            "name": "depositIntoFund",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_investor",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getClaimAmount",
+            "outputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "",
+                    "type": "uint96"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_investor",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getClaimPartialAmount",
+            "outputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "",
+                    "type": "uint96"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_token",
+                    "type": "address"
+                }
+            ],
+            "name": "getIsBaseToken",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_token",
+                    "type": "address"
+                }
+            ],
+            "name": "getIsDepositToken",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_manager",
+                    "type": "address"
+                }
+            ],
+            "name": "getIsManagingFund",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_manager",
+                    "type": "address"
+                }
+            ],
+            "name": "getManagerCurrentSalt",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_manager",
+                    "type": "address"
+                }
+            ],
+            "name": "getManagerCurrentStfInfo",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "enum ISpotStorage.StfStatus",
+                            "name": "status",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "manager",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint40",
+                            "name": "endTime",
+                            "type": "uint40"
+                        },
+                        {
+                            "internalType": "uint40",
+                            "name": "fundDeadline",
+                            "type": "uint40"
+                        },
+                        {
+                            "internalType": "uint96",
+                            "name": "totalRaised",
+                            "type": "uint96"
+                        },
+                        {
+                            "internalType": "uint96",
+                            "name": "totalAmountUsed",
+                            "type": "uint96"
+                        },
+                        {
+                            "internalType": "uint96",
+                            "name": "totalReceived",
+                            "type": "uint96"
+                        },
+                        {
+                            "internalType": "uint96",
+                            "name": "remainingAfterFees",
+                            "type": "uint96"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "baseToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "depositToken",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct ISpotStorage.StfSpotInfo",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getManagerFromSalt",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getPnlAfterFees",
+            "outputs": [
+                {
+                    "internalType": "int96",
+                    "name": "pnlAfterFees",
+                    "type": "int96"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getStatusOfStf",
+            "outputs": [
+                {
+                    "internalType": "enum ISpotStorage.StfStatus",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getStfInfo",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "enum ISpotStorage.StfStatus",
+                            "name": "status",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "manager",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint40",
+                            "name": "endTime",
+                            "type": "uint40"
+                        },
+                        {
+                            "internalType": "uint40",
+                            "name": "fundDeadline",
+                            "type": "uint40"
+                        },
+                        {
+                            "internalType": "uint96",
+                            "name": "totalRaised",
+                            "type": "uint96"
+                        },
+                        {
+                            "internalType": "uint96",
+                            "name": "totalAmountUsed",
+                            "type": "uint96"
+                        },
+                        {
+                            "internalType": "uint96",
+                            "name": "totalReceived",
+                            "type": "uint96"
+                        },
+                        {
+                            "internalType": "uint96",
+                            "name": "remainingAfterFees",
+                            "type": "uint96"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "baseToken",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "depositToken",
+                            "type": "address"
+                        }
+                    ],
+                    "internalType": "struct ISpotStorage.StfSpotInfo",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_baseToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_depositToken",
+                    "type": "address"
+                }
+            ],
+            "name": "getTokenCapacity",
+            "outputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "",
+                    "type": "uint96"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_baseToken",
+                    "type": "address"
+                }
+            ],
+            "name": "getTradeMapping",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_investor",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getUserAmount",
+            "outputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "",
+                    "type": "uint96"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "hasFundraisingPeriodEnded",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "isBaseToken",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "isCancelledByManager",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "isCancelledWithNoFill",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "isCancelledWithZeroRaised",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "isDepositToken",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "isDistributed",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "isManagingFund",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "isNotOpened",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "isOpened",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "isPlugin",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "managerCurrentStf",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "managerFee",
+            "outputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "",
+                    "type": "uint96"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "maxFundraisingPeriod",
+            "outputs": [
+                {
+                    "internalType": "uint40",
+                    "name": "",
+                    "type": "uint40"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "minInvestmentAmount",
+            "outputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "",
+                    "type": "uint96"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "amount",
+                    "type": "uint96"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "received",
+                    "type": "uint96"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "openSpot",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "paused",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "protocolFee",
+            "outputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "",
+                    "type": "uint96"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_admin",
+                    "type": "address"
+                }
+            ],
+            "name": "setAdmin",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "salt",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint40",
+                    "name": "newFundDeadline",
+                    "type": "uint40"
+                }
+            ],
+            "name": "setFundDeadline",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_manager",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_isManaging",
+                    "type": "bool"
+                }
+            ],
+            "name": "setIsManagingFund",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "newManagerFee",
+                    "type": "uint96"
+                }
+            ],
+            "name": "setManagerFee",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint40",
+                    "name": "_maxFundraisingPeriod",
+                    "type": "uint40"
+                }
+            ],
+            "name": "setMaxFundraisingPeriod",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "setOwner",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "newProtocolFee",
+                    "type": "uint96"
+                }
+            ],
+            "name": "setProtocolFee",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_treasury",
+                    "type": "address"
+                }
+            ],
+            "name": "setTreasury",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "stfInfo",
+            "outputs": [
+                {
+                    "internalType": "enum ISpotStorage.StfStatus",
+                    "name": "status",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "address",
+                    "name": "manager",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint40",
+                    "name": "endTime",
+                    "type": "uint40"
+                },
+                {
+                    "internalType": "uint40",
+                    "name": "fundDeadline",
+                    "type": "uint40"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "totalRaised",
+                    "type": "uint96"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "totalAmountUsed",
+                    "type": "uint96"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "totalReceived",
+                    "type": "uint96"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "remainingAfterFees",
+                    "type": "uint96"
+                },
+                {
+                    "internalType": "address",
+                    "name": "baseToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "depositToken",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "tokenCapacity",
+            "outputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "",
+                    "type": "uint96"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "tradeMapping",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "transferToken",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "treasury",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "unpause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "userAmount",
+            "outputs": [
+                {
+                    "internalType": "uint96",
+                    "name": "",
+                    "type": "uint96"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint96",
+                    "name": "amount",
+                    "type": "uint96"
+                }
+            ],
+            "name": "withdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}
